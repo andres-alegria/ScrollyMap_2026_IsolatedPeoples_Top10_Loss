@@ -1,0 +1,69 @@
+/* Stage wrapper */
+.stage-combo {
+  font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: transparent;
+  color: inherit;
+}
+
+.stage-combo h1,
+.stage-combo h2,
+.stage-combo h3,
+.stage-combo h4,
+.stage-combo h5,
+.stage-combo h6 {
+  font-family: "Rowan", ui-serif, Georgia, "Times New Roman", Times, serif;
+  color: inherit;
+}
+
+/* If your JSX uses a full-width bootstrap-ish wrapper */
+.stage-combo .container-fluid {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* Horizontal scroll wrapper/strip (GSAP translates this) */
+.horiz-gallery-wrapper,
+.horiz-gallery-strip {
+  display: flex;
+  flex-wrap: nowrap;
+  position: relative;
+  will-change: transform;
+}
+
+/* Each "card" */
+.project-wrap {
+  flex: 0 0 auto;
+  width: 33vw;
+  padding: 0.6rem;
+  box-sizing: border-box;
+}
+
+.project-wrap img,
+.project-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+}
+
+.project-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Mobile: keep it tight */
+@media (max-width: 768px) {
+  .project-wrap {
+    width: 70vw;
+    padding: 0.35rem;
+  }
+}

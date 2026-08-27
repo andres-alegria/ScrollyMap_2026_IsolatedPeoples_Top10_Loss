@@ -1,0 +1,82 @@
+.legendItem {
+  min-width: 2rem;
+  min-height: 2rem;
+}
+
+.step {
+  padding-bottom: 50vh;
+  min-height: 120vh;
+}
+
+.step.active {
+  opacity: 0.95;
+}
+
+// Stage chapters (galleries, plain text/image) don't need the same tall
+// scroll runway as a map chapter — give them a shorter, tighter footprint.
+.step.step-stage {
+  padding-bottom: 0;
+  min-height: 70vh;
+}
+
+.step.step--tight {
+  min-height: auto;
+  padding-bottom: 10vh;
+}
+
+.m-left-chapter {
+  margin-left: 5vw;
+}
+
+.m-right-chapter {
+  margin-right: 5vw;
+}
+// Copy revealed line by line (see use-line-split.js). It starts hidden so the
+// unsplit block never flashes before the split runs; the hook sets opacity to 1
+// once the fonts have settled, including when it bails out of animating.
+.split-lines {
+  opacity: 0;
+}
+
+.split-lines .line,
+.split-lines .line * {
+  will-change: transform;
+}
+
+// A full-bleed band of paper has to be opaque: the template's active/inactive
+// fade would let the globe show straight through it, which reads as a bug
+// rather than as a transition. These chapters sit out that fade entirely.
+.step.step--card,
+.step.step--card.active {
+  opacity: 1;
+}
+
+// Chapters that read over the globe need their own ground — #222 copy on the
+// globe's dark ocean is unreadable. A band of the page's own paper, edge to
+// edge, so it reads as an interlude in the story rather than a panel floating
+// on the map. Square corners: a full-bleed band has no corners to round.
+.chapter-card {
+  background-color: #f7f4ee;              // adjust band tone
+  background-image: url('../../assets/paper-grain.jpg');
+  background-size: 256px 256px;           // matches the grain scale on <body>
+  padding: 2.5rem 0;                      // adjust band depth
+}
+
+// The band is full width; the copy inside it is not.
+.chapter-card__inner {
+  max-width: 46rem;                       // adjust reading width
+  margin: 0 auto;
+  padding: 0 1.5rem;                      // keeps copy off the edge when narrow
+}
+
+// Matched to the intro subheading at 18/28, rather than the 16/24 the rest of
+// the template uses. Selector is deliberately specific so it beats the
+// Tailwind text-base / leading-6 utilities on the element itself.
+.chapter-card .chapter-card__inner p {
+  font-size: 1.125rem;                    // adjust intro chapter text size
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .chapter-card { padding: 2rem 0; }
+}

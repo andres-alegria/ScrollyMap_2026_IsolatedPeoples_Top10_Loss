@@ -1,0 +1,39 @@
+.intro {
+  // adjust story intro image here (root-relative path into public/)
+  background-image: url('/intro.png');
+  background-size: cover;
+  background-position: center center;
+  max-height: 100vh;
+}
+
+.title {
+  font-size: 40px;
+  line-height: 40px;
+}
+
+// The Tailwind container carries no horizontal padding, so on a phone the
+// subheading runs to both edges of the screen.
+.intro__subtitle {
+  padding-left: 1.5rem;                 // adjust intro subheading inset
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 640px) and (min-height: 700px) {
+  .title {
+    font-size: 120px;
+    line-height: 120px;
+  }
+}
+.arrow-animate {
+  animation: arrow-animate 1s ease-in-out infinite;
+}
+
+@keyframes arrow-animate {
+  from {
+    opacity: 1;
+  }
+  to {
+    transform: translate(0, 6px);
+    opacity: 0.5;
+  }
+}

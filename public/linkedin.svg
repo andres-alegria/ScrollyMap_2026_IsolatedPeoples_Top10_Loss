@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" version="1.1">
+  <title>LinkedIn logo</title>
+  <g fill="#ffffff">
+    <circle cx="2.1" cy="2.1" r="2.1"/>
+    <rect x="0.2" y="6.1" width="3.8" height="13.7"/>
+    <path d="M6.9,6.1h3.64v1.87h0.05c0.51-0.96,1.75-1.97,3.6-1.97c3.85,0,4.56,2.53,4.56,5.83v7.94h-3.8v-7.04c0-1.68-0.03-3.84-2.34-3.84c-2.34,0-2.7,1.83-2.7,3.72v7.16H6.9V6.1z"/>
+  </g>
+</svg>

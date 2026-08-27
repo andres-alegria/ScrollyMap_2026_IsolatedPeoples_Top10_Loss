@@ -1,0 +1,186 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+
+  // Paper texture behind the whole piece, tiled full width. The globe's space
+  // colour is matched to it in config.js (globeAtmosphere) so the sphere sits
+  // on the same ground rather than on Mapbox's black starfield.
+  background-color: #f7f4ee;              // adjust paper tone here
+  // paper-grain.jpg is the original texture with its vignette divided out, so
+  // it tiles without repeating dark corners. Tiled near its own scale rather
+  // than stretched across the viewport, which matches the grain density of
+  // the intro artwork.
+  background-image: url('./assets/paper-grain.jpg');
+  background-repeat: repeat;
+  background-size: 256px 256px;           // adjust grain scale
+  background-attachment: fixed;           // texture stays put while content scrolls
+}
+
+.font-lora {
+  font-family: 'Lora', serif;
+}
+
+a,
+a:hover,
+a:visited {
+  color: #0071bc;
+}
+
+// Note: deliberately NOT named .mapboxgl-map — that class is also used
+// internally by Mapbox GL JS's own stylesheet (mapbox-gl.css) for its map
+// container, and importing that stylesheet after this one would silently
+// override position: fixed with its own position: relative.
+.map-container {
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  z-index: -5;
+  // transparent, so the paper texture on <body> shows through around the globe
+  background: transparent;
+}
+.map-container canvas {
+  background: transparent;
+}
+// Keep Mapbox/OSM attribution visible (required by Mapbox's terms of service)
+// but small and unobtrusive, rather than hiding it outright.
+.mapboxgl-ctrl-attrib {
+  opacity: 0.8;
+  font-size: 8px;
+  background: transparent;
+}
+
+.track-marker {
+  display: flex;
+  filter: drop-shadow(0 0 var(--marker-border-width, 2px) var(--marker-border-color, #fff));
+}
+.track-marker svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+#header {
+  margin: 3vh auto;
+  width: 90vw;
+  padding: 2vh;
+  text-align: center;
+}
+
+#footer {
+  min-height: 5vh;
+  // The final ranked section is still pinned when the document ends — pinned
+  // elements are position:fixed, so it covers the whole viewport and paints its
+  // paper over the footer. Lifting the footer into its own stacking context
+  // puts it back on top.
+  position: relative;
+  z-index: 30;
+}
+
+#features {
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+  z-index: 100;
+}
+
+@media (max-width: 750px) {
+  #features {
+    width: 90vw;
+    margin: 0 auto;
+  }
+}
+
+.light {
+  color: #444;
+  background-color: #fafafa;
+}
+
+.mongabay {
+  color: #222;
+  background-color: #fff;
+  background-color: transparent;   // paper texture now comes from body
+}
+
+.dark {
+  color: #fafafa;
+  background-color: #444;
+}
+
+.footer-mongabay {
+  color: #fff;
+  background-color: #181818;            // adjust footer ground
+}
+
+.footer-light {
+  color: #fff;
+  background-color: #222;
+}
+
+.footer-dark {
+  color: #fff;
+  background-color: #222;
+}
+
+// Every mark ships as white artwork (three SVGs and a PNG), so none can simply
+// be given a fill. On the paper ground they need knocking back: brightness(0)
+// flattens any of them to black and invert(9.4%) lifts that to exactly
+// rgb(24,24,24) = #181818. On the dark footer they are used as they ship.
+%mark-on-paper {
+  filter: brightness(0) invert(9.4%);   // adjust mark colour via the invert %
+}
+
+// Travels with the reader over the paper, above the footer's stacking context.
+.logos--floating {
+  z-index: 40;
+  transition: opacity 0.2s ease;
+
+  img { @extend %mark-on-paper; }
+}
+
+// Hidden once it reaches the footer, where the inline copy takes over.
+.logos--parked {
+  opacity: 0;
+  visibility: hidden;
+}
+
+// Footer row: social marks at the left, logo at the right, both held to the
+// same measure as the credits paragraph above them.
+.footer__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 41rem;                     // matches .credits__inner
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.social-icons--footer {
+  gap: 1.5rem;                          // adjust spacing between marks
+}
+
+.social-icons--footer img,
+.logos--inline img {
+  height: 18px;                         // adjust footer mark size
+  width: auto;
+}
+
+// The social marks ship white and are used as they are. The Mongabay lockup
+// ships black, so on the dark footer it has to be turned the other way.
+.logos--inline img {
+  height: 22px;                         // adjust footer logo size
+  filter: brightness(0) invert(1);
+}
+
+// Intro: stacked at the bottom-left corner, on paper, so knocked back to dark.
+.social-icons--intro {
+  flex-direction: column;
+  gap: 1.4rem;
+  margin: 0 0 1.5rem 1.25rem;
+
+  img {
+    height: 18px;                       // adjust intro mark size
+    width: auto;
+    @extend %mark-on-paper;
+  }
+}

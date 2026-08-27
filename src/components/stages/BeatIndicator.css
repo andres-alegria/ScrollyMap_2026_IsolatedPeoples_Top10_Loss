@@ -1,0 +1,43 @@
+/* On wide screens this sits at the top of the text column, level with the top
+   of the frame; on narrow ones it stacks directly beneath the frame. Either
+   way it spans the full width of its column. */
+.beatind {
+  width: 100%;
+  text-align: left;                    /* sections centre their text; opt out */
+}
+
+.beatind__heading {
+  font-family: 'Open Sans', sans-serif;
+  font-size: var(--fs-meta, 13px);
+  font-weight: 700;
+  line-height: 1.3;
+  color: #222222;                      /* adjust heading colour */
+  margin-bottom: 5px;
+}
+
+.beatind__track {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 9px;                 /* room for the bar beneath the labels */
+}
+
+.beatind__item {
+  font-family: 'Open Sans', sans-serif;
+  font-size: var(--fs-meta, 13px);
+  font-weight: 400;
+  line-height: 1.3;
+  color: #222222;                      /* adjust label colour */
+  white-space: nowrap;
+}
+
+.beatind__bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 3px;                         /* adjust bar weight */
+  border-radius: 2px;
+  will-change: transform, width;
+}
