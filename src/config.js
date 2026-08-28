@@ -28,9 +28,6 @@ export default {
   logos: [
     {
       name: 'mongabay',
-      // Vector lockup from Mongabay's own site, so it stays crisp at any
-      // density. Drawn in black; both places it appears recolour it with a
-      // filter that starts from brightness(0), so the source colour is moot.
       src: 'mongabay-logo.svg',
       width: '150',
       href: 'https://news.mongabay.com',
@@ -95,9 +92,7 @@ export default {
       + 'FUNAI, GTI-PIACI, Iniciativa Amotocodie, ISA, OPI, OPIAC, ORPIO and Pueblos Vivos. '
       + 'Forest cover and loss are from the Global Forest Change dataset v1.13 '
       + '(Hansen et al., University of Maryland), covering 2000 to 2025 and accessed through '
-      + 'Google Earth Engine; the underlying imagery is Landsat, courtesy of NASA and the USGS. '
-      + 'Tree cover loss figures and drivers of loss are from Global Forest Watch. '
-      + 'Basemap © Mapbox, © OpenStreetMap, © Maxar.',
+      + 'Google Earth Engine.',
   },
  
   chapters: [
@@ -120,7 +115,7 @@ export default {
       card: true,
       hidden: false,
       title: ' ',
-      description: "<b>Uncontacted peoples</b> generally refers to Indigenous peoples who have remained largely isolated to the present day, maintaining their traditional lifestyles and functioning mostly independently from any political or governmental entities.<br><br><b>Peoples in initial contact</b> share the same characteristics but beginning to regularly communicate with and integrate into mainstream society.<br><br>They live across different regions in South America and South East Asia.",
+      description: "<b>Uncontacted peoples</b> generally refers to Indigenous peoples who have remained largely isolated to the present day, maintaining their traditional lifestyles and functioning mostly independently from any political or governmental entities.<br><br><b>Peoples in initial contact</b> share the same characteristics but beginning to regularly communicate with and integrate into mainstream society.<br><br>They live across different regions in South East Asia and South America.",
       location: {
         center: [-87.0, 13.622],
         zoom: 2.1,
