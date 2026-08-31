@@ -40,7 +40,8 @@ const AreaReveal = ({
   panels = {},
   scale = {},
   locator,
-  place,
+  adm1,
+  country,
   chapter = {},
   panelLabels = {},
   timings = {},
@@ -135,7 +136,7 @@ const AreaReveal = ({
             <img className="area-reveal__img" ref={b2Ref} src={panels.beat2} alt="" style={{ opacity: 0 }} />
             <img className="area-reveal__img" ref={b3Ref} src={panels.beat3} alt="" style={{ opacity: 0 }} />
             <ScaleBar {...scale} />
-            <LocatorGlobe center={locator} place={place} />
+            <LocatorGlobe center={locator} place={[adm1, country].filter(Boolean).join(', ')} />
           </div>
         </div>
 

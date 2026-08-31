@@ -4,6 +4,7 @@ import Chapter from '../chapter/chapter';
 import Credits from '../credits/credits';
 import SocialIcons from '../social-icons/social-icons';
 import Logos from '../logos/logos';
+import AreaMenu from '../area-menu/area-menu';
 import { useTranslation } from 'react-i18next';
 import './story.scss';
 
@@ -26,6 +27,18 @@ const Story = ({ title, subtitle, byline, theme, chapters, alignment, currentCha
       {/* Full width, not 90%: every chapter inside either centres its own
           content or caps its own measure, so the outer inset only stopped
           full-bleed chapters from reaching the edge of the screen. */}
+      {/* Jump bar for the ranked areas, in config order (#10 first). Fixed
+          positioning, so where it sits in the DOM only affects stacking. */}
+      <AreaMenu
+        items={(chapters || [])
+          .filter((c) => c.areaId && c.id)
+          .map((c) => ({ id: c.id, rank: c.rank, title: c.title,
+                         menuName: c.menuName, country: c.country }))}
+        showAfter="chapter 03"
+        hideAt="credits"
+        currentChapterId={currentChapterId}
+      />
+
       <div id="features" className="w-full block">
         {chapters.map((chapter) => (
           <Chapter

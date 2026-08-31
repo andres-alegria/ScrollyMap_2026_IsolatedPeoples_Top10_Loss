@@ -240,10 +240,14 @@ export default {
       scale: { n: 60, kmFrac: 0.1624, miFrac: 0.2614 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-66.601027, 5.193362],
-      // shown beside the locator globe: first-level division, then country
-      place: 'Amazonas, Venezuela',
+      // first-level division and country: the locator caption joins them,
+      // the menu bar uses the country on its own
+      adm1: 'Amazonas',
+      country: 'Venezuela',
       rank: '#10',
       title: 'Uwottüja Traditional Territory',
+      // shown in the jump bar, where the full name will not fit
+      menuName: 'Uwottüja',
       homeTo: 'The isolated Uwottüja',
       description: "This 2,285,494 ha territory in Venezuela lost <b>2.8%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by wildfire, permanent agriculture and other natural disturbances. Wildfire accounted for 28.4% of that loss.",
     },
@@ -263,10 +267,14 @@ export default {
       scale: { n: 10, kmFrac: 0.1115, miFrac: 0.1795 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-64.876321, -16.588368],
-      // shown beside the locator globe: first-level division, then country
-      place: 'Cochabamba, Bolivia',
+      // first-level division and country: the locator caption joins them,
+      // the menu bar uses the country on its own
+      adm1: 'Cochabamba',
+      country: 'Bolivia',
       rank: '#9',
       title: 'Yuqui',
+      // shown in the jump bar, where the full name will not fit
+      menuName: 'Yuqui',
       homeTo: 'The Yuqui',
       description: "This 115,924 ha territory in Bolivia lost <b>3.5%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by wildfire, other natural disturbances and permanent agriculture. Wildfire accounted for 38.4% of that loss.",
     },
@@ -286,10 +294,14 @@ export default {
       scale: { n: 40, kmFrac: 0.1356, miFrac: 0.2182 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-63.477747, -11.183612],
-      // shown beside the locator globe: first-level division, then country
-      place: 'Rondônia, Brazil',
+      // first-level division and country: the locator caption joins them,
+      // the menu bar uses the country on its own
+      adm1: 'Rondônia',
+      country: 'Brazil',
       rank: '#8',
       title: 'Uru-Eu-Wau-Wau',
+      // shown in the jump bar, where the full name will not fit
+      menuName: 'Uru-Eu-Wau-Wau',
       homeTo: 'Four isolated groups',
       description: "This 1,867,120 ha territory in Brazil lost <b>4.1%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by wildfire, permanent agriculture and other natural disturbances. Wildfire accounted for 87.1% of that loss.",
     },
@@ -309,10 +321,14 @@ export default {
       scale: { n: 30, kmFrac: 0.136, miFrac: 0.2189 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-75.645689, -8.567506],
-      // shown beside the locator globe: first-level division, then country
-      place: 'Ucayali, Peru',
+      // first-level division and country: the locator caption joins them,
+      // the menu bar uses the country on its own
+      adm1: 'Ucayali',
+      country: 'Peru',
       rank: '#7',
       title: 'North and South Kakataibo Reserve',
+      // shown in the jump bar, where the full name will not fit
+      menuName: 'Kakataibo',
       homeTo: 'The Kakataibo',
       description: "This 148,996 ha territory in Peru lost <b>5.1%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by permanent agriculture, other natural disturbances and logging. Wildfire loss is not recorded.",
     },
@@ -332,10 +348,14 @@ export default {
       scale: { n: 100, kmFrac: 0.1649, miFrac: 0.2654 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-60.407265, -20.041908],
-      // shown beside the locator globe: first-level division, then country
-      place: 'Alto Paraguay, Paraguay',
+      // first-level division and country: the locator caption joins them,
+      // the menu bar uses the country on its own
+      adm1: 'Alto Paraguay',
+      country: 'Paraguay',
       rank: '#6',
       title: 'Reserva de la Biosfera del Chaco',
+      // shown in the jump bar, where the full name will not fit
+      menuName: 'Chaco',
       homeTo: 'The Ayoreo (five clans)',
       description: "This 4,707,205 ha territory in Paraguay lost <b>11.7%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by permanent agriculture, wildfire and logging. Wildfire accounted for 37.1% of that loss.",
     },
@@ -355,10 +375,14 @@ export default {
       scale: { n: 20, kmFrac: 0.1629, miFrac: 0.2622 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-46.42441, -5.069811],
-      // shown beside the locator globe: first-level division, then country
-      place: 'Maranhão, Brazil',
+      // first-level division and country: the locator caption joins them,
+      // the menu bar uses the country on its own
+      adm1: 'Maranhão',
+      country: 'Brazil',
       rank: '#5',
       title: 'Araribóia',
+      // shown in the jump bar, where the full name will not fit
+      menuName: 'Araribóia',
       homeTo: 'The isolated Awá',
       description: "This 413,288 ha territory in Brazil lost <b>14.2%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by wildfire, permanent agriculture and other natural disturbances. Wildfire accounted for 72.0% of that loss.",
     },
@@ -378,10 +402,14 @@ export default {
       scale: { n: 75, kmFrac: 0.1628, miFrac: 0.262 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-59.948442, -21.259369],
-      // shown beside the locator globe: first-level division, then country
-      place: 'Boquerón, Paraguay',
+      // first-level division and country: the locator caption joins them,
+      // the menu bar uses the country on its own
+      adm1: 'Boquerón',
+      country: 'Paraguay',
       rank: '#4',
       title: 'Ampliación Reserva de Biosfera del Chaco',
+      // shown in the jump bar, where the full name will not fit
+      menuName: 'Chaco (amp.)',
       homeTo: 'The Ayoreo-Totobiegosode',
       description: "This 2,492,757 ha territory in Paraguay lost <b>17.0%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by permanent agriculture, wildfire and logging. Wildfire accounted for 1.6% of that loss.",
     },
@@ -401,10 +429,14 @@ export default {
       scale: { n: 40, kmFrac: 0.151, miFrac: 0.243 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-58.607035, -19.342304],
-      // shown beside the locator globe: first-level division, then country
-      place: 'Santa Cruz, Bolivia',
+      // first-level division and country: the locator caption joins them,
+      // the menu bar uses the country on its own
+      adm1: 'Santa Cruz',
+      country: 'Bolivia',
       rank: '#3',
       title: 'Otuquis National Park',
+      // shown in the jump bar, where the full name will not fit
+      menuName: 'Otuquis',
       homeTo: 'The Ayoreo',
       description: "This 903,350 ha territory in Bolivia lost <b>17.2%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by wildfire, permanent agriculture and other natural disturbances. Wildfire accounted for 98.5% of that loss.",
     },
@@ -424,10 +456,14 @@ export default {
       scale: { n: 50, kmFrac: 0.1584, miFrac: 0.255 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-59.820558, -18.789828],
-      // shown beside the locator globe: first-level division, then country
-      place: 'Santa Cruz, Bolivia',
+      // first-level division and country: the locator caption joins them,
+      // the menu bar uses the country on its own
+      adm1: 'Santa Cruz',
+      country: 'Bolivia',
       rank: '#2',
       title: 'Ñembi Guasu',
+      // shown in the jump bar, where the full name will not fit
+      menuName: 'Ñembi Guasu',
       homeTo: 'The Ayoreo',
       description: "This 1,207,850 ha territory in Bolivia lost <b>27.2%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by wildfire, permanent agriculture and other natural disturbances. Wildfire accounted for 97.5% of that loss.",
     },
@@ -447,10 +483,14 @@ export default {
       scale: { n: 20, kmFrac: 0.1506, miFrac: 0.2423 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-65.879489, -11.977774],
-      // shown beside the locator globe: first-level division, then country
-      place: 'Beni, Bolivia',
+      // first-level division and country: the locator caption joins them,
+      // the menu bar uses the country on its own
+      adm1: 'Beni',
+      country: 'Bolivia',
       rank: '#1',
       title: 'Chacobo-Pacahuara',
+      // shown in the jump bar, where the full name will not fit
+      menuName: 'Chacobo-Pacahuara',
       homeTo: 'The Pacahuara',
       description: "This 517,307 ha territory in Bolivia lost <b>33.7%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by wildfire, permanent agriculture and shifting cultivation. Wildfire accounted for 98.4% of that loss.",
     },

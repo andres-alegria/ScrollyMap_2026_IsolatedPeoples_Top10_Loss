@@ -1,0 +1,120 @@
+// Fixed jump bar across the top, above the pinned sections (which are
+// position:fixed while pinned) and below nothing else that matters.
+.area-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  background-color: #f7f4ee;              // adjust bar ground
+  border-bottom: 1px solid rgba(24, 24, 24, 0.12);
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.35s ease, opacity 0.35s ease, visibility 0.35s;
+  pointer-events: none;
+}
+
+.area-menu--visible {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.area-menu__list {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// The <li> is the flex item, not the button inside it — shrink rules have to
+// live here or the row overflows and the end items are clipped off-screen.
+.area-menu__list > li {
+  display: flex;
+  min-width: 0;
+  flex: 0 1 auto;
+}
+
+// Items size to their content and shrink only when the row would otherwise
+// overflow — min-width:0 is what lets a nowrap flex item shrink at all, and the
+// ellipsis on the name then does the trimming. With the short names in config
+// the row fits unaided on a normal desktop; this only bites on narrow ones.
+// The full name stays available as a tooltip and to screen readers.
+.area-menu__item {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  min-width: 0;
+  width: 100%;
+  padding: 0.45rem 0.7rem;                // adjust item padding (drives bar height)
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;   // room for the current marker
+  font-family: 'Open Sans', sans-serif;
+  color: #4a5654;                         // adjust idle colour
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.area-menu__item:hover,
+.area-menu__item:focus-visible {
+  color: #181818;
+}
+
+// Where the reader currently is, so ten items don't read as undifferentiated.
+.area-menu__item.is-current {
+  color: #181818;
+  border-bottom-color: #e66d6d;           // adjust current marker colour
+}
+
+.area-menu__rank {
+  flex: 0 0 auto;
+  font-size: 13px;                        // adjust rank size
+  font-weight: 700;
+}
+
+.area-menu__label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;                           // lets the children actually ellipsis
+  line-height: 1.15;
+}
+
+.area-menu__name,
+.area-menu__country {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.area-menu__name {
+  font-size: 12px;                        // adjust name size
+  font-weight: 600;
+}
+
+.area-menu__country {
+  font-size: 10px;                        // adjust country size
+  font-weight: 400;
+  opacity: 0.75;
+}
+
+// Narrow screens: ten names will not fit, so only the rank is shown and the
+// row spreads to fill the width.
+@media (max-width: 820px) {
+  .area-menu__list { justify-content: space-between; padding: 0 0.5rem; }
+  .area-menu__label { display: none; }
+  .area-menu__item { max-width: none; padding: 0.55rem 0.35rem; }
+  .area-menu__rank { font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .area-menu { transition: opacity 0.2s ease, visibility 0.2s; transform: none; }
+}
