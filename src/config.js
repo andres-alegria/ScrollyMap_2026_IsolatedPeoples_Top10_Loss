@@ -240,6 +240,8 @@ export default {
       scale: { n: 60, kmFrac: 0.1624, miFrac: 0.2614 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-66.601027, 5.193362],
+      // shown beside the locator globe: first-level division, then country
+      place: 'Amazonas, Venezuela',
       rank: '#10',
       title: 'Uwottüja Traditional Territory',
       homeTo: 'The isolated Uwottüja',
@@ -261,6 +263,8 @@ export default {
       scale: { n: 10, kmFrac: 0.1115, miFrac: 0.1795 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-64.876321, -16.588368],
+      // shown beside the locator globe: first-level division, then country
+      place: 'Cochabamba, Bolivia',
       rank: '#9',
       title: 'Yuqui',
       homeTo: 'The Yuqui',
@@ -282,6 +286,8 @@ export default {
       scale: { n: 40, kmFrac: 0.1356, miFrac: 0.2182 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-63.477747, -11.183612],
+      // shown beside the locator globe: first-level division, then country
+      place: 'Rondônia, Brazil',
       rank: '#8',
       title: 'Uru-Eu-Wau-Wau',
       homeTo: 'Four isolated groups',
@@ -303,6 +309,8 @@ export default {
       scale: { n: 30, kmFrac: 0.136, miFrac: 0.2189 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-75.645689, -8.567506],
+      // shown beside the locator globe: first-level division, then country
+      place: 'Ucayali, Peru',
       rank: '#7',
       title: 'North and South Kakataibo Reserve',
       homeTo: 'The Kakataibo',
@@ -324,6 +332,8 @@ export default {
       scale: { n: 100, kmFrac: 0.1649, miFrac: 0.2654 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-60.407265, -20.041908],
+      // shown beside the locator globe: first-level division, then country
+      place: 'Alto Paraguay, Paraguay',
       rank: '#6',
       title: 'Reserva de la Biosfera del Chaco',
       homeTo: 'The Ayoreo (five clans)',
@@ -345,6 +355,8 @@ export default {
       scale: { n: 20, kmFrac: 0.1629, miFrac: 0.2622 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-46.42441, -5.069811],
+      // shown beside the locator globe: first-level division, then country
+      place: 'Maranhão, Brazil',
       rank: '#5',
       title: 'Araribóia',
       homeTo: 'The isolated Awá',
@@ -366,6 +378,8 @@ export default {
       scale: { n: 75, kmFrac: 0.1628, miFrac: 0.262 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-59.948442, -21.259369],
+      // shown beside the locator globe: first-level division, then country
+      place: 'Boquerón, Paraguay',
       rank: '#4',
       title: 'Ampliación Reserva de Biosfera del Chaco',
       homeTo: 'The Ayoreo-Totobiegosode',
@@ -387,6 +401,8 @@ export default {
       scale: { n: 40, kmFrac: 0.151, miFrac: 0.243 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-58.607035, -19.342304],
+      // shown beside the locator globe: first-level division, then country
+      place: 'Santa Cruz, Bolivia',
       rank: '#3',
       title: 'Otuquis National Park',
       homeTo: 'The Ayoreo',
@@ -408,6 +424,8 @@ export default {
       scale: { n: 50, kmFrac: 0.1584, miFrac: 0.255 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-59.820558, -18.789828],
+      // shown beside the locator globe: first-level division, then country
+      place: 'Santa Cruz, Bolivia',
       rank: '#2',
       title: 'Ñembi Guasu',
       homeTo: 'The Ayoreo',
@@ -429,6 +447,8 @@ export default {
       scale: { n: 20, kmFrac: 0.1506, miFrac: 0.2423 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-65.879489, -11.977774],
+      // shown beside the locator globe: first-level division, then country
+      place: 'Beni, Bolivia',
       rank: '#1',
       title: 'Chacobo-Pacahuara',
       homeTo: 'The Pacahuara',

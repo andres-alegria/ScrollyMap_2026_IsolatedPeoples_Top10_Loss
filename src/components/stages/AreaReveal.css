@@ -9,10 +9,10 @@
      Adjust the ramp here rather than on the individual rules below. */
   --fs-rank: clamp(2.5rem, 4.6vw, 3.75rem);        /* rank number: 40 → 60px */
   --fs-name: clamp(1.25rem, 2vw, 1.75rem);         /* area name:   20 → 28px */
-  --fs-lede: clamp(0.85rem, 1.1vw, 0.95rem);       /* "Home to":   14 → 15px */
-  --fs-body: 15px;                                 /* paragraph */
-  --fs-meta: 13px;                                 /* indicator heading + labels */
-  --fs-furniture: 12px;                            /* scale bar */
+  --fs-lede: clamp(0.9rem, 1.2vw, 1.1rem);         /* "Home to":   14 → 18px */
+  --fs-body: clamp(15px, 1.2vw, 18px);             /* paragraph */
+  --fs-meta: clamp(13px, 1.06vw, 16px);            /* indicator heading + labels */
+  --fs-furniture: clamp(12px, 0.93vw, 14px);       /* scale bar */
 
   position: relative;
   width: 100%;
@@ -109,10 +109,11 @@
 }
 
 /* Right-hand column: the indicator sits at the top, level with the frame, and
-   the paragraph follows beneath it. */
+   the paragraph follows beneath it. Widens with the viewport so the column
+   keeps pace with the panel instead of leaving the right side empty. */
 .area-section__card {
-  flex: 0 1 400px;                                 /* adjust text column width */
-  max-width: 400px;
+  flex: 0 1 clamp(360px, 34vw, 540px);             /* adjust text column width */
+  max-width: clamp(360px, 34vw, 540px);
   color: #222222;
   display: flex;
   flex-direction: column;

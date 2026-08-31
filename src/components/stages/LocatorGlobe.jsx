@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { geoOrthographic, geoPath, geoCircle } from 'd3-geo';
 import './LocatorGlobe.css';
 
@@ -21,7 +22,8 @@ const loadLand = () => {
  * clockwise for d3-geo: a counter-clockwise exterior ring is read as the
  * polygon containing the antipode and floods the whole hemisphere.
  */
-const LocatorGlobe = ({ center, size = 80 }) => {   // adjust locator size here
+const LocatorGlobe = ({ center, place, size = 80 }) => {   // adjust locator size here
+  const { t } = useTranslation();
   const [land, setLand] = useState(null);
   useEffect(() => { let live = true; loadLand().then((d) => live && setLand(d)); return () => { live = false; }; }, []);
 
@@ -44,7 +46,8 @@ const LocatorGlobe = ({ center, size = 80 }) => {   // adjust locator size here
   if (!center) return null;
 
   return (
-    <div className="locator" style={{ width: size, height: size }}>
+    <div className="locator">
+      {place && <span className="locator__place">{t(place)}</span>}
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
         {/* ocean */}
         <path d={spherePath} className="locator__ocean" />
