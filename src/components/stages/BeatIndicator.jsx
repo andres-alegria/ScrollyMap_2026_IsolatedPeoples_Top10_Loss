@@ -42,8 +42,9 @@ const BeatIndicator = forwardRef(({ heading, labels = [], color = '#E86D6D' }, r
     const f = q - i;
     const a = s[i];
     const b = s[i + 1];
-    bar.style.transform = `translateX(${lerp(a.x, b.x, f)}px)`;
-    bar.style.width = `${lerp(a.w, b.w, f)}px`;
+    // scaleX on a 1px-wide bar, so this is transform-only — no layout per frame
+    bar.style.transform =
+      `translateX(${lerp(a.x, b.x, f)}px) scaleX(${lerp(a.w, b.w, f)})`;
     // the label the bar is under reads at full strength, its neighbours fade
     itemRefs.current.forEach((el, k) => {
       if (el) el.style.opacity = String(0.4 + 0.6 * clamp01(1 - Math.abs(q - k)));

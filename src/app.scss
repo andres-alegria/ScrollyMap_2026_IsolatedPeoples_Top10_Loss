@@ -14,7 +14,11 @@ body {
   background-image: url('./assets/paper-grain.jpg');
   background-repeat: repeat;
   background-size: 256px 256px;           // adjust grain scale
-  background-attachment: fixed;           // texture stays put while content scrolls
+  // Deliberately NOT background-attachment: fixed. A fixed background cannot be
+  // scrolled by translating what is already rasterised — the browser has to
+  // repaint the whole viewport on every scroll frame, which is one of the
+  // best-known causes of scroll jank. The grain is uniform and fine, so
+  // scrolling with the page is visually indistinguishable.
 }
 
 .font-lora {

@@ -36,8 +36,12 @@
   position: absolute;
   left: 0;
   bottom: 0;
-  width: 0;
+  /* 1px wide and scaled by transform: writing width every frame forces a
+     layout, measured at ~0.26ms a frame against ~0.003ms for a transform.
+     Square ends because a border-radius would be stretched by the scale. */
+  width: 1px;
   height: 3px;                         /* adjust bar weight */
-  border-radius: 2px;
-  will-change: transform, width;
+  transform-origin: left center;
+  transform: translateX(0) scaleX(0);
+  will-change: transform;
 }

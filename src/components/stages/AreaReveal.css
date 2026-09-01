@@ -28,7 +28,10 @@
   background-image: url('../../assets/paper-grain.jpg');
   background-size: 256px 256px;
   transform-origin: 50% 40%;
-  will-change: transform, opacity;
+  /* No will-change here on purpose. It used to sit on all ten sections at
+     once, holding ten full-viewport compositor layers for the whole page.
+     AreaReveal now sets it only while a section is actually receding, and
+     clears it again straight after. */
   overflow: hidden;
 }
 

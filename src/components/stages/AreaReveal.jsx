@@ -84,6 +84,7 @@ const AreaReveal = ({
       },
     });
 
+    let promoted = false;
     const st = ScrollTrigger.create({
       trigger: section,
       start: 'top top',
@@ -104,6 +105,13 @@ const AreaReveal = ({
         if (indRef.current) indRef.current.setProgress(toB2 + toB3);
         // recede as the next section climbs over this one
         const r = ramp(p, recedeFrom, 1);
+        // Promote only while this is actually moving. Left on permanently it
+        // costs a full-viewport layer per section, ten of them at once.
+        const wantsLayer = r > 0;
+        if (wantsLayer !== promoted) {
+          promoted = wantsLayer;
+          section.style.willChange = wantsLayer ? 'transform, opacity' : '';
+        }
         section.style.transform = `scale(${1 - 0.08 * r})`;
         section.style.opacity = String(1 - 0.45 * r);
       },
