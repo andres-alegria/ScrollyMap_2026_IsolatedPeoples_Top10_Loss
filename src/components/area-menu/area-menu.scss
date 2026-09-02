@@ -59,6 +59,10 @@
   color: #4a5654;                         // adjust idle colour
   cursor: pointer;
   white-space: nowrap;
+  // no double-tap-to-zoom delay on the tap, and no chance of the gesture being
+  // reinterpreted before the click lands
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 
@@ -111,7 +115,10 @@
 @media (max-width: 820px) {
   .area-menu__list { justify-content: space-between; padding: 0 0.5rem; }
   .area-menu__label { display: none; }
-  .area-menu__item { max-width: none; padding: 0.55rem 0.35rem; }
+  // Taller tap targets: 10 ranks across a phone leaves ~39px of width each,
+  // so height is where the touch area can actually be won. A cramped target
+  // also invites the finger drift that used to cancel the scroll tween.
+  .area-menu__item { max-width: none; padding: 0.8rem 0.35rem; }
   .area-menu__rank { font-size: 12px; }
 }
 

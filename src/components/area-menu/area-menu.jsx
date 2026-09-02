@@ -53,7 +53,15 @@ const AreaMenu = ({ items = [], showAfter, hideAt, currentChapterId }) => {
     gsap.to(window, {
       duration,
       ease: 'power2.inOut',
-      scrollTo: { y: el, autoKill: true },   // element, not selector: ids contain spaces
+      overwrite: true,                       // a second tap replaces the first
+      // autoKill:false is load-bearing on touch devices. autoKill cancels the
+      // tween as soon as it sees scrolling it did not cause — and on a real
+      // touchscreen a tap almost always carries a pixel or two of finger
+      // drift, plus iOS momentum and rubber-banding. That killed the tween on
+      // its first frame: the page twitched and went nowhere. It never showed
+      // up in a desktop responsive simulator, which sends mouse events with no
+      // drift at all.
+      scrollTo: { y: el, autoKill: false },  // element, not selector: ids contain spaces
     });
   };
 
