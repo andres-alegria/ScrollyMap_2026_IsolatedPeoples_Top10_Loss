@@ -149,12 +149,7 @@ const AreaReveal = ({
         </div>
 
         <div className="area-section__card">
-          <BeatIndicator
-            ref={indRef}
-            heading={panelLabels.heading}
-            labels={[panelLabels.beat1, panelLabels.beat2, panelLabels.beat3]}
-            color={panelLabels.color}
-          />
+          <BeatIndicator ref={indRef} beats={panelLabels.beats || []} note={panelLabels.note} />
           {homeTo && (
             <p className="area-section__hometo area-section__hometo--card">
               {t('Home to')}: <b>{t(homeTo)}</b>

@@ -45,3 +45,14 @@
   transform: translateX(0) scaleX(0);
   will-change: transform;
 }
+
+/* Why the extent panels and the loss panel do not agree pixel for pixel. */
+.beatind__note {
+  margin: 0.6rem 0 0;
+  font-family: 'Open Sans', sans-serif;
+  /* a touch under the labels, but never into unreadable territory —
+     --fs-meta drops to 11px on phones, which would leave this at 9px */
+  font-size: max(11px, calc(var(--fs-meta, 13px) - 2px));   /* adjust note size */
+  line-height: 1.45;
+  color: #6b7672;                                /* adjust note colour */
+}

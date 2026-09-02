@@ -1,11 +1,15 @@
-/* Sits bottom-left inside the panel, drawn straight onto the imagery. Width is
-   fixed across every area so the block reads consistently; only the two lines
-   inside it change length. */
+/* Sits bottom-left inside the panel, drawn straight onto the imagery. The two
+   lines carry the measurement, so their length has to be exact. */
 .scalebar {
   position: absolute;
   left: 2.4%;
   bottom: 2.4%;
-  width: 30%;                          /* adjust block width */
+  /* MUST stay 100%. The bar lengths are percentages of this element, and they
+     are computed as a fraction of the PANEL's ground width — so anything less
+     than 100% silently shortens every scale bar by that factor. It was 30%,
+     which drew every bar at a third of its true length. Nothing is painted at
+     the right-hand end, so the box simply spans the frame. */
+  width: 100%;
   box-sizing: border-box;
   text-align: left;                    /* sections centre their text; opt out */
   pointer-events: none;

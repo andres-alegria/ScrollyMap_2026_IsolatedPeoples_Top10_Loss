@@ -44,7 +44,7 @@
     right: auto;
     top: auto;
     width: auto;
-    height: 24vh;                       // adjust mobile strip depth
+    height: var(--intro-strip-h, 24vh);   // set on .intro, shared with the copy
     flex: 0 0 auto;
     object-fit: cover;
   }

@@ -36,7 +36,6 @@ const Story = ({ title, subtitle, byline, theme, chapters, alignment, currentCha
                          menuName: c.menuName, country: c.country }))}
         showAfter="chapter 03"
         hideAt="credits"
-        currentChapterId={currentChapterId}
       />
 
       <div id="features" className="w-full block">

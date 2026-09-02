@@ -3,6 +3,10 @@
   // section, with the collage assembled from individual elements on top of it
   // (see components/intro-art). Keeps the intro consistent with the rest of
   // the piece and lets the elements animate independently.
+  // Depth of the collage strip on narrow screens. Shared with intro-art so the
+  // copy below can be kept clear of it — the two must not drift apart.
+  --intro-strip-h: 24vh;                  // adjust mobile strip depth
+
   background-color: #f7f4ee;              // adjust intro ground
   background-image: url('../../assets/paper-grain.jpg');
   background-size: 256px 256px;
@@ -45,4 +49,14 @@
 .intro__content {
   position: relative;
   z-index: 1;
+}
+
+// On narrow screens the collage sits in a strip across the top, while the copy
+// is centred over the full height — so the title ran underneath the images.
+// Padding the content box down by the strip's own depth keeps them apart.
+@media (max-width: 820px) {
+  .intro__content {
+    padding-top: calc(var(--intro-strip-h, 24vh) + 1rem);   // adjust clearance
+    box-sizing: border-box;
+  }
 }

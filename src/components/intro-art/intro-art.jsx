@@ -48,7 +48,23 @@ const IntroArt = ({ elements = [] }) => {
       stagger: { each: 0.09, from: 'center' },
     });
 
-    return () => { tl.kill(); gsap.set(pieces, { willChange: '' }); };
+    // Failsafe. gsap.from() applies opacity:0 immediately and only lifts it as
+    // the tween runs — so if the ticker never starts (a background tab, a
+    // throttled renderer) the collage stays invisible indefinitely. An unseen
+    // entrance is a small loss; an invisible intro is not. If the timeline
+    // hasn't finished shortly after it should have, force the resting state.
+    const failsafe = window.setTimeout(() => {
+      if (!tl.isActive() && tl.progress() === 0) {
+        tl.kill();
+        gsap.set(pieces, { opacity: 1, scale: 1, x: 0, willChange: '' });
+      }
+    }, 4000);
+
+    return () => {
+      window.clearTimeout(failsafe);
+      tl.kill();
+      gsap.set(pieces, { willChange: '' });
+    };
   }, [elements]);
 
   if (elements.length === 0) return null;

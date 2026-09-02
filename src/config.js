@@ -94,16 +94,26 @@ export default {
   },
 
 
-  // The indicator beneath each panel: a heading naming what the colour means,
-  // and the three time spans the bar slides between. Same for every area, so it
-  // lives here once rather than repeating on all ten chapters.
+  // The indicator beneath each panel. One entry per beat, because the three
+  // beats do not show the same quantity: the first two are forest extent at a
+  // moment in time, the third is loss over a period. Giving them one shared
+  // heading ("Tree cover loss") invited the reader to read bare savanna in the
+  // extent panels as deforestation. Heading and swatch now change with the
+  // beat, and only the loss beat is pink.
   panelLabels: {
-    heading: 'Tree cover loss',
-    beat1: '2000',
-    beat2: '2025',
-    beat3: '2015–2025',
-    // matches the red used for loss and cleared ground on the panels
-    color: '#e66d6d',
+    beats: [
+      // Pine Green: the same colour the panels paint forest with, so the
+      // swatch names what the extent beats are actually showing.
+      { label: '2000',      heading: 'Forest extent',   color: '#0a2f29' },
+      { label: '2025',      heading: 'Forest extent',   color: '#0a2f29' },
+      { label: '2015–2025', heading: 'Tree cover loss', color: '#e66d6d' },
+    ],
+    // Between a quarter and two-fifths of the recorded loss leaves too weak a
+    // signature to appear in the extent panels — fire under standing canopy
+    // and selective logging take the trees while the surface still reads as
+    // forest. Said plainly, so a reader who looks for the loss in the 2025
+    // panel and cannot find it knows why.
+    note: 'Note: Not all tree cover loss is detected. Fire, for example, can burn trees while the satellite image can sometimes read it as forest extent.',
   },
 
   alignment: 'left',

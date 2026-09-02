@@ -17,9 +17,10 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
  *
  * `items` come from the chapters carrying an `areaId`, in config order.
  */
-const AreaMenu = ({ items = [], showAfter, hideAt, currentChapterId }) => {
+const AreaMenu = ({ items = [], showAfter, hideAt }) => {
   const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
+  const [currentId, setCurrentId] = useState(null);
   const barRef = useRef(null);
 
   useEffect(() => {
@@ -41,6 +42,41 @@ const AreaMenu = ({ items = [], showAfter, hideAt, currentChapterId }) => {
 
     return () => st.kill();
   }, [items.length, showAfter, hideAt]);
+
+  // Which area the reader is in, worked out from geometry rather than from the
+  // app's currentChapterId. That value is a chapter *transition* signal — the
+  // waypoints deliberately set it to the chapter being LEFT so the map can run
+  // onChapterExit — and when scrolling up the leaving chapter's callback fires
+  // last, so it trails a section behind. Reading positions is symmetric in
+  // both directions.
+  useEffect(() => {
+    if (items.length === 0) return undefined;
+    let queued = false;
+    const check = () => {
+      queued = false;
+      let active = null;
+      // items run #10 -> #1 down the page, so the last one whose top has
+      // reached the viewport is the one on screen
+      items.forEach((it) => {
+        const el = document.getElementById(it.id);
+        if (el && el.getBoundingClientRect().top <= 1) active = it.id;
+      });
+      setCurrentId((prev) => (prev === active ? prev : active));
+    };
+    const onScroll = () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(check);
+    };
+
+    check();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, [items]);
 
   const goTo = (id) => {
     const el = document.getElementById(id);
@@ -79,7 +115,7 @@ const AreaMenu = ({ items = [], showAfter, hideAt, currentChapterId }) => {
           <li key={it.id}>
             <button
               type="button"
-              className={cx('area-menu__item', it.id === currentChapterId && 'is-current')}
+              className={cx('area-menu__item', it.id === currentId && 'is-current')}
               onClick={() => goTo(it.id)}
               tabIndex={visible ? 0 : -1}
               title={`${it.rank} ${t(it.title)} — ${t(it.country)}`}
