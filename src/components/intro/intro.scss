@@ -1,10 +1,11 @@
 .intro {
-  // adjust story intro image here (root-relative path into public/)
-  // WebP: the source is a 3380px photographic collage, and as PNG it was
-  // 13.8 MB blocking first paint. Same pixels, ~90% smaller.
-  background-image: url('/intro.webp');
-  background-size: cover;
-  background-position: center center;
+  // No baked-in collage any more: the same paper ground as every other
+  // section, with the collage assembled from individual elements on top of it
+  // (see components/intro-art). Keeps the intro consistent with the rest of
+  // the piece and lets the elements animate independently.
+  background-color: #f7f4ee;              // adjust intro ground
+  background-image: url('../../assets/paper-grain.jpg');
+  background-size: 256px 256px;
   max-height: 100vh;
 }
 
@@ -38,4 +39,10 @@
     transform: translate(0, 6px);
     opacity: 0.5;
   }
+}
+
+// Above the collage, which is z-index 0 inside the same stacking context.
+.intro__content {
+  position: relative;
+  z-index: 1;
 }

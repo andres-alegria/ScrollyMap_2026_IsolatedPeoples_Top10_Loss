@@ -1,19 +1,21 @@
 import React from 'react';
 import './intro.scss';
 import SocialIcons from '../../components/social-icons/social-icons';
+import IntroArt from '../intro-art/intro-art';
 import Mouse from './mouse-icon';
 import Arrow from './arrow-icon';
 import { useTranslation } from 'react-i18next';
 
-const Intro = ({ title, subtitle, date, social, height }) => {
+const Intro = ({ title, subtitle, date, social, art = [], height }) => {
   const { t } = useTranslation();
   const heightStyle = height ? { height: `${height}px` } : undefined;
   // adjust intro separator colour here
   const separatorClasses = 'h-px bg-black block flex-1 opacity-25';
   return (
-    <div className="intro step absolute h-screen w-full bg-cover bg-no-repeat" style={heightStyle}>
+    <div className="intro step absolute h-screen w-full bg-no-repeat" style={heightStyle}>
+      <IntroArt elements={art} />
       <div
-        className="absolute h-screen w-full flex flex-col justify-center items-center"
+        className="intro__content absolute h-screen w-full flex flex-col justify-center items-center"
         style={heightStyle}
       >
         <div className="container max-w-xl text-black text-center mb-10">
