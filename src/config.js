@@ -167,7 +167,7 @@ export default {
         focus: [-52.0001, -4.0831],               /* adjust focus dot position */
         legend: 'Ituna/Itatá Indigenous Territory, Brazil',
         layers: { centroids: 0, 'centroids-label': 0, 'centroids top 10': 0,
-                  'chapter-focus': 0.9 },
+                  'ranked-ten': 0, 'chapter-focus': 0.9 },
       },
       alignment: 'fully',
       card: true,
@@ -192,7 +192,7 @@ export default {
         start: 'top bottom-=10%', end: 'top 25%',
         legend: 'Indigenous and protected lands in South East Asia',
         layers: { centroids: 0.9, 'centroids-label': 0, 'centroids top 10': 0,
-                  'chapter-focus': 0 },
+                  'ranked-ten': 0, 'chapter-focus': 0 },
       },
       alignment: 'fully',
       card: true,
@@ -217,7 +217,7 @@ export default {
         start: 'top bottom-=10%', end: 'top 25%',
         legend: 'Indigenous and protected lands in South America',
         layers: { centroids: 0.9, 'centroids-label': 0, 'centroids top 10': 0,
-                  'chapter-focus': 0 },
+                  'ranked-ten': 0, 'chapter-focus': 0 },
       },
       alignment: 'fully',
       card: true,
@@ -249,16 +249,19 @@ export default {
       globe: {
         center: [-62.0, -12.0], zoom: 1.05,
         start: 'top bottom', end: 'top 60%',
-        legend: 'Top 10 lands globally with the largest share of forest lost',
-        layers: { centroids: 0, 'centroids-label': 0, 'centroids top 10': 0.9,
-                  'chapter-focus': 0 },
+        legend: 'The 10 lands with the largest share of forest lost',
+        // 'centroids top 10' is the published style's own layer and is baked
+        // against an earlier ranking, so it stays off; 'ranked-ten' is built
+        // at runtime from the area chapters' locators.
+        layers: { centroids: 0, 'centroids-label': 0, 'centroids top 10': 0,
+                  'ranked-ten': 0.9, 'chapter-focus': 0 },
       },
       alignment: 'fully',
       card: true,
       displayText: true,
       hidden: false,
       title: ' ',
-      description: "<p>Below are the <b>top 10 lands globally</b> with the largest share of forest lost. This global ranking across biomes, with rates of detection accuracy, is approximate.</p>",
+      description: "<p>Below are the <b>10 lands in tropical moist forests</b> with the largest share of forest lost. This ranking, with rates of detection accuracy, is approximate.</p>",
       onChapterEnter: [],
       onChapterExit: [],
     },
@@ -275,7 +278,7 @@ export default {
       // reads as the story taking over rather than as a separate animation.
       globe: {
         // the territory's own centroid, the same point its locator globe marks
-        center: [-66.601027, 5.193362],
+        center: [-60.439372, 0.050421],
         zoom: 5,                             // adjust closing zoom depth
         pitch: 45,                           // adjust closing tilt
         bearing: -25,                        // adjust closing rotation
@@ -285,22 +288,22 @@ export default {
       // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
       // extent panel, which the piece no longer shows.
       panels: {
-        extent: '/panels/10_uwottuja_beat2.webp',
-        loss: '/panels/10_uwottuja_beat3.webp',
+        extent: '/panels/10_pirititi_beat2.webp',
+        loss: '/panels/10_pirititi_beat3.webp',
       },
       // scale bar: same number in km and mi, different bar lengths
-      scale: { n: 60, kmFrac: 0.1624, miFrac: 0.2614 },
+      scale: { n: 10, kmFrac: 0.1079, miFrac: 0.1736 },
       // locator: spins the globe so this territory faces the viewer
-      locator: [-66.601027, 5.193362],
+      locator: [-60.439372, 0.050421],
       // first-level division and country: the locator caption joins them,
       // the menu bar uses the country on its own
-      adm1: 'Amazonas',
-      country: 'Venezuela',
+      adm1: 'Roraima',
+      country: 'Brazil',
       rank: '#10',
-      title: 'Uwottüja Traditional Territory',
+      title: 'Pirititi Indigenous Territory',
       // shown in the jump bar, where the full name will not fit
-      menuName: 'Uwottüja',
-      description: "<p>Home to the isolated Uwottüja, this 2,285,494 ha territory in Venezuela lost <b>2.8%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Permanent agriculture, Other natural disturbances</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 12,881 hectares (28.4% of all loss)</li></ul>",
+      menuName: 'Pirititi',
+      description: "<p>Home to the Pirititi, this 43,404 ha territory in Brazil lost <b>1.2%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Logging, Other natural disturbances, Permanent agriculture</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> Not recorded</li></ul>",
     },
 
     // Top 9
@@ -309,11 +312,134 @@ export default {
       type: 'stage',
       stage: 'AreaReveal',
       areaId: 9,
-      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
-      // extent panel, which the piece no longer shows.
       panels: {
-        extent: '/panels/09_yuqui_beat2.webp',
-        loss: '/panels/09_yuqui_beat3.webp',
+        extent: '/panels/09_piripkura_beat2.webp',
+        loss: '/panels/09_piripkura_beat3.webp',
+      },
+      // scale bar: same number in km and mi, different bar lengths
+      scale: { n: 20, kmFrac: 0.1965, miFrac: 0.3162 },
+      // locator: spins the globe so this territory faces the viewer
+      locator: [-61.000967, -9.669405],
+      // first-level division and country: the locator caption joins them,
+      // the menu bar uses the country on its own
+      adm1: 'Mato Grosso',
+      country: 'Brazil',
+      rank: '#9',
+      title: 'Piripkura Indigenous Territory',
+      // shown in the jump bar, where the full name will not fit
+      menuName: 'Piripkura',
+      description: "<p>Home to the Piripkura, this 242,500 ha territory in Brazil lost <b>1.4%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Permanent agriculture, Shifting cultivation, Logging</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 76 hectares (2.3% of all loss)</li></ul>",
+    },
+
+    // Top 8
+    {
+      id: 'Top 8',
+      type: 'stage',
+      stage: 'AreaReveal',
+      areaId: 8,
+      panels: {
+        extent: '/panels/08_yabarana_beat2.webp',
+        loss: '/panels/08_yabarana_beat3.webp',
+      },
+      // scale bar: same number in km and mi, different bar lengths
+      scale: { n: 10, kmFrac: 0.1451, miFrac: 0.2335 },
+      // locator: spins the globe so this territory faces the viewer
+      locator: [-65.838243, 5.537543],
+      // first-level division and country: the locator caption joins them,
+      // the menu bar uses the country on its own
+      adm1: 'Amazonas',
+      country: 'Venezuela',
+      rank: '#8',
+      title: 'Yabarana Traditional Territory',
+      // shown in the jump bar, where the full name will not fit
+      menuName: 'Yabarana',
+      description: "<p>Home to the Jotï, this 95,052 ha territory in Venezuela lost <b>1.7%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Other natural disturbances, Wildfire, Shifting cultivation</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 242 hectares (27.5% of all loss)</li></ul>",
+    },
+
+    // Top 7
+    {
+      id: 'Top 7',
+      type: 'stage',
+      stage: 'AreaReveal',
+      areaId: 7,
+      panels: {
+        extent: '/panels/07_massaco_beat2.webp',
+        loss: '/panels/07_massaco_beat3.webp',
+      },
+      // scale bar: same number in km and mi, different bar lengths
+      scale: { n: 20, kmFrac: 0.1423, miFrac: 0.229 },
+      // locator: spins the globe so this territory faces the viewer
+      locator: [-62.572194, -12.562867],
+      // first-level division and country: the locator caption joins them,
+      // the menu bar uses the country on its own
+      adm1: 'Rondônia',
+      country: 'Brazil',
+      rank: '#7',
+      title: 'Massaco Indigenous Territory',
+      // shown in the jump bar, where the full name will not fit
+      menuName: 'Massaco',
+      description: "<p>Home to the isolated Massaco, this 421,895 ha territory in Brazil lost <b>2.6%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Other natural disturbances, Permanent agriculture</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 8,739 hectares (89.4% of all loss)</li></ul>",
+    },
+
+    // Top 6
+    {
+      id: 'Top 6',
+      type: 'stage',
+      stage: 'AreaReveal',
+      areaId: 6,
+      panels: {
+        extent: '/panels/06_caru_beat2.webp',
+        loss: '/panels/06_caru_beat3.webp',
+      },
+      // scale bar: same number in km and mi, different bar lengths
+      scale: { n: 20, kmFrac: 0.1807, miFrac: 0.2908 },
+      // locator: spins the globe so this territory faces the viewer
+      locator: [-46.333046, -3.718335],
+      // first-level division and country: the locator caption joins them,
+      // the menu bar uses the country on its own
+      adm1: 'Maranhão',
+      country: 'Brazil',
+      rank: '#6',
+      title: 'Caru Indigenous Territory',
+      // shown in the jump bar, where the full name will not fit
+      menuName: 'Caru',
+      description: "<p>Home to the isolated groups of the Presídio and Juruti igarapés, this 172,667 ha territory in Brazil lost <b>2.7%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Other natural disturbances, Wildfire, Permanent agriculture</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 1,108 hectares (24.1% of all loss)</li></ul>",
+    },
+
+    // Top 5
+    {
+      id: 'Top 5',
+      type: 'stage',
+      stage: 'AreaReveal',
+      areaId: 5,
+      panels: {
+        extent: '/panels/05_uwottuja_beat2.webp',
+        loss: '/panels/05_uwottuja_beat3.webp',
+      },
+      // scale bar: same number in km and mi, different bar lengths
+      scale: { n: 60, kmFrac: 0.1624, miFrac: 0.2614 },
+      // locator: spins the globe so this territory faces the viewer
+      locator: [-66.609753, 5.163116],
+      // first-level division and country: the locator caption joins them,
+      // the menu bar uses the country on its own
+      adm1: 'Amazonas',
+      country: 'Venezuela',
+      rank: '#5',
+      title: 'Uwottüja Traditional Territory',
+      // shown in the jump bar, where the full name will not fit
+      menuName: 'Uwottüja',
+      description: "<p>Home to the isolated Uwottüja, this 2,285,494 ha territory in Venezuela lost <b>2.8%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Permanent agriculture, Other natural disturbances</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 12,881 hectares (28.4% of all loss)</li></ul>",
+    },
+
+    // Top 4
+    {
+      id: 'Top 4',
+      type: 'stage',
+      stage: 'AreaReveal',
+      areaId: 4,
+      panels: {
+        extent: '/panels/04_yuqui_beat2.webp',
+        loss: '/panels/04_yuqui_beat3.webp',
       },
       // scale bar: same number in km and mi, different bar lengths
       scale: { n: 10, kmFrac: 0.1115, miFrac: 0.1795 },
@@ -323,24 +449,22 @@ export default {
       // the menu bar uses the country on its own
       adm1: 'Cochabamba',
       country: 'Bolivia',
-      rank: '#9',
+      rank: '#4',
       title: 'Yuqui (Community Land of Origin)',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Yuqui',
       description: "<p>Home to the Yuqui, this 115,924 ha territory in Bolivia lost <b>3.5%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Other natural disturbances, Permanent agriculture</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 1,526 hectares (38.4% of all loss)</li></ul>",
     },
 
-    // Top 8
+    // Top 3
     {
-      id: 'Top 8',
+      id: 'Top 3',
       type: 'stage',
       stage: 'AreaReveal',
-      areaId: 8,
-      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
-      // extent panel, which the piece no longer shows.
+      areaId: 3,
       panels: {
-        extent: '/panels/08_uru_eu_wau_wau_beat2.webp',
-        loss: '/panels/08_uru_eu_wau_wau_beat3.webp',
+        extent: '/panels/03_uru_eu_wau_wau_beat2.webp',
+        loss: '/panels/03_uru_eu_wau_wau_beat3.webp',
       },
       // scale bar: same number in km and mi, different bar lengths
       scale: { n: 40, kmFrac: 0.1356, miFrac: 0.2182 },
@@ -350,78 +474,47 @@ export default {
       // the menu bar uses the country on its own
       adm1: 'Rondônia',
       country: 'Brazil',
-      rank: '#8',
+      rank: '#3',
       title: 'Uru-Eu-Wau-Wau Indigenous Territory',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Uru-Eu-Wau-Wau',
       description: "<p>Home to four isolated groups, this 1,867,120 ha territory in Brazil lost <b>4.1%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Permanent agriculture, Other natural disturbances</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 64,747 hectares (87.1% of all loss)</li></ul>",
     },
 
-    // Top 7
+    // Top 2
     {
-      id: 'Top 7',
+      id: 'Top 2',
       type: 'stage',
       stage: 'AreaReveal',
-      areaId: 7,
-      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
-      // extent panel, which the piece no longer shows.
+      areaId: 2,
       panels: {
-        extent: '/panels/07_kakataibo_beat2.webp',
-        loss: '/panels/07_kakataibo_beat3.webp',
+        extent: '/panels/02_kakataibo_beat2.webp',
+        loss: '/panels/02_kakataibo_beat3.webp',
       },
       // scale bar: same number in km and mi, different bar lengths
       scale: { n: 30, kmFrac: 0.136, miFrac: 0.2189 },
       // locator: spins the globe so this territory faces the viewer
-      locator: [-75.645689, -8.567506],
+      locator: [-75.622212, -8.88791],
       // first-level division and country: the locator caption joins them,
       // the menu bar uses the country on its own
       adm1: 'Ucayali',
       country: 'Peru',
-      rank: '#7',
+      rank: '#2',
       title: 'North and South Kakataibo Indigenous Reserve',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Kakataibo',
       description: "<p>Home to the Kakataibo, this 148,996 ha territory in Peru lost <b>5.1%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Permanent agriculture, Other natural disturbances, Logging</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> Not recorded</li></ul>",
     },
 
-    // Top 6
+    // Top 1
     {
-      id: 'Top 6',
+      id: 'Top 1',
       type: 'stage',
       stage: 'AreaReveal',
-      areaId: 6,
-      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
-      // extent panel, which the piece no longer shows.
+      areaId: 1,
       panels: {
-        extent: '/panels/06_chaco_reserva_beat2.webp',
-        loss: '/panels/06_chaco_reserva_beat3.webp',
-      },
-      // scale bar: same number in km and mi, different bar lengths
-      scale: { n: 100, kmFrac: 0.1649, miFrac: 0.2654 },
-      // locator: spins the globe so this territory faces the viewer
-      locator: [-60.407265, -20.041908],
-      // first-level division and country: the locator caption joins them,
-      // the menu bar uses the country on its own
-      adm1: 'Alto Paraguay',
-      country: 'Paraguay',
-      rank: '#6',
-      title: 'Chaco Biosphere Reserve',
-      // shown in the jump bar, where the full name will not fit
-      menuName: 'Chaco',
-      description: "<p>Home to the Ayoreo (five clans), this 4,707,205 ha territory in Paraguay lost <b>11.7%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Permanent agriculture, Wildfire, Logging</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 182,893 hectares (37.1% of all loss)</li></ul>",
-    },
-
-    // Top 5
-    {
-      id: 'Top 5',
-      type: 'stage',
-      stage: 'AreaReveal',
-      areaId: 5,
-      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
-      // extent panel, which the piece no longer shows.
-      panels: {
-        extent: '/panels/05_ariboia_beat2.webp',
-        loss: '/panels/05_ariboia_beat3.webp',
+        extent: '/panels/01_ariboia_beat2.webp',
+        loss: '/panels/01_ariboia_beat3.webp',
       },
       // scale bar: same number in km and mi, different bar lengths
       scale: { n: 20, kmFrac: 0.1629, miFrac: 0.2622 },
@@ -431,119 +524,11 @@ export default {
       // the menu bar uses the country on its own
       adm1: 'Maranhão',
       country: 'Brazil',
-      rank: '#5',
+      rank: '#1',
       title: 'Araribóia Indigenous Territory',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Araribóia',
       description: "<p>Home to the isolated Awá, this 413,288 ha territory in Brazil lost <b>14.2%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Permanent agriculture, Other natural disturbances</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 41,478 hectares (72.0% of all loss)</li></ul>",
-    },
-
-    // Top 4
-    {
-      id: 'Top 4',
-      type: 'stage',
-      stage: 'AreaReveal',
-      areaId: 4,
-      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
-      // extent panel, which the piece no longer shows.
-      panels: {
-        extent: '/panels/04_chaco_ampliacion_beat2.webp',
-        loss: '/panels/04_chaco_ampliacion_beat3.webp',
-      },
-      // scale bar: same number in km and mi, different bar lengths
-      scale: { n: 75, kmFrac: 0.1628, miFrac: 0.262 },
-      // locator: spins the globe so this territory faces the viewer
-      locator: [-59.948442, -21.259369],
-      // first-level division and country: the locator caption joins them,
-      // the menu bar uses the country on its own
-      adm1: 'Boquerón',
-      country: 'Paraguay',
-      rank: '#4',
-      title: 'Chaco Biosphere Reserve Expanded Area',
-      // shown in the jump bar, where the full name will not fit
-      menuName: 'Chaco (amp.)',
-      description: "<p>Home to the Ayoreo-Totobiegosode, this 2,492,757 ha territory in Paraguay lost <b>17.0%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Permanent agriculture, Wildfire, Logging</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 7,298 hectares (1.6% of all loss)</li></ul>",
-    },
-
-    // Top 3
-    {
-      id: 'Top 3',
-      type: 'stage',
-      stage: 'AreaReveal',
-      areaId: 3,
-      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
-      // extent panel, which the piece no longer shows.
-      panels: {
-        extent: '/panels/03_otuquis_beat2.webp',
-        loss: '/panels/03_otuquis_beat3.webp',
-      },
-      // scale bar: same number in km and mi, different bar lengths
-      scale: { n: 40, kmFrac: 0.151, miFrac: 0.243 },
-      // locator: spins the globe so this territory faces the viewer
-      locator: [-58.607035, -19.342304],
-      // first-level division and country: the locator caption joins them,
-      // the menu bar uses the country on its own
-      adm1: 'Santa Cruz',
-      country: 'Bolivia',
-      rank: '#3',
-      title: 'Otuquis National Park',
-      // shown in the jump bar, where the full name will not fit
-      menuName: 'Otuquis',
-      description: "<p>Home to the Ayoreo, this 903,350 ha territory in Bolivia lost <b>17.2%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Permanent agriculture, Other natural disturbances</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 127,306 hectares (98.5% of all loss)</li></ul>",
-    },
-
-    // Top 2
-    {
-      id: 'Top 2',
-      type: 'stage',
-      stage: 'AreaReveal',
-      areaId: 2,
-      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
-      // extent panel, which the piece no longer shows.
-      panels: {
-        extent: '/panels/02_nembi_guasu_beat2.webp',
-        loss: '/panels/02_nembi_guasu_beat3.webp',
-      },
-      // scale bar: same number in km and mi, different bar lengths
-      scale: { n: 50, kmFrac: 0.1584, miFrac: 0.255 },
-      // locator: spins the globe so this territory faces the viewer
-      locator: [-59.820558, -18.789828],
-      // first-level division and country: the locator caption joins them,
-      // the menu bar uses the country on its own
-      adm1: 'Santa Cruz',
-      country: 'Bolivia',
-      rank: '#2',
-      title: 'Ñembi Guasu Conservation Area',
-      // shown in the jump bar, where the full name will not fit
-      menuName: 'Ñembi Guasu',
-      description: "<p>Home to the Ayoreo, this 1,207,850 ha territory in Bolivia lost <b>27.2%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Permanent agriculture, Other natural disturbances</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 308,487 hectares (97.5% of all loss)</li></ul>",
-    },
-
-    // Top 1
-    {
-      id: 'Top 1',
-      type: 'stage',
-      stage: 'AreaReveal',
-      areaId: 1,
-      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
-      // extent panel, which the piece no longer shows.
-      panels: {
-        extent: '/panels/01_chacobo_pacahuara_beat2.webp',
-        loss: '/panels/01_chacobo_pacahuara_beat3.webp',
-      },
-      // scale bar: same number in km and mi, different bar lengths
-      scale: { n: 20, kmFrac: 0.1506, miFrac: 0.2423 },
-      // locator: spins the globe so this territory faces the viewer
-      locator: [-65.879489, -11.977774],
-      // first-level division and country: the locator caption joins them,
-      // the menu bar uses the country on its own
-      adm1: 'Beni',
-      country: 'Bolivia',
-      rank: '#1',
-      title: 'Chacobo-Pacahuara Indigenous Territory',
-      // shown in the jump bar, where the full name will not fit
-      menuName: 'Chacobo-Pacahuara',
-      description: "<p>Home to the Pacahuara, this 517,307 ha territory in Bolivia lost <b>33.7%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Permanent agriculture, Shifting cultivation</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 134,154 hectares (98.4% of all loss)</li></ul>",
     },
   ],
 };

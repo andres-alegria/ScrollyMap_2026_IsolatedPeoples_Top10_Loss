@@ -184,11 +184,24 @@ const Map = (props) => {
       }
     };
 
-    ensureAnimLayer();
+    // `loaded` only says the map fired onLoad; the style can still be absent
+    // when this runs, and getSource then throws on map.style being undefined,
+    // which takes the whole Map component down with it. Wait for the style
+    // when it is not there yet.
+    const safeEnsure = () => {
+      if (!map.isStyleLoaded()) return;
+      try {
+        ensureAnimLayer();
+      } catch (e) {
+        console.warn('[map] animated-track layer setup skipped', e);
+      }
+    };
+
+    safeEnsure();
 
     // Re-add after any style reload
-    map.on("styledata", ensureAnimLayer);
-    return () => map.off("styledata", ensureAnimLayer);
+    map.on("styledata", safeEnsure);
+    return () => map.off("styledata", safeEnsure);
   }, [loaded, map]);
 
   // 2) Animated track controller (plays ALL parts, antimeridian-safe, pause/resume)
@@ -526,37 +539,54 @@ const Map = (props) => {
 
   // Scroll-driven three-beat raster crossfade (2000 -> 2025 -> loss overlay)
   // The map now exists only for the opening globe; the ranked areas are images.
-  // A one-off point for a place the story names but the dataset does not
-  // hold. Opacity is driven from config like any style layer, so a chapter
-  // turns it on with layers: { 'chapter-focus': 0.9 }. One shared layer, so
-  // only one chapter should carry a focus point at a time.
+  // Two point layers built at runtime from config rather than from the
+  // published style, so they follow the ranking without a tileset re-upload.
+  // Both take their opacity from a chapter's `layers` block like any style
+  // layer.
+  //
+  //   chapter-focus  a one-off point for a place the story names but the
+  //                  dataset does not hold. One shared layer, so only one
+  //                  chapter should carry a focus point at a time.
+  //   ranked-ten     the ten ranked territories, from each area chapter's own
+  //                  locator. The style's own "centroids top 10" layer is
+  //                  baked against an earlier ranking and is left switched off.
   useEffect(() => {
     if (!loaded || !map) return undefined;
-    const SRC = 'chapter-focus';
-    const points = (chapters || [])
+
+    const pointLayer = (id, points) => {
+      if (points.length === 0) return;
+      const data = { type: 'FeatureCollection', features: points };
+      if (!map.getSource(id)) map.addSource(id, { type: 'geojson', data });
+      else map.getSource(id).setData(data);
+      if (!map.getLayer(id)) {
+        map.addLayer({
+          id,
+          type: 'circle',
+          source: id,
+          paint: {
+            // matched to the centroid dots in the published style
+            'circle-color': '#e66d6d',              // adjust dot colour
+            'circle-radius': 6,                     // adjust dot size
+            'circle-stroke-color': '#f1ebdd',
+            'circle-stroke-width': 1,
+            'circle-emissive-strength': 1,
+            'circle-opacity': 0,
+          },
+        });
+      }
+    };
+
+    const pt = (id, coords) => ({ type: 'Feature', properties: { id },
+                                  geometry: { type: 'Point', coordinates: coords } });
+
+    pointLayer('chapter-focus', (chapters || [])
       .filter((c) => c && c.globe && Array.isArray(c.globe.focus))
-      .map((c) => ({ type: 'Feature', properties: { id: c.id },
-                     geometry: { type: 'Point', coordinates: c.globe.focus } }));
-    if (points.length === 0) return undefined;
-    const data = { type: 'FeatureCollection', features: points };
-    if (!map.getSource(SRC)) map.addSource(SRC, { type: 'geojson', data });
-    else map.getSource(SRC).setData(data);
-    if (!map.getLayer(SRC)) {
-      map.addLayer({
-        id: SRC,
-        type: 'circle',
-        source: SRC,
-        paint: {
-          // matched to the centroid dots in the published style
-          'circle-color': '#e66d6d',              // adjust focus dot colour
-          'circle-radius': 6,                     // adjust focus dot size
-          'circle-stroke-color': '#f1ebdd',
-          'circle-stroke-width': 1,
-          'circle-emissive-strength': 1,
-          'circle-opacity': 0,
-        },
-      });
-    }
+      .map((c) => pt(c.id, c.globe.focus)));
+
+    pointLayer('ranked-ten', (chapters || [])
+      .filter((c) => c && c.areaId && Array.isArray(c.locator))
+      .map((c) => pt(c.id, c.locator)));
+
     return undefined;
   }, [loaded, map, chapters]);
 
