@@ -80,3 +80,91 @@
 @media (max-width: 640px) {
   .chapter-card { padding: 2rem 0; }
 }
+
+// Paragraph rhythm inside the copy block. The template's space-y-4 only
+// reaches direct children, and the paragraphs arrive as innerHTML.
+.chapter-copy p {
+  margin: 0 0 1.15em;                     // adjust paragraph spacing
+}
+
+.chapter-copy p:last-child {
+  margin-bottom: 0;
+}
+
+// Wide screens: the copy gives up the full-bleed band and takes the left
+// column, because the globe is now sitting in the right one. The band would
+// cover it edge to edge.
+@media (min-width: 1000px) {
+  .chapter-card {
+    background: none;
+    padding: 4rem 0;                      // adjust space between chapters
+  }
+
+  .chapter-card__inner {
+    margin: 0 0 0 6vw;                    // adjust left inset
+    max-width: min(40rem, 46vw);          // adjust reading width
+    padding: 0;
+  }
+}
+
+// The hand-off chapter. It has no globe beside it, so it takes the whole
+// column and says plainly what the countdown below is counting — set large
+// and centred so a reader arriving at "#10" already knows what it ranks.
+//
+// One screen, with the line held in the middle of it. The tall runway the
+// other chapters use is there to give the globe room to move through; with no
+// globe to drive, it would only strand this line at the top of an empty
+// screen. Flex here is safe where it is not on the story container: nothing
+// inside this chapter is pinned, so no pin-spacer can appear under it.
+.step--display {
+  min-height: 100vh;
+  padding-bottom: 0;
+}
+
+// The centring lives on the card, not on the step. The step also holds
+// react-waypoint's own element, so making IT the flex container gives two
+// flex items — and with both at width:100% they shrink to half the width
+// each, which parks the copy in the right-hand half of the screen.
+.step--display > .chapter-card {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+.chapter-card__inner--display {
+  text-align: center;
+}
+
+.chapter-card__inner--display .chapter-copy p {
+  font-size: clamp(1.25rem, 2.4vw, 2rem);   // adjust hand-off text size
+  line-height: 1.35;
+  font-weight: 400;
+}
+
+@media (min-width: 1000px) {
+  // overrides the left inset the globe chapters use: nothing sits beside this
+  // one, so it centres on the page instead
+  .chapter-card__inner--display {
+    margin: 0 auto;
+    max-width: min(52rem, 78vw);            // adjust hand-off measure
+    padding: 0 1.5rem;
+  }
+}
+
+// Narrow screens give the globe a chapter of its own. It cannot be moved into
+// the flow — there is one Mapbox canvas, fixed behind the page — but the copy
+// rides on an opaque paper band, so lengthening the run-out after each band
+// leaves a clear screen with nothing but the globe and its caption on it. The
+// reader gets text, then the globe whole, then the next text.
+//
+// Wide screens do not want this: the globe is beside the copy there, already
+// in full view, and the extra run-out would only be dead scroll.
+@media (max-width: 999px) {
+  .step--card {
+    padding-bottom: 100vh;                // adjust the globe's screen height
+  }
+
+  // except the hand-off chapter, which has no globe to show after it
+  .step--card.step--display {
+    padding-bottom: 0;
+  }
+}

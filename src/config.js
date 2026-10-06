@@ -71,15 +71,19 @@ export default {
   // Globe atmosphere. space-color is matched to the paper texture in
   // src/assets/background-image.jpg so the sphere reads as sitting on the
   // page rather than floating in Mapbox's default starfield.
-  // The globe leaves on chapter three, not on the last keyframe — the '#10'
-  // keyframe below exists only to drive the closing zoom, and would otherwise
-  // hold the globe up over the countdown.
+  // Anchored to chapter three's bottom edge, which is also where chapter
+  // four's closing keyframe plays out — the globe pulls back to the ranked
+  // ten, then fades across the same edge. Chapter four's own line is large,
+  // centred and alone on the screen by the time the fade has finished.
   globeFadeOut: { trigger: 'chapter 03' },
 
-  // No `globeReveal` block: the globe is present from the moment the intro
-  // artwork scrolls off it, so it is already there as chapter one comes up.
-  // (useGlobeVisibility still supports one — add
-  //  globeReveal: { trigger, start, end } to hold it back again.)
+  // The globe used to need no reveal: it sat behind the page, so the intro
+  // simply covered it. Its caption does not — that has to stack above the
+  // copy to be readable on a phone, which means it would also sit over the
+  // intro. Holding both back until chapter one is arriving solves it for the
+  // pair, and costs nothing visually: the globe was not readable under the
+  // intro artwork anyway.
+  globeReveal: { trigger: 'chapter 01', start: 'top bottom', end: 'top 75%' },
 
   globeAtmosphere: {
     // mapbox-gl creates its WebGL context with alpha:true, so a transparent
@@ -94,25 +98,24 @@ export default {
   },
 
 
-  // The indicator beneath each panel. One entry per beat, because the three
-  // beats do not show the same quantity: the first two are forest extent at a
-  // moment in time, the third is loss over a period. Giving them one shared
-  // heading ("Tree cover loss") invited the reader to read bare savanna in the
-  // extent panels as deforestation. Heading and swatch now change with the
-  // beat, and only the loss beat is pink.
+  // The legend beneath each panel. One entry per beat, because the two beats
+  // do not show the same quantity: the first is forest extent at a moment in
+  // time, the second is loss over a period. A single shared label once invited
+  // the reader to read bare savanna in the extent panel as deforestation, so
+  // each beat now names its own quantity in full and only loss is pink.
   panelLabels: {
+    // Two states, two boxes. The filled box IS the legend: it carries the
+    // colour the panel is painting with, so the swatch and the words are one
+    // object rather than a key the reader has to pair up.
     beats: [
-      // Pine Green: the same colour the panels paint forest with, so the
-      // swatch names what the extent beats are actually showing.
-      { label: '2000',      heading: 'Forest extent',   color: '#0a2f29' },
-      { label: '2025',      heading: 'Forest extent',   color: '#0a2f29' },
-      { label: '2015–2025', heading: 'Tree cover loss', color: '#e66d6d' },
+      // Pine Green — the colour the panels paint forest with
+      { label: 'Forest remaining in 2025',
+        color: '#0a2f29', textColor: '#ffffff' },          /* adjust extent box + text */
+      { label: 'Tree cover lost since 2015',
+        color: '#e66d6d', textColor: '#181818' },          /* adjust loss box + text */
     ],
-    // Between a quarter and two-fifths of the recorded loss leaves too weak a
-    // signature to appear in the extent panels — fire under standing canopy
-    // and selective logging take the trees while the surface still reads as
-    // forest. Said plainly, so a reader who looks for the loss in the 2025
-    // panel and cannot find it knows why.
+    // the label that has not been reached yet, as plain text with no box
+    idleColor: '#6b7672',                                  /* adjust idle label colour */
     note: 'Note: Not all tree cover loss is detected. Fire, for example, can burn trees while the satellite image can sometimes read it as forest extent.',
   },
 
@@ -135,7 +138,7 @@ export default {
       + 'FUNAI, GTI-PIACI, Iniciativa Amotocodie, ISA, OPI, OPIAC, ORPIO and Pueblos Vivos. '
       + 'Forest cover and loss are from the Global Forest Change dataset v1.13 '
       + '(Hansen et al., University of Maryland), covering 2000 to 2025 and accessed through '
-      + 'Google Earth Engine.',
+      + 'Google Earth Engine and Global Nature Watch.',
   },
  
   chapters: [
@@ -143,110 +146,121 @@ export default {
     // chapter 01
     {
       id: 'chapter 01',
-      // Parked over the Indian Ocean, west of Southeast Asia, while still
-      // hidden. This is only where the rotation begins, never a view the
-      // reader sees. Everything from here on is one continuous eastward turn
-      // ending on South America — no longitude is passed twice.
+      // Opens where the copy opens: the Ituna/Itatá territory in Pará. No dots
+      // yet — this chapter is one place, not the dataset.
+      //
+      // Zooms throughout are tuned to the square the globe sits in, not the
+      // old full-viewport backdrop. Measured on the live map, the sphere is
+      // about 341px across at zoom 1.0 and grows roughly 13% per 0.1 zoom.
+      // The frame is 40vw capped at 520px, so it is only 400px wide on a
+      // 1000px window — the narrowest the two-column layout goes. Past about
+      // zoom 1.3 the sphere is wider than that and gets clipped into flat
+      // vertical edges, so every keyframe here stays under it.
       globe: {
-        center: [70, 6], zoom: 1.9,
-        layers: { centroids: 0.9, 'centroids-label': 0, 'centroids top 10': 0 },
+        center: [-52.0, -4.0], zoom: 1.2,
+        start: 'top bottom', end: 'top 70%',
+        // Ituna/Itatá is not one of the 65 mapped lands, so it has no centroid
+        // in the style. This is a one-off point drawn for this chapter only.
+        // Area-weighted centroid of the territory polygon (Ituna_itate.kml,
+        // 2026_033_AA_Ituna_Brazil_GIF), which closes at 142,808 ha against a
+        // documented extent of about 142,000.
+        focus: [-52.0001, -4.0831],               /* adjust focus dot position */
+        legend: 'Ituna/Itatá Indigenous Territory, Brazil',
+        layers: { centroids: 0, 'centroids-label': 0, 'centroids top 10': 0,
+                  'chapter-focus': 0.9 },
       },
       alignment: 'fully',
-      // cream card, so the copy stays legible over the globe
       card: true,
       hidden: false,
       title: ' ',
-      description: "<b>Uncontacted peoples</b> generally refers to Indigenous peoples who have remained largely isolated to the present day, maintaining their traditional lifestyles and functioning mostly independently from any political or governmental entities.<br><br><b>Peoples in initial contact</b> share the same characteristics but beginning to regularly communicate with and integrate into mainstream society.<br><br>They live across different regions in South East Asia and South America.",
-      location: {
-        center: [-87.0, 13.622],
-        zoom: 2.1,
-        pitch: 0,
-        bearing: 0,
-      },
-      
+      description: "<p>The canopy of the Amazon rainforest runs thick in some patches. In others, the forest is shaved down to the root in bright green rectangular chunks, the occasional nude trees left standing. Among it all are several groups of people living in voluntary isolation, often called “uncontacted peoples.”</p><p>Families of isolated Igarapé Ipiaçava people walk these lands in the Ituna/Itatá Indigenous Territory, Brazil, highly dependent on the forests and rich biodiverse world underneath its canopy for survival — food, shelter and medicine. This area they walk was once one of the most deforested Indigenous lands in Brazil.</p><p>“It is a place where we find, time and again, people who do not belong to the territory, leading to illegal logging and land grabbing,” Auzerina Duarte Macuxi, with the Coordination of the Indigenous Organizations of the Brazilian Amazon (COIAB), tells Mongabay. “This is accompanied by the encroachment of farms. When these farms are established within the territories, they effectively displace the Indigenous communities.”</p><p>The Ituna/Itatá Indigenous Territory is one of many Indigenous lands, tribal reserves and protected areas around the world designed — either through recognition by states or NGOs — to protect voluntary isolated peoples. Estimates point to around <b>200 groups</b> of people living in voluntary isolation and initial contact, stretching from Brazil to India; some living in defined lands, while others do not.</p><p>Mongabay mapped the Indigenous territories, tribal reserves and protected areas around the world with the confirmed presence of peoples living in voluntary isolation and analyzed forest cover loss in the decade from 2015 to 2025. This assessment, using public data, exists to give a general sense of the state of forests on protected lands uncontacted peoples depend on.</p><p>Based on these figures, we ranked the lands in tropical humid forests with the highest detected tree cover loss from 2015 to 2025, the lands per country which saw the most tree cover loss in this same period and looked at key drivers razing forests.</p>",
+      location: { center: [-52.0, -4.0], zoom: 1.2, pitch: 0, bearing: 0 },
       mapAnimation: 'easeTo',
-      onChapterEnter: [    ],
-      onChapterExit: [  ],
+      onChapterEnter: [],
+      onChapterExit: [],
     },
 
     // chapter 02
     {
       id: 'chapter 02',
-      // Westward from West Africa crosses South America before reaching Asia,
-      // so the reader sees the Amazon go by on the way. Starts early so the
-      // globe is already turning when it fades in, and lands just before the
-      // copy is revealed.
-      // The whole eastward sweep happens here, in one move: away from the
-      // Indian Ocean, across Southeast Asia — the second region chapter one's
-      // closing line names, reached about a sixth of the way in, just as that
-      // copy finishes — then out over the Pacific to South America.
-      //
-      // This chapter's own copy starts appearing at 'top 74%', by which point
-      // the turn is roughly 79% done and South America is already swinging
-      // into frame. It comes to rest at 'top 60%', shortly after that
-      // paragraph has begun travelling up the screen.
+      // The dataset arrives with the paragraph that describes it. One
+      // continuous eastward turn out of Brazil, over Africa, to the Indian
+      // Ocean — the far end of the nine countries the copy lists, so the
+      // reader sees the spread rather than being told about it.
       globe: {
-        center: [-66.9, -7.4], zoom: 2.1, spin: 'east',
-        start: 'top bottom+=29%', end: 'top 60%',
-        layers: { centroids: 0.9, 'centroids-label': 0.9, 'centroids top 10': 0 },
+        center: [78.0, 2.0], zoom: 0.85, spin: 'east',
+        start: 'top bottom-=10%', end: 'top 25%',
+        legend: 'Indigenous and protected lands in South East Asia',
+        layers: { centroids: 0.9, 'centroids-label': 0, 'centroids top 10': 0,
+                  'chapter-focus': 0 },
       },
       alignment: 'fully',
-      // cream card, so the copy stays legible over the globe
       card: true,
       hidden: false,
       title: ' ',
-      description: "Uncontacted peoples choose to live detached from the rest of the world, and their mobility patterns allow them to engage in gathering and hunting, thereby preserving their cultures and languages. <br><br>These peoples have a strict dependency on their ecological environment. Any changes to their natural habitat can harm both the survival of individual members and the group as a whole.",
-      
-      location: {
-        center: [-87.0, 13.622],
-        zoom: 2.1,
-        pitch: 0,
-        bearing: 0,
-      },
-      
+      description: "<p>Using data provided by national organizations, the international working group on Indigenous Peoples in Isolation and Initial Contact (GTI PIACI) and Indigenous experts on the confirmed presence of uncontacted people, Mongabay overlapped it with Indigenous and protected lands (Indigenous territories, tribal reserves and protected areas) and assembled a list of <b>65 defined lands</b> where they live. These exist across nine countries — Bolivia, Brazil, Colombia, Ecuador, India, Indonesia, Paraguay, Peru and Venezuela. Mongabay then analyzed tree cover using Global Nature Watch.</p><p>Among these, 56 lands are located in tropical moist broadleaf forests.</p><p>This assessment does not showcase the exact or unique location of isolated peoples but rather the boundaries of Indigenous and protected lands their presence overlaps with.</p><p>According to the findings, all 65 lands lost a total of nearly <b>2 million hectares</b> (4.94 million acres) of tree cover between 2015 and 2025 — similar in size to El Salvador. Of this, more than 568,150 hectares (1.4 million acres) was primary forest loss — nearly the size of Brunei.</p><p>Tree cover loss does not necessarily mean deforestation. It can be due to multiple factors, explained Global Nature Watch, including “mechanical harvesting, fire, disease, or storm damage.”</p><p>Wildfires, a growing threat to forests worldwide, was a driver of nearly 995,650 hectares (2.46 million acres) of this loss. In a few incidents in the Amazon, loss due to wildfires in lands used by isolated peoples increased in the last two years.</p><p>When looking at the top three drivers of forest loss, the most recurrent were natural disturbances (non-fire events like landslides) and permanent agriculture.</p>",
+      location: { center: [78.0, 2.0], zoom: 0.85, pitch: 0, bearing: 0 },
       mapAnimation: 'flyTo',
       rotateAnimation: false,
-      onChapterEnter: [      ],
-      onChapterExit: [      ],
+      onChapterEnter: [],
+      onChapterExit: [],
     },
 
     // chapter 03
     {
       id: 'chapter 03',
-      // Same position as the chapter before, so the globe simply holds on
-      // South America — where all ten ranked territories are — while this
-      // chapter is read, then fades out into the countdown. It is still the
-      // last keyframe, which is what the fade-out is anchored to.
-      //
-      // This keyframe exists only to swap the dots: all 101 territories give
-      // way to the ranked ten. Layer opacities snap at the midpoint of the
-      // window rather than crossfading, so the window is placed to put that
-      // midpoint just after this chapter's closing line has finished
-      // revealing — 'top 2%' is where that lands.
+      // Carries on eastward across the Pacific rather than doubling back, so
+      // no longitude is passed twice, and closes on the Gran Chaco this
+      // chapter is about.
       globe: {
-        center: [-66.9, -7.4], zoom: 2.1,
-        start: 'top 10%', end: 'top top-=100',
-        layers: { centroids: 0, 'centroids-label': 0, 'centroids top 10': 0.9 },
+        center: [-60.5, -20.5], zoom: 1.28, spin: 'east',
+        start: 'top bottom-=10%', end: 'top 25%',
+        legend: 'Indigenous and protected lands in South America',
+        layers: { centroids: 0.9, 'centroids-label': 0, 'centroids top 10': 0,
+                  'chapter-focus': 0 },
       },
       alignment: 'fully',
-      // cream card, so the copy stays legible over the globe
       card: true,
       hidden: false,
       title: ' ',
-      description: "Legal protections make estimating the total number of uncontacted peoples challenging, but estimates point to between <b>100 and 200 uncontacted tribes</b> numbering up to <b>10,000 individuals total</b>. <br><br>Mongabay mapped legally recognized lands used by isolated Indigenous peoples worldwide and analyzed forest cover loss from 2015 to 2025. Boundaries of 65 lands were compiled and verified with Indigenous organizations, experts, and the international working group on Indigenous Peoples in Isolation and Initial Contact (GTI PIACI), using data from Global Forest Watch.<br><br><b>Below are the Top 10 lands that lost the largest share of their forest, spread across Bolivia, Paraguay, Brazil, Peru and Venezuela.</b>",
-       
-      location: {
-        center: [-61.339655, -6.100119
-],
-        zoom: 3.5,
-        pitch: 0,
-        bearing: 0,
-      },
-      
+      description: "<p>Across the lands that experienced the most tree loss, the Gran Chaco in South America was hit particularly hard, accounting for more than <b>1.38 million hectares</b> (3.42 million acres) of loss in the 10-year period. Four of the top 10 lands with the most tree cover loss were in Bolivia and Paraguay’s Chaco, and three were in the top five. Various clans of uncontacted Ayoreo people, who live on these lands, are impacted.</p><p>According to Indigenous rights experts in Bolivia and Paraguay, the driving forces behind this tree cover loss are agriculture and cattle ranching.</p><p>“The agriculture frontier is expanding in these territories, causing forest loss and wildfires by setting fires to clear forest land for new pasture or cattle,” said Oscar Alquizalet, director of the NGO Pueblos Vivos in Bolivia.</p><p>Guei Basui Picanerai, secretary of the Guidai and Ducodegosode Ayoreo Association of Paraguay, which represents Ayoreo communities in the Chaco, says uncontacted people are living in fear.</p><p>“They live running from one place to another because they’re frightened of the loud noises of the machinery,” Picanerai said.</p>",
+      location: { center: [-60.5, -20.5], zoom: 1.28, pitch: 0, bearing: 0 },
       mapAnimation: 'flyTo',
       rotateAnimation: false,
-      onChapterEnter: [      ],
-      onChapterExit: [      ],
+      onChapterEnter: [],
+      onChapterExit: [],
+    },
+
+    // chapter 04
+    {
+      id: 'chapter 04',
+      // The globe's closing gesture, which belongs to the end of chapter
+      // three rather than to this chapter: the keyframe hangs off this
+      // element only because that is where the scroll window falls. Chapter
+      // three's bottom edge IS this chapter's top edge, so a window measured
+      // from 'top' here runs across the tail of the chapter before it.
+      //
+      // The camera pulls back from the Chaco to hold all ten ranked lands at
+      // once and the dots swap to that ten, finishing at 'top 60%'. The fade
+      // only begins at 'bottom center' of chapter three — the same edge, at
+      // 50% — so the move lands and is read for a moment before the globe
+      // starts going. By the time this chapter's line is centred on screen,
+      // the fade has finished and there is nothing beside it.
+      globe: {
+        center: [-62.0, -12.0], zoom: 1.05,
+        start: 'top bottom', end: 'top 60%',
+        legend: 'Top 10 lands globally with highest detected tree cover loss',
+        layers: { centroids: 0, 'centroids-label': 0, 'centroids top 10': 0.9,
+                  'chapter-focus': 0 },
+      },
+      alignment: 'fully',
+      card: true,
+      displayText: true,
+      hidden: false,
+      title: ' ',
+      description: "<p>Below are the <b>top 10 lands globally</b> with highest detected tree cover loss. This global ranking across biomes, with rates of detection accuracy, is approximate.</p>",
+      onChapterEnter: [],
+      onChapterExit: [],
     },
 
     // Top 10
@@ -268,10 +282,11 @@ export default {
         start: 'top bottom', end: 'top top',
       },
       areaId: 10,
+      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
+      // extent panel, which the piece no longer shows.
       panels: {
-        beat1: '/panels/10_uwottuja_beat1.webp',
-        beat2: '/panels/10_uwottuja_beat2.webp',
-        beat3: '/panels/10_uwottuja_beat3.webp',
+        extent: '/panels/10_uwottuja_beat2.webp',
+        loss: '/panels/10_uwottuja_beat3.webp',
       },
       // scale bar: same number in km and mi, different bar lengths
       scale: { n: 60, kmFrac: 0.1624, miFrac: 0.2614 },
@@ -285,8 +300,7 @@ export default {
       title: 'Uwottüja Traditional Territory',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Uwottüja',
-      homeTo: 'The isolated Uwottüja',
-      description: "This 2,285,494 ha territory in Venezuela lost <b>2.8%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by wildfire, permanent agriculture and other natural disturbances. Wildfire accounted for 28.4% of that loss.",
+      description: "<p>Home to the isolated Uwottüja, this 2,285,494 ha territory in Venezuela lost <b>2.8%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Permanent agriculture, Other natural disturbances</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 12,881 hectares (28.4% of all loss)</li></ul>",
     },
 
     // Top 9
@@ -295,10 +309,11 @@ export default {
       type: 'stage',
       stage: 'AreaReveal',
       areaId: 9,
+      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
+      // extent panel, which the piece no longer shows.
       panels: {
-        beat1: '/panels/09_yuqui_beat1.webp',
-        beat2: '/panels/09_yuqui_beat2.webp',
-        beat3: '/panels/09_yuqui_beat3.webp',
+        extent: '/panels/09_yuqui_beat2.webp',
+        loss: '/panels/09_yuqui_beat3.webp',
       },
       // scale bar: same number in km and mi, different bar lengths
       scale: { n: 10, kmFrac: 0.1115, miFrac: 0.1795 },
@@ -309,11 +324,10 @@ export default {
       adm1: 'Cochabamba',
       country: 'Bolivia',
       rank: '#9',
-      title: 'Yuqui',
+      title: 'Yuqui (Community Land of Origin)',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Yuqui',
-      homeTo: 'The Yuqui',
-      description: "This 115,924 ha territory in Bolivia lost <b>3.5%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by wildfire, other natural disturbances and permanent agriculture. Wildfire accounted for 38.4% of that loss.",
+      description: "<p>Home to the Yuqui, this 115,924 ha territory in Bolivia lost <b>3.5%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Other natural disturbances, Permanent agriculture</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 1,526 hectares (38.4% of all loss)</li></ul>",
     },
 
     // Top 8
@@ -322,10 +336,11 @@ export default {
       type: 'stage',
       stage: 'AreaReveal',
       areaId: 8,
+      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
+      // extent panel, which the piece no longer shows.
       panels: {
-        beat1: '/panels/08_uru_eu_wau_wau_beat1.webp',
-        beat2: '/panels/08_uru_eu_wau_wau_beat2.webp',
-        beat3: '/panels/08_uru_eu_wau_wau_beat3.webp',
+        extent: '/panels/08_uru_eu_wau_wau_beat2.webp',
+        loss: '/panels/08_uru_eu_wau_wau_beat3.webp',
       },
       // scale bar: same number in km and mi, different bar lengths
       scale: { n: 40, kmFrac: 0.1356, miFrac: 0.2182 },
@@ -336,11 +351,10 @@ export default {
       adm1: 'Rondônia',
       country: 'Brazil',
       rank: '#8',
-      title: 'Uru-Eu-Wau-Wau',
+      title: 'Uru-Eu-Wau-Wau Indigenous Territory',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Uru-Eu-Wau-Wau',
-      homeTo: 'Four isolated groups',
-      description: "This 1,867,120 ha territory in Brazil lost <b>4.1%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by wildfire, permanent agriculture and other natural disturbances. Wildfire accounted for 87.1% of that loss.",
+      description: "<p>Home to four isolated groups, this 1,867,120 ha territory in Brazil lost <b>4.1%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Permanent agriculture, Other natural disturbances</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 64,747 hectares (87.1% of all loss)</li></ul>",
     },
 
     // Top 7
@@ -349,10 +363,11 @@ export default {
       type: 'stage',
       stage: 'AreaReveal',
       areaId: 7,
+      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
+      // extent panel, which the piece no longer shows.
       panels: {
-        beat1: '/panels/07_kakataibo_beat1.webp',
-        beat2: '/panels/07_kakataibo_beat2.webp',
-        beat3: '/panels/07_kakataibo_beat3.webp',
+        extent: '/panels/07_kakataibo_beat2.webp',
+        loss: '/panels/07_kakataibo_beat3.webp',
       },
       // scale bar: same number in km and mi, different bar lengths
       scale: { n: 30, kmFrac: 0.136, miFrac: 0.2189 },
@@ -363,11 +378,10 @@ export default {
       adm1: 'Ucayali',
       country: 'Peru',
       rank: '#7',
-      title: 'North and South Kakataibo Reserve',
+      title: 'North and South Kakataibo Indigenous Reserve',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Kakataibo',
-      homeTo: 'The Kakataibo',
-      description: "This 148,996 ha territory in Peru lost <b>5.1%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by permanent agriculture, other natural disturbances and logging. Wildfire loss is not recorded.",
+      description: "<p>Home to the Kakataibo, this 148,996 ha territory in Peru lost <b>5.1%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Permanent agriculture, Other natural disturbances, Logging</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> Not recorded</li></ul>",
     },
 
     // Top 6
@@ -376,10 +390,11 @@ export default {
       type: 'stage',
       stage: 'AreaReveal',
       areaId: 6,
+      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
+      // extent panel, which the piece no longer shows.
       panels: {
-        beat1: '/panels/06_chaco_reserva_beat1.webp',
-        beat2: '/panels/06_chaco_reserva_beat2.webp',
-        beat3: '/panels/06_chaco_reserva_beat3.webp',
+        extent: '/panels/06_chaco_reserva_beat2.webp',
+        loss: '/panels/06_chaco_reserva_beat3.webp',
       },
       // scale bar: same number in km and mi, different bar lengths
       scale: { n: 100, kmFrac: 0.1649, miFrac: 0.2654 },
@@ -390,11 +405,10 @@ export default {
       adm1: 'Alto Paraguay',
       country: 'Paraguay',
       rank: '#6',
-      title: 'Reserva de la Biosfera del Chaco',
+      title: 'Chaco Biosphere Reserve',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Chaco',
-      homeTo: 'The Ayoreo (five clans)',
-      description: "This 4,707,205 ha territory in Paraguay lost <b>11.7%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by permanent agriculture, wildfire and logging. Wildfire accounted for 37.1% of that loss.",
+      description: "<p>Home to the Ayoreo (five clans), this 4,707,205 ha territory in Paraguay lost <b>11.7%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Permanent agriculture, Wildfire, Logging</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 182,893 hectares (37.1% of all loss)</li></ul>",
     },
 
     // Top 5
@@ -403,10 +417,11 @@ export default {
       type: 'stage',
       stage: 'AreaReveal',
       areaId: 5,
+      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
+      // extent panel, which the piece no longer shows.
       panels: {
-        beat1: '/panels/05_ariboia_beat1.webp',
-        beat2: '/panels/05_ariboia_beat2.webp',
-        beat3: '/panels/05_ariboia_beat3.webp',
+        extent: '/panels/05_ariboia_beat2.webp',
+        loss: '/panels/05_ariboia_beat3.webp',
       },
       // scale bar: same number in km and mi, different bar lengths
       scale: { n: 20, kmFrac: 0.1629, miFrac: 0.2622 },
@@ -417,11 +432,10 @@ export default {
       adm1: 'Maranhão',
       country: 'Brazil',
       rank: '#5',
-      title: 'Araribóia',
+      title: 'Araribóia Indigenous Territory',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Araribóia',
-      homeTo: 'The isolated Awá',
-      description: "This 413,288 ha territory in Brazil lost <b>14.2%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by wildfire, permanent agriculture and other natural disturbances. Wildfire accounted for 72.0% of that loss.",
+      description: "<p>Home to the isolated Awá, this 413,288 ha territory in Brazil lost <b>14.2%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Permanent agriculture, Other natural disturbances</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 41,478 hectares (72.0% of all loss)</li></ul>",
     },
 
     // Top 4
@@ -430,10 +444,11 @@ export default {
       type: 'stage',
       stage: 'AreaReveal',
       areaId: 4,
+      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
+      // extent panel, which the piece no longer shows.
       panels: {
-        beat1: '/panels/04_chaco_ampliacion_beat1.webp',
-        beat2: '/panels/04_chaco_ampliacion_beat2.webp',
-        beat3: '/panels/04_chaco_ampliacion_beat3.webp',
+        extent: '/panels/04_chaco_ampliacion_beat2.webp',
+        loss: '/panels/04_chaco_ampliacion_beat3.webp',
       },
       // scale bar: same number in km and mi, different bar lengths
       scale: { n: 75, kmFrac: 0.1628, miFrac: 0.262 },
@@ -444,11 +459,10 @@ export default {
       adm1: 'Boquerón',
       country: 'Paraguay',
       rank: '#4',
-      title: 'Ampliación Reserva de Biosfera del Chaco',
+      title: 'Chaco Biosphere Reserve Expanded Area',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Chaco (amp.)',
-      homeTo: 'The Ayoreo-Totobiegosode',
-      description: "This 2,492,757 ha territory in Paraguay lost <b>17.0%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by permanent agriculture, wildfire and logging. Wildfire accounted for 1.6% of that loss.",
+      description: "<p>Home to the Ayoreo-Totobiegosode, this 2,492,757 ha territory in Paraguay lost <b>17.0%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Permanent agriculture, Wildfire, Logging</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 7,298 hectares (1.6% of all loss)</li></ul>",
     },
 
     // Top 3
@@ -457,10 +471,11 @@ export default {
       type: 'stage',
       stage: 'AreaReveal',
       areaId: 3,
+      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
+      // extent panel, which the piece no longer shows.
       panels: {
-        beat1: '/panels/03_otuquis_beat1.webp',
-        beat2: '/panels/03_otuquis_beat2.webp',
-        beat3: '/panels/03_otuquis_beat3.webp',
+        extent: '/panels/03_otuquis_beat2.webp',
+        loss: '/panels/03_otuquis_beat3.webp',
       },
       // scale bar: same number in km and mi, different bar lengths
       scale: { n: 40, kmFrac: 0.151, miFrac: 0.243 },
@@ -474,8 +489,7 @@ export default {
       title: 'Otuquis National Park',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Otuquis',
-      homeTo: 'The Ayoreo',
-      description: "This 903,350 ha territory in Bolivia lost <b>17.2%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by wildfire, permanent agriculture and other natural disturbances. Wildfire accounted for 98.5% of that loss.",
+      description: "<p>Home to the Ayoreo, this 903,350 ha territory in Bolivia lost <b>17.2%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Permanent agriculture, Other natural disturbances</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 127,306 hectares (98.5% of all loss)</li></ul>",
     },
 
     // Top 2
@@ -484,10 +498,11 @@ export default {
       type: 'stage',
       stage: 'AreaReveal',
       areaId: 2,
+      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
+      // extent panel, which the piece no longer shows.
       panels: {
-        beat1: '/panels/02_nembi_guasu_beat1.webp',
-        beat2: '/panels/02_nembi_guasu_beat2.webp',
-        beat3: '/panels/02_nembi_guasu_beat3.webp',
+        extent: '/panels/02_nembi_guasu_beat2.webp',
+        loss: '/panels/02_nembi_guasu_beat3.webp',
       },
       // scale bar: same number in km and mi, different bar lengths
       scale: { n: 50, kmFrac: 0.1584, miFrac: 0.255 },
@@ -498,11 +513,10 @@ export default {
       adm1: 'Santa Cruz',
       country: 'Bolivia',
       rank: '#2',
-      title: 'Ñembi Guasu',
+      title: 'Ñembi Guasu Conservation Area',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Ñembi Guasu',
-      homeTo: 'The Ayoreo',
-      description: "This 1,207,850 ha territory in Bolivia lost <b>27.2%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by wildfire, permanent agriculture and other natural disturbances. Wildfire accounted for 97.5% of that loss.",
+      description: "<p>Home to the Ayoreo, this 1,207,850 ha territory in Bolivia lost <b>27.2%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Permanent agriculture, Other natural disturbances</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 308,487 hectares (97.5% of all loss)</li></ul>",
     },
 
     // Top 1
@@ -511,10 +525,11 @@ export default {
       type: 'stage',
       stage: 'AreaReveal',
       areaId: 1,
+      // beat2/beat3 are the render script's numbering. Its beat1 was the 2000
+      // extent panel, which the piece no longer shows.
       panels: {
-        beat1: '/panels/01_chacobo_pacahuara_beat1.webp',
-        beat2: '/panels/01_chacobo_pacahuara_beat2.webp',
-        beat3: '/panels/01_chacobo_pacahuara_beat3.webp',
+        extent: '/panels/01_chacobo_pacahuara_beat2.webp',
+        loss: '/panels/01_chacobo_pacahuara_beat3.webp',
       },
       // scale bar: same number in km and mi, different bar lengths
       scale: { n: 20, kmFrac: 0.1506, miFrac: 0.2423 },
@@ -525,11 +540,10 @@ export default {
       adm1: 'Beni',
       country: 'Bolivia',
       rank: '#1',
-      title: 'Chacobo-Pacahuara',
+      title: 'Chacobo-Pacahuara Indigenous Territory',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Chacobo-Pacahuara',
-      homeTo: 'The Pacahuara',
-      description: "This 517,307 ha territory in Bolivia lost <b>33.7%</b> of its 2000 tree cover between 2015 and 2025, driven mainly by wildfire, permanent agriculture and shifting cultivation. Wildfire accounted for 98.4% of that loss.",
+      description: "<p>Home to the Pacahuara, this 517,307 ha territory in Bolivia lost <b>33.7%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Permanent agriculture, Shifting cultivation</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 134,154 hectares (98.4% of all loss)</li></ul>",
     },
   ],
 };

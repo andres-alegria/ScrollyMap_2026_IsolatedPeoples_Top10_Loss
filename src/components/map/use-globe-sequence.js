@@ -34,11 +34,12 @@ const spinDelta = (from, to, spin = 'short') => {
  *     pitch: 0,              // optional: camera tilt
  *     bearing: 0,            // optional: camera rotation
  *     layers: { centroids: 1, 'centroids-label': 0 },  // optional opacities
+ *     legend: 'What the dots are',                     // optional caption
  *     start: 'top bottom',   // optional: when this move begins
  *     end: 'top center',     // optional: when it has arrived
  *   }
  */
-export const useGlobeSequence = ({ map, loaded, chapters, atmosphere, containerRef }) => {
+export const useGlobeSequence = ({ map, loaded, chapters, atmosphere, containerRef, legendRef }) => {
   const applied = useRef(null);
 
   useEffect(() => {
@@ -46,12 +47,22 @@ export const useGlobeSequence = ({ map, loaded, chapters, atmosphere, containerR
 
     // Replace Mapbox's black starfield with the paper tone, so the globe sits
     // on the same ground as the rest of the page.
+    //
+    // Applied again on every style load, not just once. Fog is style state:
+    // any reload drops it and Mapbox's default — black space, stars — comes
+    // back. Safari has been seen showing exactly that, which is the signature
+    // of a one-shot setFog landing before the style was really ready.
+    let applyFog = null;
     if (atmosphere) {
-      try {
-        map.setFog(atmosphere);
-      } catch (e) {
-        console.warn('[globe] setFog failed', e);
-      }
+      applyFog = () => {
+        try {
+          map.setFog(atmosphere);
+        } catch (e) {
+          console.warn('[globe] setFog failed', e);
+        }
+      };
+      applyFog();
+      map.on('style.load', applyFog);
     }
 
     const keys = (chapters || []).filter((c) => c && c.globe && c.id);
@@ -98,6 +109,23 @@ export const useGlobeSequence = ({ map, loaded, chapters, atmosphere, containerR
       // Layer opacities snap at the midpoint rather than crossfading, so the
       // dots don't ghost while the globe is spinning.
       setLayers(t < 0.5 ? from.layers : to.layers);
+      // The caption names whatever the dots currently are, so it has to change
+      // on the same frame they do — anything else leaves it briefly lying.
+      // Written only when the text actually differs, so the fade is a real
+      // transition rather than something restarted sixty times a second.
+      const el = legendRef && legendRef.current;
+      if (el) {
+        const next = (t < 0.5 ? from.legend : to.legend) || '';
+        if (el.textContent !== next) {
+          el.textContent = next;
+          // `hidden`, not opacity: opacity belongs to useGlobeVisibility, and
+          // writing it here on every text change overwrote the reveal and the
+          // fade — the caption stayed at full strength while the globe it
+          // names was gone. This only takes the bar out when a keyframe has no
+          // caption at all, so an empty paper strip is never drawn.
+          el.hidden = !next;
+        }
+      }
       applied.current = to.id;
     };
 
@@ -120,8 +148,11 @@ export const useGlobeSequence = ({ map, loaded, chapters, atmosphere, containerR
     apply(keys[0].globe, keys[0].globe, 1);
     ScrollTrigger.refresh();
 
-    return () => triggers.forEach((t) => t.kill());
-  }, [map, loaded, chapters, atmosphere]);
+    return () => {
+      triggers.forEach((t) => t.kill());
+      if (applyFog) map.off('style.load', applyFog);
+    };
+  }, [map, loaded, chapters, atmosphere, legendRef]);
 };
 
 
@@ -155,17 +186,27 @@ export const useGlobeVisibility = ({ containerRef, chapters, reveal, fadeOut }) 
     const keys = (chapters || []).filter((c) => c && c.globe && c.id);
     if (!el || keys.length === 0) return undefined;
 
-    const setVis = (o) => {
+    const paint = (o) => {
       el.style.opacity = String(o);
       // stop compositing the canvas entirely once it is invisible
       el.style.visibility = o < 0.01 ? 'hidden' : 'visible';
     };
 
+    // Two independent triggers have an opinion about visibility — the reveal
+    // on the way in, the fade on the way out — and both fire on every scroll.
+    // Writing straight to the element let whichever ran last win, which at the
+    // top of the page meant the fade's "nothing to fade yet, so show it"
+    // overwrote the reveal's "not yet". Each keeps its own value and the
+    // lower one is painted, so neither can show what the other is hiding.
+    const vis = { reveal: reveal && reveal.trigger ? 0 : 1, fade: 1 };
+    const commit = () => paint(Math.min(vis.reveal, vis.fade));
+    const setVis = (o) => { vis.reveal = o; commit(); };
+
     const triggers = [];
 
     const revealEl = reveal && reveal.trigger && document.getElementById(reveal.trigger);
 
-    setVis(revealEl ? 0 : 1);
+    commit();
 
     if (revealEl) {
       triggers.push(ScrollTrigger.create({
@@ -191,7 +232,7 @@ export const useGlobeVisibility = ({ containerRef, chapters, reveal, fadeOut }) 
         end: fade.end || 'bottom top',          // adjust: when it is fully gone
         scrub: true,
         invalidateOnRefresh: true,
-        onUpdate: (self) => setVis(1 - self.progress),
+        onUpdate: (self) => { vis.fade = 1 - self.progress; commit(); },
       }));
     }
 

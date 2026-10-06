@@ -12,6 +12,7 @@ const Map = (props) => {
   const [map, setMap] = useState(null);
   const mapRef = useRef(null);
   const mapContainerRef = useRef(null);
+  const globeLegendRef = useRef(null);
 
   // Use the first chapter that actually has a location (so PlainText can be first)
   const firstChapterWithLocation = chapters.find(
@@ -525,12 +526,54 @@ const Map = (props) => {
 
   // Scroll-driven three-beat raster crossfade (2000 -> 2025 -> loss overlay)
   // The map now exists only for the opening globe; the ranked areas are images.
-  useGlobeSequence({ map, loaded, chapters, atmosphere: globeAtmosphere, containerRef: mapContainerRef });
+  // A one-off point for a place the story names but the dataset does not
+  // hold. Opacity is driven from config like any style layer, so a chapter
+  // turns it on with layers: { 'chapter-focus': 0.9 }. One shared layer, so
+  // only one chapter should carry a focus point at a time.
+  useEffect(() => {
+    if (!loaded || !map) return undefined;
+    const SRC = 'chapter-focus';
+    const points = (chapters || [])
+      .filter((c) => c && c.globe && Array.isArray(c.globe.focus))
+      .map((c) => ({ type: 'Feature', properties: { id: c.id },
+                     geometry: { type: 'Point', coordinates: c.globe.focus } }));
+    if (points.length === 0) return undefined;
+    const data = { type: 'FeatureCollection', features: points };
+    if (!map.getSource(SRC)) map.addSource(SRC, { type: 'geojson', data });
+    else map.getSource(SRC).setData(data);
+    if (!map.getLayer(SRC)) {
+      map.addLayer({
+        id: SRC,
+        type: 'circle',
+        source: SRC,
+        paint: {
+          // matched to the centroid dots in the published style
+          'circle-color': '#e66d6d',              // adjust focus dot colour
+          'circle-radius': 6,                     // adjust focus dot size
+          'circle-stroke-color': '#f1ebdd',
+          'circle-stroke-width': 1,
+          'circle-emissive-strength': 1,
+          'circle-opacity': 0,
+        },
+      });
+    }
+    return undefined;
+  }, [loaded, map, chapters]);
+
+  useGlobeSequence({ map, loaded, chapters, atmosphere: globeAtmosphere, containerRef: mapContainerRef, legendRef: globeLegendRef });
   // runs whether or not the map ever loads
   useGlobeVisibility({ containerRef: mapContainerRef, chapters, reveal: globeReveal, fadeOut: globeFadeOut });
 
   return (
     <div ref={mapContainerRef} className="map-container">
+      {/* Caption for whatever the globe is currently showing. Text is written
+          imperatively by useGlobeSequence on the same frame the dots change.
+
+          A child of the globe box on purpose: on narrow screens the box sits
+          behind the copy, so the caption is hidden exactly when the globe is
+          and shows exactly when it does — in the gap between chapters, where
+          the globe gets a screen to itself. */}
+      <div className="globe-legend" ref={globeLegendRef} />
       <MapGL
         ref={mapRef}
         mapboxAccessToken={accessToken}

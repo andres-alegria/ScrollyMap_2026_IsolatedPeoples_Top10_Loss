@@ -32,8 +32,9 @@ const refreshWhenSettled = () => {
  * this one. That avoids the layout reflow a spacer causes each time a pin
  * engages or releases, which is what made the panels snap.
  *
- * While pinned, scroll progress drives the three beats; in the last stretch
- * the section scales back and fades as its successor covers it.
+ * While pinned, scroll progress crossfades the loss layer over the 2025
+ * extent; in the last stretch the section scales back and fades as its
+ * successor covers it.
  */
 const AreaReveal = ({
   areaId,
@@ -48,25 +49,26 @@ const AreaReveal = ({
   dwell = 2.6,          // adjust: extra screen-heights each section holds
 }) => {
   const { t } = useTranslation();
-  const { rank, title, homeTo, description } = chapter;
+  const { rank, title, description } = chapter;
   const sectionRef = useRef(null);
-  const b2Ref = useRef(null);
-  const b3Ref = useRef(null);
+  const lossRef = useRef(null);
   const indRef = useRef(null);
 
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section || !panels.beat1) return undefined;
+    if (!section || !panels.extent) return undefined;
 
     // With pinSpacing:false the next section climbs over this one on its own,
     // and it starts doing so at progress dwell / (dwell + 1) — nothing in the
     // timeline below controls that. So the last beat has to be established
     // well before that point, or the next panel covers the loss layer while
     // the reader is still taking it in. At dwell 2.6 the hand-over begins at
-    // about 0.72, which is what recedeFrom is matched to.
+    // about 0.72, which is what recedeFrom is matched to. The crossfade is
+    // finished by 0.46, leaving the loss layer a quarter of the section to be
+    // read before anything starts moving.
     const {
-      holdFirst = 0.10, toSecond = 0.26,
-      holdSecond = 0.38, toThird = 0.52,
+      holdExtent = 0.14,          // adjust: how long 2025 extent holds alone
+      toLoss = 0.46,              // adjust: when the loss layer is fully in
       recedeFrom = 0.72,          // adjust: when the section starts giving way
     } = timings;
 
@@ -78,7 +80,7 @@ const AreaReveal = ({
       start: 'top bottom+=120%',
       once: true,
       onEnter: () => {
-        [panels.beat1, panels.beat2, panels.beat3].forEach((src) => {
+        [panels.extent, panels.loss].forEach((src) => {
           if (src) { const im = new Image(); im.src = src; }
         });
       },
@@ -96,13 +98,11 @@ const AreaReveal = ({
       invalidateOnRefresh: true,
       onUpdate: (self) => {
         const p = self.progress;
-        const toB2 = ramp(p, holdFirst, toSecond);
-        const toB3 = ramp(p, holdSecond, toThird);
-        if (b2Ref.current) b2Ref.current.style.opacity = toB2;
-        if (b3Ref.current) b3Ref.current.style.opacity = toB3;
-        // the two ramps never overlap, so their sum is the bar's position in
-        // label units: 0 at the first label, 1 at the second, 2 at the third
-        if (indRef.current) indRef.current.setProgress(toB2 + toB3);
+        // one crossfade now: 2025 extent underneath, loss fading in over it
+        const toLossNow = ramp(p, holdExtent, toLoss);
+        if (lossRef.current) lossRef.current.style.opacity = toLossNow;
+        // label units: 0 at the first box, 1 at the second
+        if (indRef.current) indRef.current.setProgress(toLossNow);
         // recede as the next section climbs over this one
         const r = ramp(p, recedeFrom, 1);
         // Promote only while this is actually moving. Left on permanently it
@@ -121,43 +121,42 @@ const AreaReveal = ({
     return () => { st.kill(); preload.kill(); };
   }, [areaId, panels, timings, dwell]);
 
+  // First-level division and country. A sibling of the name rather than a
+  // child of it: the title is a column flex, so a sibling becomes its own row
+  // — which is exactly the third line this wants to be.
+  const place = [adm1, country].filter(Boolean).join(', ');
+
   return (
     <section className="area-section" ref={sectionRef}>
       <h3 className="area-section__title font-lora">
         {rank && <span className="area-section__rank">{rank}</span>}
         <span className="area-section__name">{t(title || '')}</span>
+        {place && <span className="area-section__place">({t(place)})</span>}
       </h3>
-      {/* The lede sits under the title on narrow screens and inside the text
-          column on wide ones. The two slots live in different containers, so
-          CSS order can't move a single node between them — both are rendered
-          and the breakpoint shows one. */}
-      {homeTo && (
-        <p className="area-section__hometo area-section__hometo--above">
-          {t('Home to')}: <b>{t(homeTo)}</b>
-        </p>
-      )}
 
       <div className="area-section__body">
         <div className="area-section__panel">
           <div className="area-reveal__frame">
-            <img className="area-reveal__img" src={panels.beat1} alt="" loading="eager" />
-            <img className="area-reveal__img" ref={b2Ref} src={panels.beat2} alt="" style={{ opacity: 0 }} />
-            <img className="area-reveal__img" ref={b3Ref} src={panels.beat3} alt="" style={{ opacity: 0 }} />
+            <img className="area-reveal__img" src={panels.extent} alt="" loading="eager" />
+            <img className="area-reveal__img" ref={lossRef} src={panels.loss} alt="" style={{ opacity: 0 }} />
             <ScaleBar {...scale} />
-            <LocatorGlobe center={locator} place={[adm1, country].filter(Boolean).join(', ')} />
+            <LocatorGlobe center={locator} />
           </div>
         </div>
 
         <div className="area-section__card">
-          <BeatIndicator ref={indRef} beats={panelLabels.beats || []} note={panelLabels.note} />
-          {homeTo && (
-            <p className="area-section__hometo area-section__hometo--card">
-              {t('Home to')}: <b>{t(homeTo)}</b>
-            </p>
-          )}
+          <BeatIndicator
+            ref={indRef}
+            beats={panelLabels.beats || []}
+            note={panelLabels.note}
+            idleColor={panelLabels.idleColor}
+          />
+          {/* A div, not a p: the copy is a lead sentence plus a list of
+              figures, and the parser would hoist those straight out of an
+              enclosing p. */}
           {description && (
-            <p className="area-section__text"
-               dangerouslySetInnerHTML={{ __html: t(description) }} />
+            <div className="area-section__text"
+                 dangerouslySetInnerHTML={{ __html: t(description) }} />
           )}
         </div>
       </div>

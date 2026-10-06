@@ -34,7 +34,7 @@ const Story = ({ title, subtitle, byline, theme, chapters, alignment, currentCha
           .filter((c) => c.areaId && c.id)
           .map((c) => ({ id: c.id, rank: c.rank, title: c.title,
                          menuName: c.menuName, country: c.country }))}
-        showAfter="chapter 03"
+        showAfter="chapter 04"
         hideAt="credits"
       />
 

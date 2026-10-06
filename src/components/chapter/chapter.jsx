@@ -93,6 +93,7 @@ function Chapter({
   sources,
   splitLines,
   card,
+  displayText,
   alignment,
   setCurrentChapter,
   setCurrentAction,
@@ -114,7 +115,8 @@ const StageComponent = isStage ? STAGES[stage] : null;
       // which would show the globe straight through the card
       : cx("step", card ? "step--card w-full" : "max-w-md opacity-50"),
     isStage && "step-stage",
-    stageProps?.tight && "step--tight"
+    stageProps?.tight && "step--tight",
+    displayText && "step--display"
   );
   const classList = id === currentChapterId ? `${stepClasses} active` : stepClasses;
   const renderImage = (img) => (
@@ -224,16 +226,25 @@ const StageComponent = isStage ? STAGES[stage] : null;
       extraHeight
     )}
   >
-    <div className={cx(card && "chapter-card__inner space-y-4")}>
+    <div className={cx(card && "chapter-card__inner space-y-4",
+                       displayText && "chapter-card__inner--display")}>
       {/* existing normal chapter rendering stays exactly as-is */}
       {images && images.filter((i) => i.position === "top").map((i) => renderImage(i))}
-      {title && (
+      {/* Chapters with no heading set title to a single space, because the copy
+          used to render only inside this block. Keyed off either now, so a
+          blank title no longer has to be faked — and no longer leaves an empty
+          h3 taking up its line-height and padding, which pushed the copy off
+          centre in the chapters that centre it. */}
+      {(title || description) && (
         <div className="text-base leading-6">
-          {title && <h3 className="font-lora text-2xl leading-8 pb-4">{t(title)}</h3>}
+          {title && title.trim() && <h3 className="font-lora text-2xl leading-8 pb-4">{t(title)}</h3>}
+          {/* A div, not a p: the intro copy is several paragraphs and the
+              parser would hoist a nested <p> straight out of an enclosing one,
+              breaking the block apart. */}
           {description && (
-            <p
+            <div
               ref={descriptionRef}
-              className={cx("text-base leading-6", splitLines && "split-lines")}
+              className={cx("chapter-copy text-base leading-6", splitLines && "split-lines")}
               dangerouslySetInnerHTML={{ __html: t(description) }}
             />
           )}

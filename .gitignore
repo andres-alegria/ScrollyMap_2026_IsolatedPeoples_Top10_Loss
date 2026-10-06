@@ -32,3 +32,6 @@ src/tailwind.output.css
 
 # macOS zip metadata
 __MACOSX/
+# Local-only backup of retired assets (the 2000 forest-extent panels).
+# Kept on disk so a revert is a file move, not a re-render.
+/_archive

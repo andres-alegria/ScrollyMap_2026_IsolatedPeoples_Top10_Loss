@@ -8,7 +8,8 @@
 
 body {
   margin: 0;
-  font-family: "Open Sans", "Helvetica Neue", sans-serif;
+  /* the one text face, defined with the other role tokens in app.scss */
+  font-family: var(--font-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

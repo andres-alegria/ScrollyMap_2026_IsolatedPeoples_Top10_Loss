@@ -55,7 +55,7 @@
   background: none;
   border: 0;
   border-bottom: 2px solid transparent;   // room for the current marker
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-text);
   color: #4a5654;                         // adjust idle colour
   cursor: pointer;
   white-space: nowrap;

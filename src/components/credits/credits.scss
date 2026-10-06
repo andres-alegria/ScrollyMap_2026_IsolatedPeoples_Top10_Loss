@@ -23,7 +23,7 @@
   border-radius: 5.5pt;                   // same corner as the panels
   background: transparent;
   color: #f7f4ee;
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-text);
   font-size: 13px;                        // adjust control text size
   letter-spacing: 0.04em;
   cursor: pointer;
@@ -45,7 +45,7 @@
 
 .credits__title {
   margin: 0 0 2rem;
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-text);
   font-size: 12px;                        // adjust heading size
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -72,21 +72,21 @@
 
 .credits__role {
   flex: 0 0 11rem;                        // adjust label column width
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-text);
   font-size: 13px;
   color: #92a3a0;
 }
 
 .credits__name {
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-text);
   font-size: 15px;
   color: #f7f4ee;
 }
 
 .credits__subtitle {
   margin: 0 0 0.75rem;
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-text);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -97,7 +97,7 @@
 // Continuous prose rather than one line per source.
 .credits__sources {
   margin: 0;
-  font-family: 'Open Sans', sans-serif;
+  font-family: var(--font-text);
   font-size: 13px;                        // adjust sources size
   line-height: 1.7;
   color: rgba(247, 244, 238, 0.78);       // adjust sources colour

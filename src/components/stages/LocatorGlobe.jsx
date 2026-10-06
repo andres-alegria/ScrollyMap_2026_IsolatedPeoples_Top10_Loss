@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { geoOrthographic, geoPath, geoCircle } from 'd3-geo';
 import './LocatorGlobe.css';
 
@@ -18,12 +17,16 @@ const loadLand = () => {
  * Small orthographic locator, bottom-right of each panel.
  *
  * The globe spins so the territory faces the viewer, and a red square marks it
- * — the Mongabay convention for a locator. Land geometry is pre-wound
- * clockwise for d3-geo: a counter-clockwise exterior ring is read as the
- * polygon containing the antipode and floods the whole hemisphere.
+ * — the Mongabay convention for a locator. The place name is not drawn here:
+ * it reads as a bracketed qualifier beside the territory name in the title.
+ *
+ * Land geometry is pre-wound clockwise for d3-geo: a counter-clockwise
+ * exterior ring is read as the polygon containing the antipode and floods the
+ * whole hemisphere.
  */
-const LocatorGlobe = ({ center, place, size = 80 }) => {   // adjust locator size here
-  const { t } = useTranslation();
+const MARKER = 12;                                        // adjust marker size here
+
+const LocatorGlobe = ({ center, size = 80 }) => {         // adjust locator size here
   const [land, setLand] = useState(null);
   useEffect(() => { let live = true; loadLand().then((d) => live && setLand(d)); return () => { live = false; }; }, []);
 
@@ -47,7 +50,6 @@ const LocatorGlobe = ({ center, place, size = 80 }) => {   // adjust locator siz
 
   return (
     <div className="locator">
-      {place && <span className="locator__place">{t(place)}</span>}
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} aria-hidden="true">
         {/* ocean */}
         <path d={spherePath} className="locator__ocean" />
@@ -56,10 +58,10 @@ const LocatorGlobe = ({ center, place, size = 80 }) => {   // adjust locator siz
         {markerXY && (
           <rect
             className="locator__marker"
-            x={markerXY[0] - 3}
-            y={markerXY[1] - 3}
-            width={6}
-            height={6}
+            x={markerXY[0] - MARKER / 2}
+            y={markerXY[1] - MARKER / 2}
+            width={MARKER}
+            height={MARKER}
           />
         )}
       </svg>

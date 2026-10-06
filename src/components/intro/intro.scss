@@ -11,6 +11,17 @@
   background-image: url('../../assets/paper-grain.jpg');
   background-size: 256px 256px;
   max-height: 100vh;
+
+  // The globe is fixed and no longer sits behind the page: on wide screens it
+  // stacks normally so Safari will composite its WebGL canvas (see
+  // .map-container in app.scss). Without a z-index here it would show through
+  // the intro.
+  //
+  // z-index only — no position. This element is already absolutely positioned
+  // (Tailwind's `absolute`, see intro-component.jsx) and so takes no space in
+  // flow. Giving it position:relative drops it back into flow and inserts its
+  // full height as blank page between the intro and chapter one.
+  z-index: 1;
 }
 
 .title {

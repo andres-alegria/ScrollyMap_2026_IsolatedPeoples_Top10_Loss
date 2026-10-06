@@ -6,53 +6,58 @@
   text-align: left;                    /* sections centre their text; opt out */
 }
 
-.beatind__heading {
-  font-family: 'Open Sans', sans-serif;
-  font-size: var(--fs-meta, 13px);
-  font-weight: 700;
-  line-height: 1.3;
-  color: #222222;                      /* adjust heading colour */
-  margin-bottom: 5px;
-}
+/* The two legend items on one line. space-between pushes them to the two ends
+   of the column, which is also how far the box has to travel.
 
+   Wrapping rather than a breakpoint: "Tree cover lost between 2015 and 2025"
+   is wide, and the column it sits in is narrowest just above the phone
+   breakpoint, not below it. flex-wrap drops the second item onto its own line
+   wherever the pair stops fitting, and the box follows without any special
+   case — it is positioned from each item's measured rect, so a wrapped item
+   simply means it travels down instead of across. */
 .beatind__track {
   position: relative;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  align-items: flex-end;
-  padding-bottom: 9px;                 /* room for the bar beneath the labels */
+  align-items: stretch;
+  gap: 0.35em 0.6em;                   /* adjust row / column gap */
 }
 
 .beatind__item {
-  font-family: 'Open Sans', sans-serif;
-  font-size: var(--fs-meta, 13px);
-  font-weight: 400;
-  line-height: 1.3;
-  color: #222222;                      /* adjust label colour */
+  position: relative;
+  z-index: 1;                          /* the words ride over the box */
+  font-family: var(--font-text);
+  font-size: var(--fs-legend, 13px);
+  font-weight: 600;                    /* adjust legend weight */
+  line-height: 1.25;
+  padding: 0.42em 0.7em;               /* adjust box padding (the box matches) */
   white-space: nowrap;
+  /* colour is written per frame by the component, mixing idle -> on-box */
 }
 
-.beatind__bar {
+/* The filled box behind whichever item the reader has reached. 1x1px, scaled
+   to the item's measured rect: writing width every frame forces a layout,
+   measured at ~0.26ms a frame against ~0.003ms for a transform. Square corners
+   because a border-radius would be stretched by the scale. */
+.beatind__box {
   position: absolute;
   left: 0;
-  bottom: 0;
-  /* 1px wide and scaled by transform: writing width every frame forces a
-     layout, measured at ~0.26ms a frame against ~0.003ms for a transform.
-     Square ends because a border-radius would be stretched by the scale. */
+  top: 0;
   width: 1px;
-  height: 3px;                         /* adjust bar weight */
-  transform-origin: left center;
-  transform: translateX(0) scaleX(0);
+  height: 1px;
+  transform-origin: left top;
+  transform: translate(0, 0) scale(0, 0);
   will-change: transform;
 }
 
-/* Why the extent panels and the loss panel do not agree pixel for pixel. */
+/* Why the extent panel and the loss panel do not agree pixel for pixel. */
 .beatind__note {
-  margin: 0.6rem 0 0;
-  font-family: 'Open Sans', sans-serif;
+  margin: 0.7rem 0 0;
+  font-family: var(--font-text);
   /* a touch under the labels, but never into unreadable territory —
-     --fs-meta drops to 11px on phones, which would leave this at 9px */
-  font-size: max(11px, calc(var(--fs-meta, 13px) - 2px));   /* adjust note size */
+     --fs-legend drops on phones, which would leave this too small */
+  font-size: max(11px, calc(var(--fs-legend, 13px) - 2px));  /* adjust note size */
   line-height: 1.45;
-  color: #6b7672;                                /* adjust note colour */
+  color: var(--ink-mute);                        /* adjust note colour */
 }
