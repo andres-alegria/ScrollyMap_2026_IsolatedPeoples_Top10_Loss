@@ -249,7 +249,7 @@ export default {
       globe: {
         center: [-62.0, -12.0], zoom: 1.05,
         start: 'top bottom', end: 'top 60%',
-        legend: 'Top 10 lands globally with highest detected tree cover loss',
+        legend: 'Top 10 lands globally with the largest share of forest lost',
         layers: { centroids: 0, 'centroids-label': 0, 'centroids top 10': 0.9,
                   'chapter-focus': 0 },
       },
@@ -258,7 +258,7 @@ export default {
       displayText: true,
       hidden: false,
       title: ' ',
-      description: "<p>Below are the <b>top 10 lands globally</b> with highest detected tree cover loss. This global ranking across biomes, with rates of detection accuracy, is approximate.</p>",
+      description: "<p>Below are the <b>top 10 lands globally</b> with the largest share of forest lost. This global ranking across biomes, with rates of detection accuracy, is approximate.</p>",
       onChapterEnter: [],
       onChapterExit: [],
     },
