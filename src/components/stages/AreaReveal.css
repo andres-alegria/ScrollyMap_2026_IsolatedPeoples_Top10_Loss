@@ -15,8 +15,13 @@
   --fs-legend: clamp(12px, 0.95vw, 14px);          /* legend boxes */
   --fs-furniture: clamp(12px, 0.93vw, 14px);       /* scale bar */
 
-  position: relative;
+  /* Held in place by the browser, not by JavaScript — see AreaReveal.jsx.
+     The height is exact rather than a minimum because the sticky travel is
+     measured from it: wrapper height minus this. */
+  position: sticky;
+  top: 0;
   width: 100%;
+  height: 100vh;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

@@ -12,6 +12,22 @@
   opacity: 0.95;
 }
 
+// ...but not on a ranked area, where that 0.95 is actively harmful.
+//
+// Any opacity below 1 makes the step a stacking context, which traps the
+// z-index of the .area-section inside it. The step the reader is entering is
+// the active one, so its section stops counting at page level exactly when the
+// one it is replacing — no longer active, back to opacity 1 — still does. The
+// departing panel therefore paints OVER the arriving one and ghosts through
+// it, half-faded and shrinking, while the new panel slides up underneath to
+// the very place the ghost is sitting. Read as one image, that is the hiccup:
+// the map appears to slip and recover at every hand-over, at any scroll speed,
+// going down. The dimming is meant for a text card over the globe; a
+// full-bleed section has nothing to dim against.
+.step.step-stage.active {
+  opacity: 1;
+}
+
 // Stage chapters (galleries, plain text/image) don't need the same tall
 // scroll runway as a map chapter — give them a shorter, tighter footprint.
 .step.step-stage {

@@ -24,17 +24,30 @@ const refreshWhenSettled = () => {
 };
 
 /**
- * One ranked area as a full-viewport section, following GSAP's
- * "pinned panels with overscroll" pattern.
+ * One ranked area as a full-viewport section, held in place by CSS sticky.
  *
- * The section pins with pinSpacing:false, so no pin-spacer is inserted and the
- * document keeps its natural flow — the next section simply scrolls up over
- * this one. That avoids the layout reflow a spacer causes each time a pin
- * engages or releases, which is what made the panels snap.
+ * The section used to be pinned by ScrollTrigger, which can only reposition it
+ * from JavaScript: the browser scrolls and paints on the compositor thread
+ * whether or not the main thread has caught up, so at every hand-over the
+ * section travelled a frame too far before being put back. That is the hiccup,
+ * and no amount of retiming removes it — the position has to stop being
+ * JavaScript's job.
  *
- * While pinned, scroll progress crossfades the 2025 extent over the loss
- * layer; in the last stretch the section scales back and fades as its
- * successor covers it.
+ * position:sticky is resolved by the browser itself, in the same frame as the
+ * scroll, so the section cannot lag. ScrollTrigger is left to do only what it
+ * is good at here: reading progress and driving the crossfade and the recede,
+ * neither of which is a position, so neither shows a frame of lag.
+ *
+ * The geometry that replaces the pin, per area, in screen-heights:
+ *
+ *   wrapper height   dwell + 2   (4.6)   how far the sticky element may travel
+ *   wrapper margin   -1          (-1.0)  lets the next area overlap this one
+ *   net advance      dwell + 1   (3.6)   scroll from one area's top to the next
+ *   sticky duration  dwell + 1   (3.6)   wrapper height - one screen
+ *
+ * The last two being equal is the whole trick: the section stays stuck for
+ * exactly as long as it takes the next one to climb over it, which is what the
+ * pin used to do by occupying no space at all.
  */
 const AreaReveal = ({
   areaId,
@@ -59,9 +72,9 @@ const AreaReveal = ({
     const section = sectionRef.current;
     if (!section || !panels.loss) return undefined;
 
-    // With pinSpacing:false the next section climbs over this one on its own,
-    // and it starts doing so at progress dwell / (dwell + 1) — nothing in the
-    // timeline below controls that. So the last beat has to be established
+    // The next section climbs over this one on its own, and it starts doing so
+    // at progress dwell / (dwell + 1) — nothing in the timeline below
+    // controls that. So the last beat has to be established
     // well before that point, or the next panel covers the loss layer while
     // the reader is still taking it in. At dwell 2.6 the hand-over begins at
     // about 0.72, which is what recedeFrom is matched to. The crossfade is
@@ -73,8 +86,16 @@ const AreaReveal = ({
       recedeFrom = 0.72,          // adjust: when the section starts giving way
     } = timings;
 
-    // Extra room so the next section does not arrive the moment this one pins.
-    section.style.marginBottom = `${dwell * 100}vh`;
+    // The runway, and the overlap that lets the next area climb over this one.
+    // Written here rather than in the stylesheet because both values derive
+    // from `dwell`, which is a prop. Left in vh so the browser re-resolves
+    // them on resize without a refresh.
+    const wrap = section.parentElement;             // the sticky containing block
+    if (wrap) {
+      wrap.style.height = `${(dwell + 2) * 100}vh`;
+      wrap.style.marginBottom = '-100vh';
+    }
+    section.style.marginBottom = '';
 
     // Anchor the recede's scale on the panel's own top edge.
     //
@@ -113,17 +134,13 @@ const AreaReveal = ({
 
     let promoted = false;
     const st = ScrollTrigger.create({
-      trigger: section,
+      // The wrapper, not the section: the section is sticky, so from the
+      // moment it sticks its own top stops moving and would report no further
+      // progress. The wrapper keeps scrolling the whole way.
+      trigger: wrap || section,
       start: 'top top',
       end: () => `+=${window.innerHeight * (dwell + 1)}`,
-      pin: true,
-      pinSpacing: false,          // the whole point: no spacer, no reflow
-      // No anticipatePin. It engages the pin a velocity-estimated distance
-      // BEFORE the start, which with transform pinning snapped the arriving
-      // section up by over a hundred pixels in a single frame — the hiccup
-      // that used to show at every hand-over. It only earns its keep with
-      // position:fixed pinning on browsers slow to paint the switch; here the
-      // element never leaves the flow, so there is nothing to anticipate.
+      // No pin. See the note at the top of this file.
       scrub: true,
       invalidateOnRefresh: true,
       onRefresh: anchorOrigin,
