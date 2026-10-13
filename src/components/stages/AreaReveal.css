@@ -172,6 +172,13 @@
     padding: 2.2vh 5vw;
   }
 
+  /* A phone has to fit the whole section in one screen, and the rank and the
+     place line were the first things to be cropped off the top. Both are
+     available elsewhere — the rank in the jump bar fixed above, the place in
+     the locator globe on the panel — so the title keeps only the name. */
+  .area-section__rank { display: none; }
+  .area-section__place { display: none; }
+
   /* stacked: frame, then the indicator and paragraph beneath it */
   .area-section__body { flex-direction: column; align-items: center; gap: 1.4vh; }
   .area-section__panel { width: min(90vw, 44vh); }

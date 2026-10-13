@@ -61,3 +61,11 @@
   line-height: 1.45;
   color: var(--ink-mute);                        /* adjust note colour */
 }
+
+/* The caveat is four lines on a phone and pushed the figures below it off the
+   screen. It stays on wider screens, where there is room for it. */
+@media (max-width: 820px) {
+  .beatind__note {
+    display: none;
+  }
+}
