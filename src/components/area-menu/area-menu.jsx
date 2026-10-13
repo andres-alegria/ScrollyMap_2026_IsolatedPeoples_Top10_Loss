@@ -93,7 +93,18 @@ const AreaMenu = ({ items = [], showAfter, hideAt }) => {
     window.scrollTo({ top: y, behavior: 'auto' });
     // Settle the triggers in the same frame as the jump rather than on the
     // next scroll event, so nothing is painted mid-handover.
+    //
+    // Three times, because Safari does not always report the new scroll
+    // position synchronously after a programmatic jump: the first update can
+    // read the position the reader came FROM, which leaves the sections it
+    // passed still pinned and painted over the one it landed on — the two
+    // overlapping maps. The repeats cost nothing (an update with no scroll
+    // change is a no-op) and catch the position whenever it does arrive.
     ScrollTrigger.update();
+    requestAnimationFrame(() => {
+      ScrollTrigger.update();
+      requestAnimationFrame(() => ScrollTrigger.update());
+    });
   };
 
   if (items.length === 0) return null;
