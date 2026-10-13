@@ -55,11 +55,32 @@ export const useGlobeSequence = ({ map, loaded, chapters, atmosphere, containerR
     // it the same fraction of the frame at every width — the configured zooms
     // then describe a proportion rather than a pixel size.
     const fit = { z: 0 };
+    // The camera the sequence last set. A frame that changes size needs it
+    // again — see measureFit.
+    const last = { from: null, to: null, t: 1 };
+    let lastW = 0;
     const measureFit = () => {
       const node = containerRef && containerRef.current;
       if (!node) return;
       const w = node.getBoundingClientRect().width;
-      if (w > 0) fit.z = Math.log2(w / FIT_BASE_W);
+      if (!w || Math.abs(w - lastW) < 0.5) return;
+      lastW = w;
+      fit.z = Math.log2(w / FIT_BASE_W);
+      // Tell the map its frame changed. mapbox-gl measures its container when
+      // it is created and after that only watches the WINDOW, so a frame that
+      // resizes on its own — which is exactly what the finale class does —
+      // keeps a canvas of the old size. The sphere is drawn into that canvas
+      // and whatever falls outside it is simply not drawn: the globe loses
+      // its left and right limb on the closing screen.
+      if (map && typeof map.resize === 'function') map.resize();
+      // Then set the camera again. The zoom carries fit.z, but it is only
+      // written from the scrubbed triggers, and they fire on scroll — so a
+      // frame that resized while the reader was still would hold the zoom the
+      // old frame asked for, which is a globe sized for a box it is no longer
+      // in. ScrollTrigger.update() is no help here: with the scroll position
+      // unchanged it has nothing to report. Replaying the last keyframe is
+      // exact and costs one jumpTo.
+      if (last.to) apply(last.from, last.to, last.t);
     };
     measureFit();
     // Observing the element rather than the window: the frame also changes
@@ -149,6 +170,9 @@ export const useGlobeSequence = ({ map, loaded, chapters, atmosphere, containerR
         }
       }
       applied.current = to.id;
+      last.from = from;
+      last.to = to;
+      last.t = t;
     };
 
     const triggers = keys.map((c, i) => {

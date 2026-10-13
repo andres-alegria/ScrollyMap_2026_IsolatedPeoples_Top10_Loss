@@ -107,8 +107,20 @@ a:visited {
     bottom: 0;
     left: 0;
     margin: auto;
-    width: clamp(440px, 62vh, 680px);  // adjust finale globe size
-    height: clamp(440px, 62vh, 680px);
+    // As large as the screen allows, rather than a fixed box.
+    //
+    // Width and height do different jobs here, so they are not the same
+    // number. The sphere is drawn at about 92% of the frame's WIDTH (see
+    // FIT_BASE_W in use-globe-sequence.js) and takes no notice of its height,
+    // so the width alone sets how big the globe is: 84vh of width puts it at
+    // roughly 77% of the viewport height, half as large again as the fixed
+    // box it replaces. Taking the viewport's shorter side means it cannot
+    // grow past an edge and lose its limb. The height is then the full
+    // viewport, which centres that sphere on the screen and leaves a clear
+    // band above it for the caption — which stays inside this box so that it
+    // still fades with the globe.
+    width: min(84vh, 84vw);            // adjust finale globe size
+    height: 100vh;
   }
 }
 
@@ -149,6 +161,16 @@ a:visited {
     top: 7%;                           // adjust bar height on the globe
     bottom: auto;
     font-size: 1.1875rem;              // adjust bar text size
+  }
+
+  // ...except on the finale globe, where the bar sits in the paper above the
+  // limb instead of across it. The bar's ground is the page's own paper, so
+  // wherever it crosses the sphere it takes a flat bite out of the top — on
+  // the side globe that reads as a label sitting on the world, but on the one
+  // the reader is given a whole screen for it reads as a globe with its top
+  // cut off. Clear of the limb, that globe is a complete circle.
+  .map-container--finale .globe-legend {
+    top: 3%;                           // adjust finale caption height
   }
 }
 .map-container canvas {
