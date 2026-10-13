@@ -2,11 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { useTranslation } from 'react-i18next';
 import './area-menu.scss';
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+gsap.registerPlugin(ScrollTrigger);
 
 /**
  * Jump bar for the ranked areas — all ten visible at once, #10 left to #1
@@ -81,24 +80,20 @@ const AreaMenu = ({ items = [], showAfter, hideAt }) => {
   const goTo = (id) => {
     const el = document.getElementById(id);
     if (!el) return;
-    // Duration scaled by distance: adjacent areas are a second away, but #10 to
-    // #1 is tens of thousands of pixels and a fixed duration would whip the
-    // whole countdown past. Capped so the longest jump stays bearable.
-    const dist = Math.abs(el.getBoundingClientRect().top);
-    const duration = Math.min(1.2, Math.max(0.45, dist / 9000));
-    gsap.to(window, {
-      duration,
-      ease: 'power2.inOut',
-      overwrite: true,                       // a second tap replaces the first
-      // autoKill:false is load-bearing on touch devices. autoKill cancels the
-      // tween as soon as it sees scrolling it did not cause — and on a real
-      // touchscreen a tap almost always carries a pixel or two of finger
-      // drift, plus iOS momentum and rubber-banding. That killed the tween on
-      // its first frame: the page twitched and went nowhere. It never showed
-      // up in a desktop responsive simulator, which sends mouse events with no
-      // drift at all.
-      scrollTo: { y: el, autoKill: false },  // element, not selector: ids contain spaces
-    });
+    // Jump, do not travel. A tweened scroll runs the whole countdown in
+    // between: every section it passes plays its crossfade and its recede at
+    // warp speed, and the last stretch of the ease is slow enough that the
+    // reader arrives looking at two panels superimposed — the outgoing one
+    // still scaled back at half opacity under the incoming one. Landing in one
+    // frame skips all of that; the sections passed over are taken straight to
+    // their end state, which is the same state they would hold if the reader
+    // had scrolled there.
+    gsap.killTweensOf(window);            // in case an older tween is still live
+    const y = el.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: y, behavior: 'auto' });
+    // Settle the triggers in the same frame as the jump rather than on the
+    // next scroll event, so nothing is painted mid-handover.
+    ScrollTrigger.update();
   };
 
   if (items.length === 0) return null;

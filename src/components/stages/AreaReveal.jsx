@@ -93,7 +93,12 @@ const AreaReveal = ({
       end: () => `+=${window.innerHeight * (dwell + 1)}`,
       pin: true,
       pinSpacing: false,          // the whole point: no spacer, no reflow
-      anticipatePin: 1,
+      // No anticipatePin. It engages the pin a velocity-estimated distance
+      // BEFORE the start, which with transform pinning snapped the arriving
+      // section up by over a hundred pixels in a single frame — the hiccup
+      // that used to show at every hand-over. It only earns its keep with
+      // position:fixed pinning on browsers slow to paint the switch; here the
+      // element never leaves the flow, so there is nothing to anticipate.
       scrub: true,
       invalidateOnRefresh: true,
       onUpdate: (self) => {
