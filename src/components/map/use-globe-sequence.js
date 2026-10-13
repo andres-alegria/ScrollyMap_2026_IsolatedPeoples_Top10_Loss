@@ -6,6 +6,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 const lerp = (a, b, t) => a + (b - a) * t;
 
+// Width the configured zooms are written for — the narrowest the two-column
+// globe frame gets, at the breakpoint where the layout splits.
+const FIT_BASE_W = 440;                  // adjust: frame width the zooms assume
+
 // How far to turn, in degrees of longitude.
 //   'short' (default) takes the shorter arc
 //   'west'  forces a negative delta (spin westward, across the Pacific)
@@ -44,6 +48,21 @@ export const useGlobeSequence = ({ map, loaded, chapters, atmosphere, containerR
 
   useEffect(() => {
     if (!loaded || !map) return undefined;
+
+    // The sphere's size on screen follows 2^zoom and takes no account of the
+    // element it is drawn in, so one fixed zoom leaves a wide frame mostly
+    // empty and overflows a narrow one. Adding log2(width / FIT_BASE_W) keeps
+    // it the same fraction of the frame at every width — the configured zooms
+    // then describe a proportion rather than a pixel size.
+    const fit = { z: 0 };
+    const measureFit = () => {
+      const node = containerRef && containerRef.current;
+      if (!node) return;
+      const w = node.getBoundingClientRect().width;
+      if (w > 0) fit.z = Math.log2(w / FIT_BASE_W);
+    };
+    measureFit();
+    window.addEventListener('resize', measureFit);
 
     // Replace Mapbox's black starfield with the paper tone, so the globe sits
     // on the same ground as the rest of the page.
@@ -99,7 +118,7 @@ export const useGlobeSequence = ({ map, loaded, chapters, atmosphere, containerR
       const [tlon, tlat] = to.center;
       const lon = flon + spinDelta(flon, tlon, to.spin) * t;
       const lat = lerp(flat, tlat, t);
-      const zoom = lerp(from.zoom ?? 2, to.zoom ?? 2, t);
+      const zoom = lerp(from.zoom ?? 2, to.zoom ?? 2, t) + fit.z;
       const pitch = lerp(from.pitch ?? 0, to.pitch ?? 0, t);
       // bearing wraps like longitude, so take the shorter way round rather
       // than spinning the long way through 0
@@ -150,6 +169,7 @@ export const useGlobeSequence = ({ map, loaded, chapters, atmosphere, containerR
 
     return () => {
       triggers.forEach((t) => t.kill());
+      window.removeEventListener('resize', measureFit);
       if (applyFog) map.off('style.load', applyFog);
     };
   }, [map, loaded, chapters, atmosphere, legendRef]);

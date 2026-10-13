@@ -110,6 +110,19 @@ const AreaMenu = ({ items = [], showAfter, hideAt }) => {
       aria-label={t('Jump to a territory')}
       aria-hidden={!visible}
     >
+      {/* Jumping rather than smooth-scrolling, for the same reason the credits
+          button does: this is tens of thousands of pixels, and every scrubbed
+          animation in the piece would be whipped through on the way past. */}
+      <button
+        type="button"
+        className="area-menu__back"
+        onClick={() => window.scrollTo({ top: 0, behavior: 'auto' })}
+        tabIndex={visible ? 0 : -1}
+        title={t('Back to the start')}
+      >
+        {t('Back to the start')}
+      </button>
+
       <ul className="area-menu__list">
         {items.map((it) => (
           <li key={it.id}>

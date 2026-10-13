@@ -80,8 +80,11 @@ a:visited {
     right: 3vw;
     left: auto;
     margin: auto 0;
-    width: min(40vw, 520px);           // adjust globe size
-    height: min(40vw, 520px);
+    // Floored as well as capped: the sphere is sized as a fraction of this
+    // frame (see FIT_BASE_W in use-globe-sequence.js), so letting the frame
+    // collapse at the narrow end of the breakpoint shrinks the globe with it.
+    width: clamp(440px, 44vw, 600px);  // adjust globe size
+    height: clamp(440px, 44vw, 600px);
     // The backdrop had to sit behind the copy; this does not — it is beside
     // it. Leaving it at -5 puts a GL canvas below the root background, which
     // is the other half of the Safari problem above. Nothing overlaps it on
@@ -106,13 +109,13 @@ a:visited {
   z-index: 1;                          // over the map canvas, which follows it
   left: 0;
   right: 0;
-  bottom: 30%;                         // adjust caption height on narrow screens
+  top: 0;                              // adjust caption height on narrow screens
   padding: 0.5rem 1rem;                // adjust bar depth
   background: #f7f4ee;                 // adjust bar tone
   color: var(--ink);                   // adjust bar text colour
   text-align: center;
   font-family: var(--font-text);
-  font-size: 0.9375rem;                // adjust bar text size
+  font-size: 1.0625rem;                // adjust bar text size
   font-weight: 600;
   line-height: 1.3;
   pointer-events: none;
@@ -120,10 +123,13 @@ a:visited {
 
 @media (min-width: 1000px) {
   .globe-legend {
-    // the box is the globe's own square here, so this is simply 16% up from
-    // its lower edge
-    bottom: 16%;                       // adjust bar height on the globe
-    font-size: 1rem;
+    // Across the upper part of the sphere. bottom has to be reset to auto:
+    // the base rule above sets top for narrow screens, and with both set the
+    // bar stretches the height of the frame and its paper ground hides the
+    // globe behind it.
+    top: 7%;                           // adjust bar height on the globe
+    bottom: auto;
+    font-size: 1.1875rem;              // adjust bar text size
   }
 }
 .map-container canvas {

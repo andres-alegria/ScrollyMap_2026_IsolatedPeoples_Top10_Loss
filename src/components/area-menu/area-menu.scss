@@ -8,6 +8,10 @@
   z-index: 50;
   background-color: #f7f4ee;              // adjust bar ground
   border-bottom: 1px solid rgba(24, 24, 24, 0.12);
+  // the restart control sits at the head of the row, the ten areas fill the
+  // rest — the list keeps centring itself inside whatever is left
+  display: flex;
+  align-items: stretch;
   transform: translateY(-100%);
   opacity: 0;
   visibility: hidden;
@@ -22,7 +26,34 @@
   pointer-events: auto;
 }
 
+// Restart control. Boxed so it reads as a control rather than an eleventh
+// area, and kept off the list's own hover/current treatment.
+.area-menu__back {
+  flex: 0 0 auto;
+  align-self: center;
+  margin: 0 0.9rem 0 0.9rem;              // adjust control inset
+  padding: 0.3rem 0.65rem;                // adjust control padding
+  background: none;
+  border: 1px solid rgba(24, 24, 24, 0.22);   // adjust control border
+  border-radius: 3px;                     // adjust control corner
+  font-family: var(--font-text);
+  font-size: 0.72rem;                     // adjust control text size
+  line-height: 1.2;
+  white-space: nowrap;
+  color: #4a5654;                         // adjust control colour
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.area-menu__back:hover,
+.area-menu__back:focus-visible {
+  color: var(--ink);
+  border-color: rgba(24, 24, 24, 0.5);
+}
+
 .area-menu__list {
+  flex: 1 1 auto;
+  min-width: 0;
   display: flex;
   align-items: stretch;
   justify-content: center;
