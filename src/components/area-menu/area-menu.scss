@@ -1,7 +1,14 @@
 // Fixed jump bar across the top, above the pinned sections (which are
 // position:fixed while pinned) and below nothing else that matters.
+// --area-menu-h is what the ranked sections below indent themselves by, so
+// the two cannot drift apart: change the bar's height here and they follow.
+:root {
+  --area-menu-h: 47px;                    // adjust bar height
+}
+
 .area-menu {
   position: fixed;
+  min-height: var(--area-menu-h);
   top: 0;
   left: 0;
   width: 100%;

@@ -169,7 +169,14 @@
     --fs-legend: 11px;
     --fs-furniture: 11px;
     gap: 1vh;
-    padding: 2.2vh 5vw;
+    /* Top-aligned below the jump bar rather than centred in the screen. The
+       bar is fixed over these sections, and on a short phone the centred
+       block started above its lower edge — the area's name went under it.
+       Padding rather than a margin on the title: padding moves the whole
+       content box down, where a margin on a centred child only moves it half
+       as far. */
+    justify-content: flex-start;
+    padding: calc(2.2vh + var(--area-menu-h, 47px)) 5vw 2.2vh;
   }
 
   /* A phone has to fit the whole section in one screen, and the rank and the
@@ -189,5 +196,32 @@
     width: min(90vw, 44vh);
     max-width: none;
     gap: 1.4vh;
+  }
+}
+
+/* Short phones. Indenting the section below the jump bar costs ~47px of
+   height, which a 667px screen does not have spare — the figures went off the
+   bottom. The panel gives it back. Scoped by height so taller phones, where
+   the panel is already limited by width rather than height, are untouched. */
+@media (max-width: 820px) and (max-height: 740px) {
+  /* Panel and card are the same width on taller phones so their edges line
+     up. Here they come apart on purpose: shrinking both is self-defeating,
+     because a narrower card wraps the paragraph and the legend onto more
+     lines and gives back more height than the smaller panel saved. The panel
+     shrinks; the text keeps the full width. */
+  .area-section__panel {
+    width: min(90vw, 37vh);               /* adjust panel size on short phones */
+  }
+
+  .area-section__card {
+    width: 90vw;
+  }
+
+  .area-section {
+    gap: 0.6vh;
+  }
+
+  .area-section__title {
+    margin-bottom: clamp(6px, 1.2vh, 14px);
   }
 }
