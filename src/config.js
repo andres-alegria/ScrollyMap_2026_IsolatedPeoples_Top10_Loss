@@ -135,7 +135,7 @@ export default {
     sourcesTitle: 'Sources',
     sources:
       'Territory boundaries were compiled and verified with AIDESEP, AMAN, CEJIS, CONAIE, '
-      + 'FUNAI, GTI-PIACI, Iniciativa Amotocodie, ISA, OPI, OPIAC, ORPIO and Pueblos Vivos. '
+      + 'FUNAI, GTI PIACI, Iniciativa Amotocodie, ISA, OPI, OPIAC, ORPIO and Pueblos Vivos. '
       + 'Forest cover and loss are from the Global Forest Change dataset v1.13 '
       + '(Hansen et al., University of Maryland), covering 2000 to 2025 and accessed through '
       + 'Google Earth Engine and Global Nature Watch.',
@@ -173,7 +173,7 @@ export default {
       card: true,
       hidden: false,
       title: ' ',
-      description: "<p>The canopy of the Amazon rainforest runs thick in some patches. In others, the forest is shaved down to the root in bright green rectangular chunks, the occasional nude trees left standing.</p><p>Activists say families of voluntarily isolated, or “uncontacted”, Igarapé Ipiaçava people walk these lands in the Ituna/Itatá Indigenous Territory, Brazil, dependent on the forests and rich biodiverse world underneath its canopy for survival — food, shelter and medicine. This area was once one of the most deforested Indigenous lands in Brazil.</p><p>“It is a place where we find, time and again, people who do not belong to the territory, leading to illegal logging and land grabbing,” Auzerina Duarte Macuxi, with the Coordination of the Indigenous Organizations of the Brazilian Amazon (COIAB), told Mongabay. “They effectively displace the Indigenous communities.”</p><p>The Ituna/Itatá Indigenous Territory is one of many Indigenous lands, tribal reserves and protected areas around the world designed — either through recognition by states or NGOs — to protect voluntary isolated peoples. Estimates point to around <b>200 groups</b> of people living in voluntary isolation and initial contact, stretching from Brazil to India; some living in defined lands, while others do not.</p><p>Mongabay mapped the Indigenous territories, tribal reserves and protected areas around the world with the confirmed presence of peoples living in voluntary isolation and analyzed forest cover loss in the decade from 2015 to 2025.</p><p>Based on these figures, we ranked:</p><ul class='chapter-list'><li>the lands in humid tropical forests with the most tree cover loss</li><li>the lands per country which saw the most tree cover loss</li></ul>",
+      description: "<p>The canopy of the Amazon rainforest runs thick in some patches. In others, the forest is shaved down to the root in bright green rectangular chunks, the occasional nude trees left standing.</p><p>Activists say families of voluntarily isolated, or “uncontacted,” Igarapé Ipiaçava people walk these lands in the Ituna/Itatá Indigenous Territory, Brazil, dependent on the forests and rich biodiverse world underneath its canopy for survival — food, shelter and medicine. This area was once one of the most deforested Indigenous lands in Brazil.</p><p>“It is a place where we find, time and again, people who do not belong to the territory, leading to illegal logging and land grabbing,” Auzerina Duarte Macuxi, with the Coordination of the Indigenous Organizations of the Brazilian Amazon (COIAB), told Mongabay. “They effectively displace the Indigenous communities.”</p><p>The Ituna/Itatá Indigenous Territory is one of many Indigenous lands, tribal reserves and protected areas around the world designed — either through recognition by states or NGOs — to protect voluntarily isolated peoples. Estimates point to around <b>200 groups</b> of people living in voluntary isolation and initial contact, stretching from Brazil to India; some living in defined lands, while others do not.</p><p>Mongabay mapped the Indigenous territories, tribal reserves and protected areas around the world with the confirmed presence of peoples living in voluntary isolation and analyzed forest cover loss in the decade from 2015 to 2025.</p><p>Based on these figures, we ranked:</p><ul class='chapter-list'><li>the lands in humid tropical forests with the most tree cover loss</li><li>the lands per country that saw the most tree cover loss</li></ul>",
       location: { center: [-52.0, -4.0], zoom: 1.2, pitch: 0, bearing: 0 },
       mapAnimation: 'easeTo',
       onChapterEnter: [],
@@ -224,7 +224,7 @@ export default {
       card: true,
       hidden: false,
       title: ' ',
-      description: "<p>According to the findings, all 65 lands lost a total of nearly <b>2 million hectares</b> (4.94 million acres) of tree cover between 2015 and 2025 — similar in size to El Salvador. Of this, more than 568,150 hectares (1.4 million acres) was primary forest loss.</p><p>The Gran Chaco in Bolivia and Paraguay was hit particularly hard, accounting for more than 1.38 million hectares (3.42 million acres) of the 2-million hectare loss in the 10-year period. Various clans of uncontacted Ayoreo people, who live on these lands, are impacted.</p><p>“The agriculture frontier is expanding in these territories, causing forest loss and wildfires by setting fires to clear forest land for new pasture or cattle,” said Oscar Alquizalet, director of the NGO Pueblos Vivos in Bolivia.</p><p>Lands in tropical moist broadleaf forests lost more than 465,300 hectares (1,149,780 acres) of tree cover, 394,000 hectares (973,595 acres), or 84%, of which was primary forest.</p><p>Tree cover loss does not necessarily mean deforestation. It can be due to multiple factors, explained Global Nature Watch, including “mechanical harvesting, fire, disease, or storm damage.”</p><p>When looking at the top three drivers of forest loss, the most recurrent were natural disturbances (non-fire events like landslides), permanent agriculture and shifting cultivation.</p>",
+      description: "<p>According to the findings, all 65 lands lost a total of nearly <b>2 million hectares</b> (4.94 million acres) of tree cover between 2015 and 2025 — similar in size to El Salvador. Of this, more than 568,150 hectares (1.4 million acres) was primary forest loss.</p><p>The Gran Chaco in Bolivia and Paraguay was hit particularly hard, accounting for more than 1.38 million hectares (3.42 million acres) of the 2-million-hectare loss in the 10-year period. Various clans of uncontacted Ayoreo people, who live on these lands, are impacted.</p><p>“The agriculture frontier is expanding in these territories, causing forest loss and wildfires by setting fires to clear forest land for new pasture or cattle,” said Oscar Alquizalet, director of the NGO Pueblos Vivos in Bolivia.</p><p>Lands in tropical moist broadleaf forests lost more than 465,300 hectares (1,149,780 acres) of tree cover, 394,000 hectares (973,595 acres), or 84%, of which was primary forest.</p><p>Tree cover loss does not necessarily mean deforestation. It can be due to multiple factors, explained Global Nature Watch, including “mechanical harvesting, fire, disease, or storm damage.”</p><p>When looking at the top three drivers of forest loss, the most recurrent were natural disturbances (non-fire events like landslides), permanent agriculture and shifting cultivation.</p>",
       location: { center: [-60.0, -14.0], zoom: 1.2, pitch: 0, bearing: 0 },
       mapAnimation: 'flyTo',
       rotateAnimation: false,
@@ -249,7 +249,7 @@ export default {
       card: true,
       hidden: false,
       title: ' ',
-      description: "<p>Wildfires, a growing threat to forests worldwide, was a driver of nearly <b>995,650 hectares</b> (2.46 million acres) of loss across all lands. In a few incidents in the Amazon, such as in the Uru-Eu-Wau-Wau Indigenous Territory, loss due to wildfires increased significantly over the last two years.</p><p>“Advancing fire kills the [isolated] peoples’ food supply, burns their huts and puts them in fear of being burned alive,” Ivaneide “Neidinha” Bandeira Cardozo, an inhabitant of Uru-Eu-Wau-Wau and coordinator of the Kanindé Ethno-environmental Defense Association, told Mongabay.</p><p>“Besides, they certainly suffer from respiratory diseases that can lead to death. It also signifies the advance of land grabbing, and thus the loss of Indigenous territory.”</p>",
+      description: "<p>Wildfires, a growing threat to forests worldwide, were a driver of nearly <b>995,650 hectares</b> (2.46 million acres) of loss across all lands. In a few incidents in the Amazon, such as in the Uru-Eu-Wau-Wau Indigenous Territory, loss due to wildfires increased significantly over the last two years.</p><p>“Advancing fire kills the [isolated] peoples’ food supply, burns their huts and puts them in fear of being burned alive,” Ivaneide “Neidinha” Bandeira Cardozo, an inhabitant of Uru-Eu-Wau-Wau and coordinator of the Kanindé Ethno-environmental Defense Association, told Mongabay.</p><p>“Besides, they certainly suffer from respiratory diseases that can lead to death. It also signifies the advance of land grabbing, and thus the loss of Indigenous territory.”</p>",
       location: { center: [-62.5, -9.0], zoom: 1.28, pitch: 0, bearing: 0 },
       mapAnimation: 'flyTo',
       rotateAnimation: false,
@@ -329,7 +329,7 @@ export default {
       title: 'Pirititi Indigenous Territory',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Pirititi',
-      description: "<p>Home to the Pirititi, this 43,404 ha territory in Brazil lost <b>1.2%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Logging, Other natural disturbances, Permanent agriculture</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> Not recorded</li></ul>",
+      description: "<p>Home to the Pirititi, this 43,404-hectare (107,254-acre) territory in Brazil lost <b>1.2%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top three drivers of forest loss:</span> Logging, other natural disturbances and permanent agriculture</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> Not recorded</li></ul>",
     },
 
     // Top 9
@@ -354,7 +354,7 @@ export default {
       title: 'Piripkura Indigenous Territory',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Piripkura',
-      description: "<p>Home to the Piripkura, this 242,500 ha territory in Brazil lost <b>1.4%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Permanent agriculture, Shifting cultivation, Logging</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 76 hectares (2.3% of all loss)</li></ul>",
+      description: "<p>Home to the Piripkura, this 242,500-hectare (599,231-acre) territory in Brazil lost <b>1.4%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top three drivers of forest loss:</span> Permanent agriculture, shifting cultivation and logging</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 76 hectares (2.3% of all loss)</li></ul>",
     },
 
     // Top 8
@@ -379,7 +379,7 @@ export default {
       title: 'Yabarana Traditional Territory',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Yabarana',
-      description: "<p>Home to the Jotï, this 95,052 ha territory in Venezuela lost <b>1.7%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Other natural disturbances, Wildfire, Shifting cultivation</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 242 hectares (27.5% of all loss)</li></ul>",
+      description: "<p>Home to the Jotï, this 95,052-hectare (234,879-acre) territory in Venezuela lost <b>1.7%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top three drivers of forest loss:</span> Other natural disturbances, wildfire and shifting cultivation</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 242 hectares (27.5% of all loss)</li></ul>",
     },
 
     // Top 7
@@ -404,7 +404,7 @@ export default {
       title: 'Massaco Indigenous Territory',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Massaco',
-      description: "<p>Home to the isolated Massaco, this 421,895 ha territory in Brazil lost <b>2.6%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Other natural disturbances, Permanent agriculture</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 8,739 hectares (89.4% of all loss)</li></ul>",
+      description: "<p>Home to the isolated Massaco, this 421,895-hectare (1,042,525-acre) territory in Brazil lost <b>2.6%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top three drivers of forest loss:</span> Wildfire, other natural disturbances and permanent agriculture</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 8,739 hectares (89.4% of all loss)</li></ul>",
     },
 
     // Top 6
@@ -429,7 +429,7 @@ export default {
       title: 'Caru Indigenous Territory',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Caru',
-      description: "<p>Home to the isolated groups of the Presídio and Juruti igarapés, this 172,667 ha territory in Brazil lost <b>2.7%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Other natural disturbances, Wildfire, Permanent agriculture</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 1,108 hectares (24.1% of all loss)</li></ul>",
+      description: "<p>Home to the isolated groups of the Presídio and Juruti igarapés, this 172,667-hectare (426,669-acre) territory in Brazil lost <b>2.7%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top three drivers of forest loss:</span> Other natural disturbances, wildfire and permanent agriculture</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 1,108 hectares (24.1% of all loss)</li></ul>",
     },
 
     // Top 5
@@ -454,7 +454,7 @@ export default {
       title: 'Uwottüja Traditional Territory',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Uwottüja',
-      description: "<p>Home to the isolated Uwottüja, this 2,285,494 ha territory in Venezuela lost <b>2.8%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Permanent agriculture, Other natural disturbances</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 12,881 hectares (28.4% of all loss)</li></ul>",
+      description: "<p>Home to the isolated Uwottüja, this 2,285,494-hectare (5,647,579-acre) territory in Venezuela lost <b>2.8%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top three drivers of forest loss:</span> Wildfire, permanent agriculture and other natural disturbances</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 12,881 hectares (28.4% of all loss)</li></ul>",
     },
 
     // Top 4
@@ -479,7 +479,7 @@ export default {
       title: 'Yuqui (Community Land of Origin)',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Yuqui',
-      description: "<p>Home to the Yuqui, this 115,924 ha territory in Bolivia lost <b>3.5%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Other natural disturbances, Permanent agriculture</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 1,526 hectares (38.4% of all loss)</li></ul>",
+      description: "<p>Home to the Yuqui, this 115,924-hectare (286,454-acre) territory in Bolivia lost <b>3.5%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top three drivers of forest loss:</span> Wildfire, other natural disturbances and permanent agriculture</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 1,526 hectares (38.4% of all loss)</li></ul>",
     },
 
     // Top 3
@@ -504,7 +504,7 @@ export default {
       title: 'Uru-Eu-Wau-Wau Indigenous Territory',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Uru-Eu-Wau-Wau',
-      description: "<p>Home to four isolated groups, this 1,867,120 ha territory in Brazil lost <b>4.1%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Permanent agriculture, Other natural disturbances</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 64,747 hectares (87.1% of all loss)</li></ul>",
+      description: "<p>Home to four isolated groups, this 1,867,120-hectare (4,613,754-acre) territory in Brazil lost <b>4.1%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top three drivers of forest loss:</span> Wildfire, permanent agriculture and other natural disturbances</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 64,747 hectares (87.1% of all loss)</li></ul>",
     },
 
     // Top 2
@@ -529,7 +529,7 @@ export default {
       title: 'North and South Kakataibo Indigenous Reserve',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Kakataibo',
-      description: "<p>Home to the Kakataibo, this 148,996 ha territory in Peru lost <b>5.1%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Permanent agriculture, Other natural disturbances, Logging</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> Not recorded</li></ul>",
+      description: "<p>Home to the Kakataibo, this 148,996-hectare (368,177-acre) territory in Peru lost <b>5.1%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top three drivers of forest loss:</span> Permanent agriculture, other natural disturbances and logging</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> Not recorded</li></ul>",
     },
 
     // Top 1
@@ -554,7 +554,7 @@ export default {
       title: 'Araribóia Indigenous Territory',
       // shown in the jump bar, where the full name will not fit
       menuName: 'Araribóia',
-      description: "<p>Home to the isolated Awá, this 413,288 ha territory in Brazil lost <b>14.2%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top 3 drivers of forest loss:</span> Wildfire, Permanent agriculture, Other natural disturbances</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 41,478 hectares (72.0% of all loss)</li></ul>",
+      description: "<p>Home to the isolated Awá, this 413,288-hectare (1,021,257-acre) territory in Brazil lost <b>14.2%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top three drivers of forest loss:</span> Wildfire, permanent agriculture and other natural disturbances</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 41,478 hectares (72% of all loss)</li></ul>",
     },
   ],
 };
