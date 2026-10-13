@@ -91,6 +91,27 @@
   margin-bottom: 0;
 }
 
+// The two strands of the analysis, set as a list rather than run together in
+// a sentence. Sits tight under its lead-in line, which already carries the
+// paragraph's own bottom margin.
+.chapter-copy .chapter-list {
+  margin: -0.5em 0 1.15em;                // adjust list spacing
+  padding-left: 1.35em;                   // adjust bullet indent
+  list-style: disc;
+}
+
+.chapter-copy .chapter-list li {
+  margin-bottom: 0.3em;
+}
+
+.chapter-copy .chapter-list li::marker {
+  color: var(--ink-mute);                 // adjust bullet colour
+}
+
+.chapter-copy .chapter-list li:last-child {
+  margin-bottom: 0;
+}
+
 // Wide screens: the copy gives up the full-bleed band and takes the left
 // column, because the globe is now sitting in the right one. The band would
 // cover it edge to edge.
