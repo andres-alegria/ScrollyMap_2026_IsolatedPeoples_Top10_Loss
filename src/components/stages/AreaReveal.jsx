@@ -32,8 +32,8 @@ const refreshWhenSettled = () => {
  * this one. That avoids the layout reflow a spacer causes each time a pin
  * engages or releases, which is what made the panels snap.
  *
- * While pinned, scroll progress crossfades the loss layer over the 2025
- * extent; in the last stretch the section scales back and fades as its
+ * While pinned, scroll progress crossfades the 2025 extent over the loss
+ * layer; in the last stretch the section scales back and fades as its
  * successor covers it.
  */
 const AreaReveal = ({
@@ -51,12 +51,12 @@ const AreaReveal = ({
   const { t } = useTranslation();
   const { rank, title, description } = chapter;
   const sectionRef = useRef(null);
-  const lossRef = useRef(null);
+  const extentRef = useRef(null);
   const indRef = useRef(null);
 
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section || !panels.extent) return undefined;
+    if (!section || !panels.loss) return undefined;
 
     // With pinSpacing:false the next section climbs over this one on its own,
     // and it starts doing so at progress dwell / (dwell + 1) — nothing in the
@@ -67,8 +67,8 @@ const AreaReveal = ({
     // finished by 0.46, leaving the loss layer a quarter of the section to be
     // read before anything starts moving.
     const {
-      holdExtent = 0.14,          // adjust: how long 2025 extent holds alone
-      toLoss = 0.46,              // adjust: when the loss layer is fully in
+      holdLoss = 0.14,            // adjust: how long the loss layer holds alone
+      toExtent = 0.46,            // adjust: when the extent layer is fully in
       recedeFrom = 0.72,          // adjust: when the section starts giving way
     } = timings;
 
@@ -80,7 +80,7 @@ const AreaReveal = ({
       start: 'top bottom+=120%',
       once: true,
       onEnter: () => {
-        [panels.extent, panels.loss].forEach((src) => {
+        [panels.loss, panels.extent].forEach((src) => {
           if (src) { const im = new Image(); im.src = src; }
         });
       },
@@ -98,11 +98,13 @@ const AreaReveal = ({
       invalidateOnRefresh: true,
       onUpdate: (self) => {
         const p = self.progress;
-        // one crossfade now: 2025 extent underneath, loss fading in over it
-        const toLossNow = ramp(p, holdExtent, toLoss);
-        if (lossRef.current) lossRef.current.style.opacity = toLossNow;
+        // One crossfade: the loss layer underneath, the 2025 extent growing
+        // over it. Loss first on purpose — the reader sees what was taken
+        // before seeing what is left, rather than the other way round.
+        const toExtentNow = ramp(p, holdLoss, toExtent);
+        if (extentRef.current) extentRef.current.style.opacity = toExtentNow;
         // label units: 0 at the first box, 1 at the second
-        if (indRef.current) indRef.current.setProgress(toLossNow);
+        if (indRef.current) indRef.current.setProgress(toExtentNow);
         // recede as the next section climbs over this one
         const r = ramp(p, recedeFrom, 1);
         // Promote only while this is actually moving. Left on permanently it
@@ -137,8 +139,8 @@ const AreaReveal = ({
       <div className="area-section__body">
         <div className="area-section__panel">
           <div className="area-reveal__frame">
-            <img className="area-reveal__img" src={panels.extent} alt="" loading="eager" />
-            <img className="area-reveal__img" ref={lossRef} src={panels.loss} alt="" style={{ opacity: 0 }} />
+            <img className="area-reveal__img" src={panels.loss} alt="" loading="eager" />
+            <img className="area-reveal__img" ref={extentRef} src={panels.extent} alt="" style={{ opacity: 0 }} />
             <ScaleBar {...scale} />
             <LocatorGlobe center={locator} />
           </div>

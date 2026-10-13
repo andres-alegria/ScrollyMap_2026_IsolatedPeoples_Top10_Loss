@@ -94,6 +94,7 @@ function Chapter({
   splitLines,
   card,
   displayText,
+  globeOnly,
   alignment,
   setCurrentChapter,
   setCurrentAction,
@@ -116,7 +117,8 @@ const StageComponent = isStage ? STAGES[stage] : null;
       : cx("step", card ? "step--card w-full" : "max-w-md opacity-50"),
     isStage && "step-stage",
     stageProps?.tight && "step--tight",
-    displayText && "step--display"
+    displayText && "step--display",
+    globeOnly && "step--globe-only"
   );
   const classList = id === currentChapterId ? `${stepClasses} active` : stepClasses;
   const renderImage = (img) => (

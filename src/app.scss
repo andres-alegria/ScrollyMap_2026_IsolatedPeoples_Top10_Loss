@@ -93,6 +93,25 @@ a:visited {
   }
 }
 
+// The finale frame: the globe comes back after the hand-off line, centred and
+// larger, to show the ranked ten on their own. Two classes for specificity —
+// the breakpoint rule above sets right/left/margin and would otherwise win on
+// source order.
+// Wide screens only. On narrow ones the globe is already full-bleed with a
+// screen to itself, and a fixed frame wider than the viewport would push it
+// and its caption off the right-hand edge.
+@media (min-width: 1000px) {
+  .map-container.map-container--finale {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    width: clamp(440px, 62vh, 680px);  // adjust finale globe size
+    height: clamp(440px, 62vh, 680px);
+  }
+}
+
 // Names whatever the globe is showing at this point in the story. Written
 // imperatively by useGlobeSequence, which swaps it on the same frame the dots
 // change, so the two can never disagree; it inherits the globe box's opacity,

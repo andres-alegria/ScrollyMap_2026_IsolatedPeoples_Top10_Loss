@@ -71,19 +71,21 @@ export default {
   // Globe atmosphere. space-color is matched to the paper texture in
   // src/assets/background-image.jpg so the sphere reads as sitting on the
   // page rather than floating in Mapbox's default starfield.
-  // Anchored to chapter three's bottom edge, which is also where chapter
-  // four's closing keyframe plays out — the globe pulls back to the ranked
-  // ten, then fades across the same edge. Chapter four's own line is large,
-  // centred and alone on the screen by the time the fade has finished.
-  globeFadeOut: { trigger: 'chapter 04' },
+  // The globe leaves and comes back. It goes out across chapter four's bottom
+  // edge, so the hand-off line in chapter five has the screen to itself, then
+  // returns for chapter six — bigger and centred — to show the ranked ten on
+  // their own. Shown that way it is a beat the reader stops at, rather than
+  // something that dissolves under a headline just as it arrives.
+  globeWindows: [
+    { reveal: { trigger: 'chapter 01', start: 'top bottom', end: 'top 75%' },
+      fadeOut: { trigger: 'chapter 04' } },
+    { reveal: { trigger: 'chapter 06', start: 'top 70%', end: 'top 30%' },
+      // Out as the first ranked section rises over it.
+      fadeOut: { trigger: 'chapter 06', start: 'bottom bottom', end: 'bottom center' } },
+  ],
 
-  // The globe used to need no reveal: it sat behind the page, so the intro
-  // simply covered it. Its caption does not — that has to stack above the
-  // copy to be readable on a phone, which means it would also sit over the
-  // intro. Holding both back until chapter one is arriving solves it for the
-  // pair, and costs nothing visually: the globe was not readable under the
-  // intro artwork anyway.
-  globeReveal: { trigger: 'chapter 01', start: 'top bottom', end: 'top 75%' },
+  // Which chapter gets the larger centred frame (see .map-container--finale).
+  globeFinale: { trigger: 'chapter 06' },
 
   globeAtmosphere: {
     // mapbox-gl creates its WebGL context with alpha:true, so a transparent
@@ -107,12 +109,14 @@ export default {
     // Two states, two boxes. The filled box IS the legend: it carries the
     // colour the panel is painting with, so the swatch and the words are one
     // object rather than a key the reader has to pair up.
+    // Loss first, then what is left: the reader sees what was taken before
+    // seeing the remainder, which lands harder than the reverse.
     beats: [
+      { label: 'Tree cover lost since 2015',
+        color: '#e66d6d', textColor: '#181818' },          /* adjust loss box + text */
       // Pine Green — the colour the panels paint forest with
       { label: 'Forest remaining in 2025',
         color: '#0a2f29', textColor: '#ffffff' },          /* adjust extent box + text */
-      { label: 'Tree cover lost since 2015',
-        color: '#e66d6d', textColor: '#181818' },          /* adjust loss box + text */
     ],
     // the label that has not been reached yet, as plain text with no box
     idleColor: '#6b7672',                                  /* adjust idle label colour */
@@ -130,6 +134,7 @@ export default {
       { role: 'Produced by', name: 'Latoya Abulu' },
       { role: 'Creative Director', name: 'Samantha Lee' },
       { role: 'Banner art', name: 'Emilie Languedoc' },
+      { role: 'Data gathering and fact-checking', name: 'Aimee Gabay' },
       { role: 'Design and development', name: 'Andrés Alegría' },
     ],
     sourcesTitle: 'Sources',
@@ -262,34 +267,32 @@ export default {
     // chapter 05
     {
       id: 'chapter 05',
-      // The globe's closing gesture, which belongs to the end of chapter
-      // three rather than to this chapter: the keyframe hangs off this
-      // element only because that is where the scroll window falls. Chapter
-      // three's bottom edge IS this chapter's top edge, so a window measured
-      // from 'top' here runs across the tail of the chapter before it.
-      //
-      // The camera pulls back from the Chaco to hold all ten ranked lands at
-      // once and the dots swap to that ten, finishing at 'top 60%'. The fade
-      // only begins at 'bottom center' of chapter three — the same edge, at
-      // 50% — so the move lands and is read for a moment before the globe
-      // starts going. By the time this chapter's line is centred on screen,
-      // the fade has finished and there is nothing beside it.
-      globe: {
-        center: [-62.0, -12.0], zoom: 1.18,
-        start: 'top bottom', end: 'top 60%',
-        legend: 'The 10 lands with the largest share of forest lost',
-        // 'centroids top 10' is the published style's own layer and is baked
-        // against an earlier ranking, so it stays off; 'ranked-ten' is built
-        // at runtime from the area chapters' locators.
-        layers: { centroids: 0, 'centroids-label': 0, 'centroids top 10': 0,
-                  'ranked-ten': 0.9, 'chapter-focus': 0 },
-      },
       alignment: 'fully',
       card: true,
       displayText: true,
       hidden: false,
       title: ' ',
       description: "<p>Below are the <b>10 lands in tropical moist forests</b> with the largest share of forest lost. This ranking, with rates of detection accuracy, is approximate.</p>",
+      onChapterEnter: [],
+      onChapterExit: [],
+    },
+
+    // chapter 06
+    {
+      id: 'chapter 06',
+      // No copy: one screen whose only job is to hold the globe still long
+      // enough to be read. The camera has already moved here while hidden, so
+      // the reveal lands on a finished view rather than on a move in progress.
+      globe: {
+        center: [-62.0, -12.0], zoom: 1.18,
+        start: 'top bottom', end: 'top 80%',
+        legend: 'The 10 lands with the largest share of forest lost',
+        layers: { centroids: 0, 'centroids-label': 0, 'centroids top 10': 0,
+                  'ranked-ten': 0.9, 'chapter-focus': 0 },
+      },
+      alignment: 'fully',
+      globeOnly: true,
+      hidden: false,
       onChapterEnter: [],
       onChapterExit: [],
     },
@@ -307,6 +310,9 @@ export default {
       globe: {
         // the territory's own centroid, the same point its locator globe marks
         center: [-60.439372, 0.050421],
+        // same caption as the beat before: without it the midpoint swap
+        // blanks the bar while the globe is still on screen
+        legend: 'The 10 lands with the largest share of forest lost',
         zoom: 5,                             // adjust closing zoom depth
         pitch: 45,                           // adjust closing tilt
         bearing: -25,                        // adjust closing rotation

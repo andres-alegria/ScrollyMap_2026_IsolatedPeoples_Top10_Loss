@@ -43,7 +43,7 @@ const spinDelta = (from, to, spin = 'short') => {
  *     end: 'top center',     // optional: when it has arrived
  *   }
  */
-export const useGlobeSequence = ({ map, loaded, chapters, atmosphere, containerRef, legendRef }) => {
+export const useGlobeSequence = ({ map, loaded, chapters, atmosphere, containerRef, legendRef, finale }) => {
   const applied = useRef(null);
 
   useEffect(() => {
@@ -62,7 +62,10 @@ export const useGlobeSequence = ({ map, loaded, chapters, atmosphere, containerR
       if (w > 0) fit.z = Math.log2(w / FIT_BASE_W);
     };
     measureFit();
-    window.addEventListener('resize', measureFit);
+    // Observing the element rather than the window: the frame also changes
+    // size when the finale class is applied, which no window resize reports.
+    const fitRO = new ResizeObserver(measureFit);
+    if (containerRef && containerRef.current) fitRO.observe(containerRef.current);
 
     // Replace Mapbox's black starfield with the paper tone, so the globe sits
     // on the same ground as the rest of the page.
@@ -163,16 +166,33 @@ export const useGlobeSequence = ({ map, loaded, chapters, atmosphere, containerR
       });
     }).filter(Boolean);
 
+    // The finale frame: bigger and centred, for the beat where the globe comes
+    // back under the hand-off line to show the ranked ten. Toggled a little
+    // before the globe is revealed, so the frame has already resized by the
+    // time anything is visible.
+    if (finale && finale.trigger) {
+      const fEl = document.getElementById(finale.trigger);
+      const node = containerRef && containerRef.current;
+      if (fEl && node) {
+        triggers.push(ScrollTrigger.create({
+          trigger: fEl,
+          start: finale.start || 'top bottom',
+          end: finale.end || 'bottom top',
+          onToggle: (self) => node.classList.toggle('map-container--finale', self.isActive),
+        }));
+      }
+    }
+
     // Land on the first keyframe before any scrolling happens.
     apply(keys[0].globe, keys[0].globe, 1);
     ScrollTrigger.refresh();
 
     return () => {
       triggers.forEach((t) => t.kill());
-      window.removeEventListener('resize', measureFit);
+      fitRO.disconnect();
       if (applyFog) map.off('style.load', applyFog);
     };
-  }, [map, loaded, chapters, atmosphere, legendRef]);
+  }, [map, loaded, chapters, atmosphere, legendRef, finale]);
 };
 
 
@@ -200,11 +220,11 @@ export const useGlobeSequence = ({ map, loaded, chapters, atmosphere, containerR
  * `my-40` once it has measured it — enough to move the fade past the moment
  * it was tuned for.
  */
-export const useGlobeVisibility = ({ containerRef, chapters, reveal, fadeOut }) => {
+export const useGlobeVisibility = ({ containerRef, chapters, windows }) => {
   useEffect(() => {
     const el = containerRef && containerRef.current;
     const keys = (chapters || []).filter((c) => c && c.globe && c.id);
-    if (!el || keys.length === 0) return undefined;
+    if (!el || keys.length === 0 || !windows || windows.length === 0) return undefined;
 
     const paint = (o) => {
       el.style.opacity = String(o);
@@ -212,54 +232,50 @@ export const useGlobeVisibility = ({ containerRef, chapters, reveal, fadeOut }) 
       el.style.visibility = o < 0.01 ? 'hidden' : 'visible';
     };
 
-    // Two independent triggers have an opinion about visibility — the reveal
-    // on the way in, the fade on the way out — and both fire on every scroll.
-    // Writing straight to the element let whichever ran last win, which at the
-    // top of the page meant the fade's "nothing to fade yet, so show it"
-    // overwrote the reveal's "not yet". Each keeps its own value and the
-    // lower one is painted, so neither can show what the other is hiding.
-    const vis = { reveal: reveal && reveal.trigger ? 0 : 1, fade: 1 };
-    const commit = () => paint(Math.min(vis.reveal, vis.fade));
-    const setVis = (o) => { vis.reveal = o; commit(); };
+    // The globe can leave and come back — out after the last map chapter, in
+    // again under the hand-off line — so visibility is a set of windows
+    // rather than one reveal and one fade. Each window keeps its own pair of
+    // values and the page shows the most visible of them; within a window the
+    // lower of the two wins, so neither end can show what the other is
+    // hiding. Writing straight to the element instead let whichever trigger
+    // ran last win, which at the top of the page meant the fade's "nothing to
+    // fade yet, so show it" overwrote the reveal's "not yet".
+    const state = windows.map((w) => ({ in: w.reveal && w.reveal.trigger ? 0 : 1, out: 1 }));
+    const commit = () => paint(Math.max(...state.map((v) => Math.min(v.in, v.out))));
 
     const triggers = [];
-
-    const revealEl = reveal && reveal.trigger && document.getElementById(reveal.trigger);
+    windows.forEach((w, i) => {
+      const revealEl = w.reveal && w.reveal.trigger && document.getElementById(w.reveal.trigger);
+      if (revealEl) {
+        triggers.push(ScrollTrigger.create({
+          trigger: revealEl,
+          start: w.reveal.start || 'top bottom',   // adjust: when the globe starts arriving
+          end: w.reveal.end || 'top center',       // adjust: when it is fully there
+          scrub: true,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => { state[i].in = self.progress; commit(); },
+        }));
+      }
+      const fade = w.fadeOut || {};
+      const lastEl = document.getElementById(fade.trigger || keys[keys.length - 1].id);
+      if (lastEl) {
+        triggers.push(ScrollTrigger.create({
+          trigger: lastEl,
+          start: fade.start || 'bottom center',   // adjust: when the fade begins
+          end: fade.end || 'bottom top',          // adjust: when it is fully gone
+          scrub: true,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => { state[i].out = 1 - self.progress; commit(); },
+        }));
+      }
+    });
 
     commit();
-
-    if (revealEl) {
-      triggers.push(ScrollTrigger.create({
-        trigger: revealEl,
-        start: reveal.start || 'top bottom',   // adjust: when the globe starts arriving
-        end: reveal.end || 'top center',       // adjust: when it is fully there
-        scrub: true,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => setVis(self.progress),
-      }));
-    }
-
-    // Defaults to the last keyframe, but a keyframe added purely for a camera
-    // move — one that fires after the globe should already be leaving — would
-    // otherwise drag the fade along with it. Naming the chapter keeps the two
-    // independent.
-    const fade = fadeOut || {};
-    const lastEl = document.getElementById(fade.trigger || keys[keys.length - 1].id);
-    if (lastEl) {
-      triggers.push(ScrollTrigger.create({
-        trigger: lastEl,
-        start: fade.start || 'bottom center',   // adjust: when the fade begins
-        end: fade.end || 'bottom top',          // adjust: when it is fully gone
-        scrub: true,
-        invalidateOnRefresh: true,
-        onUpdate: (self) => { vis.fade = 1 - self.progress; commit(); },
-      }));
-    }
 
     return () => {
       triggers.forEach((t) => t.kill());
       el.style.opacity = '1';
       el.style.visibility = 'visible';
     };
-  }, [containerRef, chapters, reveal, fadeOut]);
+  }, [containerRef, chapters, windows]);
 };

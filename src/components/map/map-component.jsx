@@ -6,7 +6,7 @@ import { Map as MapGL, Marker } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const Map = (props) => {
-  const { chapters, accessToken, mapStyle, showMarkers, setCurrentChapter, externalLayers, currentChapterId, currentAction, globeAtmosphere, globeReveal, globeFadeOut } = props;
+  const { chapters, accessToken, mapStyle, showMarkers, setCurrentChapter, externalLayers, currentChapterId, currentAction, globeAtmosphere, globeWindows, globeFinale } = props;
   const [loaded, setLoaded] = useState(false);
   const [externalLayersOpacity, setExternalLayersOpacity] = useState({});
   const [map, setMap] = useState(null);
@@ -590,9 +590,11 @@ const Map = (props) => {
     return undefined;
   }, [loaded, map, chapters]);
 
-  useGlobeSequence({ map, loaded, chapters, atmosphere: globeAtmosphere, containerRef: mapContainerRef, legendRef: globeLegendRef });
+  useGlobeSequence({ map, loaded, chapters, atmosphere: globeAtmosphere,
+                     containerRef: mapContainerRef, legendRef: globeLegendRef,
+                     finale: globeFinale });
   // runs whether or not the map ever loads
-  useGlobeVisibility({ containerRef: mapContainerRef, chapters, reveal: globeReveal, fadeOut: globeFadeOut });
+  useGlobeVisibility({ containerRef: mapContainerRef, chapters, windows: globeWindows });
 
   return (
     <div ref={mapContainerRef} className="map-container">

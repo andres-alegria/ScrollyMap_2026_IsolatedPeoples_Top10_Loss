@@ -20,8 +20,8 @@ const App = (props) => {
     intro,
     logos,
     globeAtmosphere,
-    globeReveal,
-    globeFadeOut,
+    globeWindows,
+    globeFinale,
     credits,
     panelLabels,
   } = props;
@@ -69,8 +69,8 @@ const App = (props) => {
         showMarkers={showMarkers}
         currentChapterId={currentChapterId}
         globeAtmosphere={globeAtmosphere}
-        globeReveal={globeReveal}
-        globeFadeOut={globeFadeOut}
+        globeWindows={globeWindows}
+        globeFinale={globeFinale}
       />
     </div>
   );

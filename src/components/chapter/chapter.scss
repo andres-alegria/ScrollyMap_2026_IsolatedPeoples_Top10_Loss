@@ -150,6 +150,10 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
+  // the globe arrives from underneath as this line leaves; the line stays on
+  // top of it rather than being washed out by it
+  position: relative;
+  z-index: 2;
 }
 .chapter-card__inner--display {
   text-align: center;
@@ -188,4 +192,17 @@
   .step--card.step--display {
     padding-bottom: 0;
   }
+}
+
+// A chapter that carries no copy at all — one screen of scroll whose only job
+// is to give the globe room to be looked at. The card is hidden rather than
+// left empty so it does not draw its paper band over the globe on narrow
+// screens, where that band is what normally hides it.
+.step--globe-only {
+  min-height: 130vh;                       // adjust the globe beat's dwell
+  padding-bottom: 0;
+}
+
+.step--globe-only .chapter-card {
+  display: none;
 }
