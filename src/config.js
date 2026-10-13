@@ -181,7 +181,13 @@ export default {
       hidden: false,
       title: ' ',
       description: "<p>The canopy of the Amazon rainforest runs thick in some patches. In others, the forest is shaved down to the root in bright green rectangular chunks, the occasional nude trees left standing.</p><p>Activists say families of voluntarily isolated, or “uncontacted,” Igarapé Ipiaçava people walk these lands in the Ituna/Itatá Indigenous Territory, Brazil, dependent on the forests and rich biodiverse world underneath its canopy for survival — food, shelter and medicine. This area was once one of the most deforested Indigenous lands in Brazil.</p><p>“It is a place where we find, time and again, people who do not belong to the territory, leading to illegal logging and land grabbing,” Auzerina Duarte Macuxi, with the Coordination of the Indigenous Organizations of the Brazilian Amazon (COIAB), told Mongabay. “They effectively displace the Indigenous communities.”</p><p>The Ituna/Itatá Indigenous Territory is one of many Indigenous lands, tribal reserves and protected areas around the world designed — either through recognition by states or NGOs — to protect voluntarily isolated peoples. Estimates point to around <b>200 groups</b> of people living in voluntary isolation and initial contact, stretching from Brazil to India; some living in defined lands, while others do not.</p><p>Mongabay mapped the Indigenous territories, tribal reserves and protected areas around the world with the confirmed presence of peoples living in voluntary isolation and analyzed forest cover loss in the decade from 2015 to 2025.</p><p>Based on these figures, we ranked:</p><ul class='chapter-list'><li>the lands in humid tropical forests with the most tree cover loss</li><li>the lands per country that saw the most tree cover loss</li></ul>",
-      location: { center: [-52.0, -4.0], zoom: 1.08, pitch: 0, bearing: 0 },
+      // No `location` here on purpose. The camera for these chapters belongs
+      // to `globe` above, and only to that. A `location` makes the template
+      // fly the map on chapter enter — to the same centre, but at the bare
+      // configured zoom, with none of the frame-fit offset the globe sequence
+      // adds (see FIT_BASE_W in use-globe-sequence.js). The two cameras then
+      // took turns: entering a chapter shrank the globe by a third, and the
+      // next scroll event snapped it back.
       mapAnimation: 'easeTo',
       onChapterEnter: [],
       onChapterExit: [],
@@ -206,7 +212,7 @@ export default {
       hidden: false,
       title: ' ',
       description: "<p>Using data provided by national Indigenous organizations, the international working group on Indigenous Peoples in Isolation and Initial Contact (GTI PIACI) and Indigenous experts on the confirmed presence of uncontacted people, Mongabay overlapped it with Indigenous and protected lands and assembled a list of <b>65 defined lands</b> where they live.</p><p>These exist across nine countries — Bolivia, Brazil, Colombia, Ecuador, India, Indonesia, Paraguay, Peru and Venezuela. Mongabay then analyzed tree cover using Global Nature Watch.</p><p>Among these, 56 lands are located in tropical moist broadleaf forests.</p><p>This assessment does not showcase the exact or unique location of isolated peoples but rather the boundaries of Indigenous and protected lands their presence overlaps with. Using public data, the assessment exists to give a general sense of the state of forests on protected lands uncontacted peoples depend on.</p>",
-      location: { center: [78.0, 2.0], zoom: 1.08, pitch: 0, bearing: 0 },
+      // No `location`: the globe's camera is `globe` above, and only that.
       mapAnimation: 'flyTo',
       rotateAnimation: false,
       onChapterEnter: [],
@@ -232,7 +238,7 @@ export default {
       hidden: false,
       title: ' ',
       description: "<p>According to the findings, all 65 lands lost a total of nearly <b>2 million hectares</b> (4.94 million acres) of tree cover between 2015 and 2025 — similar in size to El Salvador. Of this, more than 568,150 hectares (1.4 million acres) was primary forest loss.</p><p>The Gran Chaco in Bolivia and Paraguay was hit particularly hard, accounting for more than 1.38 million hectares (3.42 million acres) of the 2-million-hectare loss in the 10-year period. Various clans of uncontacted Ayoreo people, who live on these lands, are impacted.</p><p>“The agriculture frontier is expanding in these territories, causing forest loss and wildfires by setting fires to clear forest land for new pasture or cattle,” said Oscar Alquizalet, director of the NGO Pueblos Vivos in Bolivia.</p><p>Lands in tropical moist broadleaf forests lost more than 465,300 hectares (1,149,780 acres) of tree cover, 394,000 hectares (973,595 acres), or 84%, of which was primary forest.</p><p>Tree cover loss does not necessarily mean deforestation. It can be due to multiple factors, explained Global Nature Watch, including “mechanical harvesting, fire, disease, or storm damage.”</p><p>When looking at the top three drivers of forest loss, the most recurrent were natural disturbances (non-fire events like landslides), permanent agriculture and shifting cultivation.</p>",
-      location: { center: [-60.0, -14.0], zoom: 1.08, pitch: 0, bearing: 0 },
+      // No `location`: the globe's camera is `globe` above, and only that.
       mapAnimation: 'flyTo',
       rotateAnimation: false,
       onChapterEnter: [],
@@ -257,7 +263,7 @@ export default {
       hidden: false,
       title: ' ',
       description: "<p>Wildfires, a growing threat to forests worldwide, were a driver of nearly <b>995,650 hectares</b> (2.46 million acres) of loss across all lands. In a few incidents in the Amazon, such as in the Uru-Eu-Wau-Wau Indigenous Territory, loss due to wildfires increased significantly over the last two years.</p><p>“Advancing fire kills the [isolated] peoples’ food supply, burns their huts and puts them in fear of being burned alive,” Ivaneide “Neidinha” Bandeira Cardozo, an inhabitant of Uru-Eu-Wau-Wau and coordinator of the Kanindé Ethno-environmental Defense Association, told Mongabay.</p><p>“Besides, they certainly suffer from respiratory diseases that can lead to death. It also signifies the advance of land grabbing, and thus the loss of Indigenous territory.”</p>",
-      location: { center: [-62.5, -9.0], zoom: 1.08, pitch: 0, bearing: 0 },
+      // No `location`: the globe's camera is `globe` above, and only that.
       mapAnimation: 'flyTo',
       rotateAnimation: false,
       onChapterEnter: [],
