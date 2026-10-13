@@ -51,6 +51,7 @@ const AreaReveal = ({
   const { t } = useTranslation();
   const { rank, title, description } = chapter;
   const sectionRef = useRef(null);
+  const frameRef = useRef(null);
   const extentRef = useRef(null);
   const indRef = useRef(null);
 
@@ -74,6 +75,30 @@ const AreaReveal = ({
 
     // Extra room so the next section does not arrive the moment this one pins.
     section.style.marginBottom = `${dwell * 100}vh`;
+
+    // Anchor the recede's scale on the panel's own top edge.
+    //
+    // The scale below shrinks the whole section, so wherever its origin sits
+    // decides which way the panel appears to travel. With the origin in the
+    // middle of the card the panel slid about 15px DOWN as the section
+    // receded, while the arriving section was sliding UP behind it and its own
+    // panel came to rest at the height the old one had just left. Read as one
+    // image rather than two, that is a reversal: the map sinks a few pixels,
+    // then climbs back. It showed at every hand-over and at any scroll speed,
+    // because it is geometry, not timing.
+    //
+    // Anchored on the panel's top edge the panel does not move at all: the
+    // card shrinks and fades around a still image. Measured from layout
+    // offsets, which transforms do not affect, and re-measured on refresh
+    // because the title wraps to a second line at some widths.
+    const anchorOrigin = () => {
+      const frame = frameRef.current;
+      if (!frame) return;
+      let y = 0;
+      for (let n = frame; n && n !== section; n = n.offsetParent) y += n.offsetTop;
+      section.style.transformOrigin = `50% ${y}px`;
+    };
+    anchorOrigin();
 
     const preload = ScrollTrigger.create({
       trigger: section,
@@ -101,6 +126,7 @@ const AreaReveal = ({
       // element never leaves the flow, so there is nothing to anticipate.
       scrub: true,
       invalidateOnRefresh: true,
+      onRefresh: anchorOrigin,
       onUpdate: (self) => {
         const p = self.progress;
         // One crossfade: the loss layer underneath, the 2025 extent growing
@@ -143,7 +169,7 @@ const AreaReveal = ({
 
       <div className="area-section__body">
         <div className="area-section__panel">
-          <div className="area-reveal__frame">
+          <div className="area-reveal__frame" ref={frameRef}>
             <img className="area-reveal__img" src={panels.loss} alt="" loading="eager" />
             <img className="area-reveal__img" ref={extentRef} src={panels.extent} alt="" style={{ opacity: 0 }} />
             <ScaleBar {...scale} />
