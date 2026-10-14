@@ -1,0 +1,128 @@
+/* The closing "other lands" chapters: copy left, map right.
+
+   Two columns of a grid rather than a flex row, so the row's height is the
+   taller column's and the map has something to be sticky inside. The copy sets
+   that height; the map rides along beside it. */
+.watch-section {
+  /* Same ramp as the ranked sections, so the two halves of the piece are set
+     in one family of sizes. Adjust here rather than on the rules below. */
+  --fs-title: clamp(1.35rem, 2.1vw, 1.95rem);      /* chapter name */
+  --fs-body: clamp(15px, 1.15vw, 18px);            /* paragraphs */
+  --fs-caption: clamp(12px, 0.95vw, 14px);         /* under the panel */
+  --fs-furniture: clamp(12px, 0.93vw, 14px);       /* scale bar */
+
+  position: relative;
+  z-index: 1;                                      /* above the globe, as the ranked sections are */
+  /* The ranked sections centre their text and every stage inherits that, so
+     opt out once here rather than on each child. */
+  text-align: left;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+  gap: clamp(24px, 4vw, 80px);                     /* adjust column gap */
+  padding: 12vh 5vw 14vh;                          /* adjust section inset */
+  box-sizing: border-box;
+  background-color: #f7f4ee;                       /* adjust section ground */
+  background-image: url('../../assets/paper-grain.jpg');
+  background-size: 256px 256px;
+}
+
+/* The copy column. Capped at a reading measure and pushed to the right of its
+   own column, so the text sits beside the map rather than at the far edge. */
+.watch-section__copy {
+  max-width: 34rem;                                /* adjust reading width */
+  justify-self: end;
+  color: var(--ink);
+}
+
+.watch-section__title {
+  margin: 0 0 clamp(14px, 2.4vh, 28px);            /* adjust title-to-copy gap */
+  font-size: var(--fs-title);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.watch-section__text {
+  font-size: var(--fs-body);
+  line-height: 1.65;
+}
+
+.watch-section__text p {
+  margin: 0 0 1.15em;                              /* adjust paragraph spacing */
+}
+
+.watch-section__text p:last-child {
+  margin-bottom: 0;
+}
+
+/* The map column. The figure is what sticks; the column itself just gives it
+   the full height of the row to travel in. */
+.watch-section__aside {
+  min-width: 0;
+}
+
+.watch-section__panel {
+  position: sticky;
+  top: 0;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(8px, 1.4vh, 16px);
+}
+
+.watch-section__frame {
+  position: relative;
+  width: 100%;
+  max-width: 620px;                                /* adjust panel size */
+  overflow: hidden;
+  border-radius: 5.5pt;                            /* matches the ranked panels */
+  background: #181818;                             /* shows while the image loads */
+}
+
+/* No object-fit and no fixed aspect: these two panels are rendered at
+   different shapes and each should be shown whole. */
+.watch-section__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.watch-section__caption {
+  max-width: 620px;
+  font-size: var(--fs-caption);
+  line-height: 1.45;
+  color: var(--ink-mute);                          /* adjust caption colour */
+}
+
+/* One column on anything narrow. The map comes first so the reader knows where
+   they are before reading about it, and it stops being sticky — a map held
+   over a phone screen's worth of text leaves no room for the text. */
+@media (max-width: 900px) {
+  .watch-section {
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(18px, 3vh, 28px);
+    padding: 8vh 6vw 10vh;
+  }
+
+  .watch-section__copy {
+    max-width: none;
+    justify-self: stretch;
+    order: 2;
+  }
+
+  .watch-section__aside {
+    order: 1;
+  }
+
+  .watch-section__panel {
+    position: static;
+    height: auto;
+  }
+
+  .watch-section__frame,
+  .watch-section__caption {
+    max-width: none;
+  }
+}

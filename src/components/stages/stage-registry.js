@@ -13,6 +13,7 @@ import GalleryFlipImage from "./GalleryFlipImage";
 import PlainText from "./PlainText";
 import PlainImage from "./PlainImage";
 import AreaReveal from "./AreaReveal";
+import WatchArea from "./WatchArea";
 
 export const STAGES = {
   // Horizontal image-strip scroller
@@ -32,4 +33,7 @@ export const STAGES = {
 
   // One ranked area: pinned mid-screen, three-beat raster reveal
   AreaReveal,
+
+  // One of the closing "other lands to watch" chapters: copy left, map right
+  WatchArea,
 };

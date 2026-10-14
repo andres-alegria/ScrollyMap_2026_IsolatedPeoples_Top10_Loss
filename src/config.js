@@ -570,5 +570,55 @@ export default {
       menuName: 'Araribóia',
       description: "<p>Home to the isolated Awá, this 413,288-hectare (1,021,257-acre) territory in Brazil lost <b>14.2%</b> of its 2000 tree cover between 2015 and 2025.</p><ul class='area-facts'><li><span class='area-facts__label'>Top three drivers of forest loss:</span> Wildfire, permanent agriculture and other natural disturbances</li><li><span class='area-facts__label'>Tree cover loss due to wildfires:</span> 41,478 hectares (72% of all loss)</li></ul>",
     },
+
+    // ------------------------------------------------------------------
+    // After the countdown: lands the assessment could not rank, but which
+    // the reporting would not leave out. Same shape as the intro chapters —
+    // copy on the left, a map beside it — rather than the ranked sections'
+    // one-screen reveal, because these are read rather than counted.
+    // ------------------------------------------------------------------
+
+    // chapter 07 — the hand-off into that section, set like the line that
+    // introduced the countdown so the two read as a matching pair
+    {
+      id: 'chapter 07',
+      alignment: 'fully',
+      card: true,
+      displayText: true,
+      hidden: false,
+      title: ' ',
+      description: "<h3 class='display-head'>Other lands to watch for</h3><p>Here are other lands that were not included in this assessment but face increased threats to forests or high levels of forest loss in the last couple years.</p>",
+      onChapterEnter: [],
+      onChapterExit: [],
+    },
+
+    // chapter 08
+    {
+      id: 'chapter 08',
+      type: 'stage',
+      stage: 'WatchArea',
+      panel: '/panels/halmahera_extent.webp',
+      panelAlt: 'Satellite-derived map of forest remaining in 2025 on Halmahera, Indonesia, with the mapped extent of lands used by O\u2019 Hongana Manyawa people outlined',
+      // box, locator and scale come from render_panels_watch.py
+      scale: { n: 20, kmFrac: 0.1504, miFrac: 0.242 },
+      locator: [128.17051, 0.63895],
+      caption: 'Forest remaining in 2025, with the approximate extent of lands used by O\u2019 Hongana Manyawa people outlined.',
+      title: 'Lands used by uncontacted O\u2019 Hongana Manyawa people in Indonesia',
+      description: "<p>Lands used by uncontacted O\u2019 Hongana Manyawa people in Indonesia\u2019s Halmahera Island overlap with the Aketajawe-Lolobata National Park. However, voluntarily isolated members of the tribe use much more land, and mapping efforts by various groups of their territory are underway.</p><p>According to an approximate map by human rights organization Survival International, a wave of mining concessions, many for nickel, impact forests uncontacted O\u2019 Hongana Manyawa people depend on for food and survival.</p><p>The Jakarta declaration, which calls on governments to protect the lands and rights of uncontacted peoples worldwide, was drafted in Indonesia in a bid to strengthen the global alliance for the protection of uncontacted peoples and the inclusion of tribes in Indonesia.</p><p>For the safety of the isolated members of the group, Mongabay will not publish the most up-to-date map of lands the O\u2019 Hongana Manyawa people use.</p><p>\u201CThis map is very helpful in showing the existence of the O\u2019 Hongana Manyawa Indigenous Community \u2026 but does not yet cover the entire O\u2019 Hongana Manyawa Indigenous territory. The work to document the existence of O\u2019 Hongana Manyawa and its Indigenous territory is not yet complete, and it will continue,\u201D said Yoga Kipli, directorate of community support and former head of participatory mapping for the Indigenous Peoples\u2019 Alliance of the Archipelago (AMAN).</p>",
+    },
+
+    // chapter 09
+    {
+      id: 'chapter 09',
+      type: 'stage',
+      stage: 'WatchArea',
+      panel: '/panels/new_guinea_extent.webp',
+      panelAlt: 'Satellite-derived map of forest remaining in 2025 across New Guinea, with dots marking West Papua, Indonesia, and Papua New Guinea',
+      scale: { n: 400, kmFrac: 0.1719, miFrac: 0.2767 },
+      locator: [140.5, -5.5],
+      caption: 'Forest remaining in 2025 across New Guinea. The dots mark West Papua, in Indonesia, and Papua New Guinea.',
+      title: 'Isolated tribes in New Guinea',
+      description: "<p>Mongabay could not include any lands in New Guinea, which includes the Indonesian half of West Papua and the country of Papua New Guinea, in its assessment due to lack of accurate data, mapping sources and the safety of isolated tribes.</p><p>In West Papua, there are currently between two and 10 \u201Ctruly uncontacted tribal groups\u201D in the rainforests, said Dorince Mehue, an AMAN campaigner for the Papua region.</p><p>Calculating the number of tribes living in voluntary isolation in West Papua is challenging due to geographic difficulties, restricted access for journalists and international humanitarian organizations and surrounding communities deliberately withholding information on isolated tribes to protect them from exploitation or external threats.</p><p>The primary forests they depend on face multiple threats. This threatens the survival and culture of uncontacted tribes in West Papua, according to Mehue.</p><p>\u201CThey face the expansion of extractive industries,\u201D she told Mongabay. \u201COf hundreds of thousands of hectares of customary forests turned into monopolistic oil palm plantations and agribusiness projects. Nickel mining activities on small islands such as Gag Island in Raja Ampat, as well as commercial logging, are clearing primary forests.\u201D</p><p>The ongoing armed conflict, security forces and armed civilian groups have forced thousands of residents of remote villages to flee into the forest, Mehue said.</p>",
+    },
   ],
 };

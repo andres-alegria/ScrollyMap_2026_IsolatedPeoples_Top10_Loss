@@ -175,6 +175,18 @@
   text-align: center;
 }
 
+// The closing hand-off carries a heading as well as a line; the one that
+// opened the countdown is a line on its own. Set in the display face a step
+// above the copy, so it reads as the section's name without becoming a second
+// headline competing with the title at the top of the piece.
+.chapter-card__inner--display .chapter-copy .display-head {
+  margin: 0 0 0.5em;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.1vw, 2.6rem);  // adjust closing heading size
+  font-weight: 400;
+  line-height: 1.15;
+}
+
 .chapter-card__inner--display .chapter-copy p {
   font-size: clamp(1.25rem, 2.4vw, 2rem);   // adjust hand-off text size
   line-height: 1.35;

@@ -35,7 +35,7 @@ const Story = ({ title, subtitle, byline, theme, chapters, alignment, currentCha
           .map((c) => ({ id: c.id, rank: c.rank, title: c.title,
                          menuName: c.menuName, country: c.country }))}
         showAfter="chapter 06"
-        hideAt="credits"
+        hideAt="chapter 07"
       />
 
       <div id="features" className="w-full block">
