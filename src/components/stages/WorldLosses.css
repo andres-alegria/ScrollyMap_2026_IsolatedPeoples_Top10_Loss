@@ -3,7 +3,6 @@
 .world-section {
   --fs-title: clamp(1.5rem, 2.6vw, 2.4rem);
   --fs-lede: clamp(15px, 1.2vw, 18px);
-  --fs-caption: clamp(12px, 0.95vw, 14px);
 
   position: relative;
   z-index: 1;
@@ -86,21 +85,23 @@
   fill: var(--ink);
 }
 
-.world-overlay__country {
+/* The land is the thing the dot marks, so it leads and carries the weight. */
+.world-overlay__name {
   font-size: 30px;                                 /* adjust label size */
-  font-weight: 600;
+  font-weight: 700;
 }
 
-.world-overlay__loss {
-  font-size: 30px;
-  font-weight: 400;
-  fill: #8a5050;                                   /* adjust figure colour */
-}
-
-.world-overlay__land {
+/* Country and figure share the second line, in the regular weight. */
+.world-overlay__place {
   font-size: 25px;                                 /* adjust sub-label size */
   font-weight: 400;
   fill: #5d6b67;                                   /* adjust sub-label colour */
+}
+
+.world-overlay__loss {
+  font-size: 25px;
+  font-weight: 400;
+  fill: #8a5050;                                   /* adjust figure colour */
 }
 
 /* The list is the narrow screen's version of the labels, so it is not drawn
@@ -111,15 +112,6 @@
   padding: 0;
   list-style: none;
   counter-reset: none;
-}
-
-.world-section__caption {
-  margin: clamp(10px, 2vh, 18px) auto 0;
-  max-width: 46rem;
-  font-size: var(--fs-caption);
-  line-height: 1.45;
-  color: var(--ink-mute);                          /* adjust caption colour */
-  text-align: center;
 }
 
 /* Narrow screens: there is no empty ocean to fan nine labels into, so the map
@@ -152,8 +144,8 @@
     line-height: 1.35;
   }
 
-  .world-section__country {
-    font-weight: 600;
+  .world-section__name {
+    font-weight: 700;
     color: var(--ink);
   }
 
@@ -165,12 +157,8 @@
     white-space: nowrap;
   }
 
-  .world-section__land {
+  .world-section__place {
     grid-column: 1 / -1;
     color: var(--ink-mute);
-  }
-
-  .world-section__caption {
-    text-align: left;
   }
 }

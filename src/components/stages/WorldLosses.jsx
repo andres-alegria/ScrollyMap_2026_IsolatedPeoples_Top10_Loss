@@ -27,7 +27,6 @@ const WorldLosses = ({
   panelAlt = '',
   viewBox = [2600, 1070],
   lands = [],
-  caption,
   chapter = {},
 }) => {
   const { t } = useTranslation();
@@ -104,17 +103,17 @@ const WorldLosses = ({
                   textAnchor={d.anchor || 'start'}
                   className="world-overlay__label"
                 >
-                  <tspan className="world-overlay__country">{t(d.country)}</tspan>
+                  {/* The land leads, because that is what the dot marks; the
+                      country and the figure follow together underneath. Two
+                      lines rather than one: with the land name in front, a
+                      single line ran off the frame on the longest of them. */}
+                  <tspan className="world-overlay__name">{t(d.short || d.land)}</tspan>
+                  <tspan x={d.lx * W} dy="30" className="world-overlay__place">
+                    {t(d.country)}
+                  </tspan>
                   <tspan className="world-overlay__loss">
                     {'  '}
                     {fmt(d.loss)} ha
-                  </tspan>
-                  <tspan
-                    x={d.lx * W}
-                    dy="30"
-                    className="world-overlay__land"
-                  >
-                    {t(d.short || d.land)}
                   </tspan>
                 </text>
               ))}
@@ -127,16 +126,13 @@ const WorldLosses = ({
         <ol className="world-section__list">
           {lands.map((d) => (
             <li key={d.country} className="world-section__row">
-              <span className="world-section__country">{t(d.country)}</span>
-              <span className="world-section__land">{t(d.land)}</span>
+              <span className="world-section__name">{t(d.land)}</span>
               <span className="world-section__loss">{fmt(d.loss)} ha</span>
+              <span className="world-section__place">{t(d.country)}</span>
             </li>
           ))}
         </ol>
 
-        {caption && (
-          <figcaption className="world-section__caption">{t(caption)}</figcaption>
-        )}
       </figure>
     </section>
   );

@@ -144,7 +144,8 @@ export default {
       + 'OPIAC, ORPIO, Pueblos Vivos and Dr. Manish Chandi. '
       + 'Forest cover and loss are from the Global Forest Change dataset v1.13 '
       + '(Hansen et al., University of Maryland), covering 2000 to 2025 and accessed through '
-      + 'Google Earth Engine and Global Nature Watch.',
+      + 'Google Earth Engine and Global Nature Watch. Shaded relief on the world '
+      + 'map is from the GEBCO 2024 Grid (GEBCO Compilation Group).',
   },
  
   chapters: [
@@ -644,7 +645,6 @@ export default {
       viewBox: [2600, 1070],
       title: 'The hardest-hit land in each country',
       description: "<p>Across the nine countries where this assessment confirmed the presence of peoples living in isolation, these are the lands that lost the most tree cover between 2015 and 2025 \u2014 by area lost, which is why the order differs from the countdown.</p>",
-      caption: 'Tree cover loss 2015\u20132025, in hectares. Relief from GEBCO 2024; Robinson projection.',
       lands: [
         { country: 'Paraguay',  land: 'Reserva de Biosfera del Chaco (Ampliaci\u00f3n)', short: 'Reserva de Biosfera del Chaco',
           loss: 910948, x: 0.336, y: 0.728, lx: 0.415, ly: 0.845, anchor: 'start' },
@@ -663,7 +663,7 @@ export default {
         { country: 'Indonesia', land: 'Aketajawe-Lolobata National Park', short: 'Aketajawe-Lolobata',
           loss: 1305,   x: 0.856, y: 0.561, lx: 0.872, ly: 0.360, anchor: 'start' },
         { country: 'India',     land: 'Great Nicobar tribal reserve', short: 'Great Nicobar',
-          loss: 9,      x: 0.760, y: 0.515, lx: 0.700, ly: 0.730, anchor: 'end' },
+          loss: 9,      x: 0.760, y: 0.515, lx: 0.757, ly: 0.745, anchor: 'end' },
       ],
     },
   ],
