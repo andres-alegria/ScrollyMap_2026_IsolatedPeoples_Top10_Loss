@@ -71,11 +71,11 @@
 
 .world-overlay__leader {
   fill: none;
-  stroke: #4a5654;                                 /* adjust leader colour */
+  stroke: #26302d;                                 /* adjust leader colour */
   stroke-width: 2.4;
   stroke-linecap: round;
   stroke-linejoin: round;
-  opacity: 0.8;
+  opacity: 0.95;
 }
 
 /* Label type is sized in viewBox units, so it scales with the map. The values

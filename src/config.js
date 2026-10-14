@@ -647,7 +647,7 @@ export default {
       description: "<p>Across the nine countries with presence of peoples living in isolation, these are the lands that lost the most tree cover between 2015 and 2025 \u2014 by total area lost, not by percentage of the 2000 baseline, which is why the order differs from the countdown.</p>",
       lands: [
         { country: 'Paraguay',  land: 'Reserva de Biosfera del Chaco (Ampliaci\u00f3n)', short: 'Reserva de Biosfera del Chaco',
-          loss: 910948, x: 0.336, y: 0.728, lx: 0.415, ly: 0.845, anchor: 'start' },
+          loss: 910948, x: 0.336, y: 0.728, lx: 0.415, ly: 0.895, anchor: 'start' },
         { country: 'Bolivia',   land: 'Chacobo-Pacahuara Indigenous Territory', short: 'Chacobo-Pacahuara',
           loss: 143061, x: 0.318, y: 0.660, lx: 0.175, ly: 0.790, anchor: 'end' },
         { country: 'Brazil',    land: 'Ararib\u00f3ia Indigenous Territory', short: 'Ararib\u00f3ia',
