@@ -84,6 +84,8 @@ const AreaReveal = ({
       holdLoss = 0.14,            // adjust: how long the loss layer holds alone
       toExtent = 0.46,            // adjust: when the extent layer is fully in
       recedeFrom = 0.72,          // adjust: when the section starts giving way
+      recedeTo = 1,               // adjust: when it has finished giving way
+      fade = 0.45,                // adjust: how far it fades while giving way
     } = timings;
 
     // The runway, and the overlap that lets the next area climb over this one.
@@ -154,7 +156,7 @@ const AreaReveal = ({
         // label units: 0 at the first box, 1 at the second
         if (indRef.current) indRef.current.setProgress(toExtentNow);
         // recede as the next section climbs over this one
-        const r = ramp(p, recedeFrom, 1);
+        const r = ramp(p, recedeFrom, recedeTo);
         // Promote only while this is actually moving. Left on permanently it
         // costs a full-viewport layer per section, ten of them at once.
         const wantsLayer = r > 0;
@@ -163,7 +165,7 @@ const AreaReveal = ({
           section.style.willChange = wantsLayer ? 'transform, opacity' : '';
         }
         section.style.transform = `scale(${1 - 0.08 * r})`;
-        section.style.opacity = String(1 - 0.45 * r);
+        section.style.opacity = String(1 - fade * r);
       },
     });
 

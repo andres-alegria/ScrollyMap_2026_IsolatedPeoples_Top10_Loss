@@ -139,8 +139,9 @@ export default {
     ],
     sourcesTitle: 'Sources',
     sources:
-      'Territory boundaries were compiled and verified with AIDESEP, AMAN, CEJIS, CONAIE, '
-      + 'FUNAI, GTI PIACI, Iniciativa Amotocodie, ISA, OPI, OPIAC, ORPIO and Pueblos Vivos. '
+      'Territory boundaries were compiled and verified with information provided by '
+      + 'AIDESEP, AMAN, CEJIS, CONAIE, FUNAI, GTI-PIACI, Iniciativa Amotocodie, ISA, OPI, '
+      + 'OPIAC, ORPIO, Pueblos Vivos and Dr. Manish Chandi. '
       + 'Forest cover and loss are from the Global Forest Change dataset v1.13 '
       + '(Hansen et al., University of Maryland), covering 2000 to 2025 and accessed through '
       + 'Google Earth Engine and Global Nature Watch.',
@@ -560,6 +561,14 @@ export default {
       scale: { n: 20, kmFrac: 0.1629, miFrac: 0.2622 },
       // locator: spins the globe so this territory faces the viewer
       locator: [-46.42441, -5.069811],
+      // The one section that fades out completely rather than to 0.45, and
+      // that finishes before the hand-over rather than at the end of it. The
+      // others give way to another full-bleed panel, which covers whatever is
+      // left of them; this one gives way to a text card, which is a screen
+      // tall and arrives from the bottom — so anything still showing above it
+      // is a half-faded map standing over the closing line, which reads as a
+      // mistake rather than as a crossfade.
+      timings: { fade: 1, recedeTo: 0.9 },
       // first-level division and country: the locator caption joins them,
       // the menu bar uses the country on its own
       adm1: 'Maranhão',
