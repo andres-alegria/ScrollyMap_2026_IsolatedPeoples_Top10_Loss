@@ -629,5 +629,42 @@ export default {
       title: 'Isolated tribes in New Guinea',
       description: "<p>Mongabay could not include any lands in New Guinea, which includes the Indonesian half of West Papua and the country of Papua New Guinea, in its assessment due to lack of accurate data, mapping sources and the safety of isolated tribes.</p><p>In West Papua, there are currently between two and 10 \u201Ctruly uncontacted tribal groups\u201D in the rainforests, said Dorince Mehue, an AMAN campaigner for the Papua region.</p><p>Calculating the number of tribes living in voluntary isolation in West Papua is challenging due to geographic difficulties, restricted access for journalists and international humanitarian organizations and surrounding communities deliberately withholding information on isolated tribes to protect them from exploitation or external threats.</p><p>The primary forests they depend on face multiple threats. This threatens the survival and culture of uncontacted tribes in West Papua, according to Mehue.</p><p>\u201CThey face the expansion of extractive industries,\u201D she told Mongabay. \u201COf hundreds of thousands of hectares of customary forests turned into monopolistic oil palm plantations and agribusiness projects. Nickel mining activities on small islands such as Gag Island in Raja Ampat, as well as commercial logging, are clearing primary forests.\u201D</p><p>The ongoing armed conflict, security forces and armed civilian groups have forced thousands of residents of remote villages to flee into the forest, Mehue said.</p>",
     },
+
+    // chapter 10 — the closing world map. Dot positions come straight from
+    // render_world_robinson.py (x and y are fractions of the image); the label
+    // positions are placed by hand, because seven of the nine lands fall
+    // inside eight per cent of the map's width and no rule would untangle
+    // them. lx/ly are the label's anchor, in the same fractions.
+    {
+      id: 'chapter 10',
+      type: 'stage',
+      stage: 'WorldLosses',
+      panel: '/panels/world_robinson.webp',
+      panelAlt: 'Robinson projection world map with the nine lands marked, one in each country in the assessment',
+      viewBox: [2600, 1070],
+      title: 'The hardest-hit land in each country',
+      description: "<p>Across the nine countries where this assessment confirmed the presence of peoples living in isolation, these are the lands that lost the most tree cover between 2015 and 2025 \u2014 by area lost, which is why the order differs from the countdown.</p>",
+      caption: 'Tree cover loss 2015\u20132025, in hectares. Relief from GEBCO 2024; Robinson projection.',
+      lands: [
+        { country: 'Paraguay',  land: 'Reserva de Biosfera del Chaco (Ampliaci\u00f3n)', short: 'Reserva de Biosfera del Chaco',
+          loss: 910948, x: 0.336, y: 0.728, lx: 0.415, ly: 0.845, anchor: 'start' },
+        { country: 'Bolivia',   land: 'Chacobo-Pacahuara Indigenous Territory', short: 'Chacobo-Pacahuara',
+          loss: 143061, x: 0.318, y: 0.660, lx: 0.175, ly: 0.790, anchor: 'end' },
+        { country: 'Brazil',    land: 'Ararib\u00f3ia Indigenous Territory', short: 'Ararib\u00f3ia',
+          loss: 57613,  x: 0.371, y: 0.607, lx: 0.437, ly: 0.605, anchor: 'start' },
+        { country: 'Venezuela', land: 'Uwott\u00fcja Traditional Territory', short: 'Uwott\u00fcja',
+          loss: 53778,  x: 0.315, y: 0.529, lx: 0.352, ly: 0.300, anchor: 'start' },
+        { country: 'Colombia',  land: 'Chiribiquete National Park', short: 'Chiribiquete',
+          loss: 14807,  x: 0.297, y: 0.561, lx: 0.190, ly: 0.395, anchor: 'end' },
+        { country: 'Peru',      land: 'North and South Kakataibo Indigenous Reserve', short: 'Kakataibo',
+          loss: 8803,   x: 0.291, y: 0.636, lx: 0.165, ly: 0.655, anchor: 'end' },
+        { country: 'Ecuador',   land: 'Waorani Territory', short: 'Waorani',
+          loss: 2290,   x: 0.287, y: 0.577, lx: 0.170, ly: 0.525, anchor: 'end' },
+        { country: 'Indonesia', land: 'Aketajawe-Lolobata National Park', short: 'Aketajawe-Lolobata',
+          loss: 1305,   x: 0.856, y: 0.561, lx: 0.872, ly: 0.360, anchor: 'start' },
+        { country: 'India',     land: 'Great Nicobar tribal reserve', short: 'Great Nicobar',
+          loss: 9,      x: 0.760, y: 0.515, lx: 0.700, ly: 0.730, anchor: 'end' },
+      ],
+    },
   ],
 };

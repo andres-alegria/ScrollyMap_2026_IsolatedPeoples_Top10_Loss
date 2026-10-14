@@ -14,6 +14,7 @@ import PlainText from "./PlainText";
 import PlainImage from "./PlainImage";
 import AreaReveal from "./AreaReveal";
 import WatchArea from "./WatchArea";
+import WorldLosses from "./WorldLosses";
 
 export const STAGES = {
   // Horizontal image-strip scroller
@@ -36,4 +37,7 @@ export const STAGES = {
 
   // One of the closing "other lands to watch" chapters: copy left, map right
   WatchArea,
+
+  // The closing world map: worst-hit land per country, Robinson projection
+  WorldLosses,
 };
