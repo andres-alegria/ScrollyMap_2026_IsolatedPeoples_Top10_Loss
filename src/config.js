@@ -644,7 +644,7 @@ export default {
       panelAlt: 'Robinson projection world map with the nine lands marked, one in each country in the assessment',
       viewBox: [2600, 1070],
       title: 'The hardest-hit land in each country',
-      description: "<p>Across the nine countries where this assessment confirmed the presence of peoples living in isolation, these are the lands that lost the most tree cover between 2015 and 2025 \u2014 by area lost, which is why the order differs from the countdown.</p>",
+      description: "<p>Across the nine countries with presence of peoples living in isolation, these are the lands that lost the most tree cover between 2015 and 2025 \u2014 by total area lost, not by percentage of the 2000 baseline, which is why the order differs from the countdown.</p>",
       lands: [
         { country: 'Paraguay',  land: 'Reserva de Biosfera del Chaco (Ampliaci\u00f3n)', short: 'Reserva de Biosfera del Chaco',
           loss: 910948, x: 0.336, y: 0.728, lx: 0.415, ly: 0.845, anchor: 'start' },
