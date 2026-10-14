@@ -145,7 +145,7 @@ export default {
       + 'Forest cover and loss are from the Global Forest Change dataset v1.13 '
       + '(Hansen et al., University of Maryland), covering 2000 to 2025 and accessed through '
       + 'Google Earth Engine and Global Nature Watch. Shaded relief on the world '
-      + 'map is from the GEBCO 2024 Grid (GEBCO Compilation Group).',
+      + 'map is from the GEBCO 2024 Grid.',
   },
  
   chapters: [
