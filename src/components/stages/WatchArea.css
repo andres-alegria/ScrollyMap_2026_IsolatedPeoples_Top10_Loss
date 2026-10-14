@@ -89,6 +89,23 @@
   height: auto;
 }
 
+/* The scale bar is drawn white, which is safe on the ranked panels because
+   those boxes are inland and dark all over. These two are islands: the bar's
+   corner can fall on the sea, which is now a light tone. A soft shadow keeps
+   it readable on both without giving it a plate to sit on. */
+.watch-section .scalebar__label {
+  /* Two shadows: a tight halo that holds the letterforms against the pale sea,
+     and a softer drop under them. One alone is either too hard on the dark
+     forest or too weak on the water. */
+  text-shadow: 0 0 2px rgba(24, 24, 24, 0.8),
+               0 1px 3px rgba(24, 24, 24, 0.55);   /* adjust furniture shadow */
+}
+
+.watch-section .scalebar__line {
+  box-shadow: 0 0 2px rgba(24, 24, 24, 0.8),
+              0 1px 3px rgba(24, 24, 24, 0.55);
+}
+
 .watch-section__caption {
   max-width: 620px;
   font-size: var(--fs-caption);
