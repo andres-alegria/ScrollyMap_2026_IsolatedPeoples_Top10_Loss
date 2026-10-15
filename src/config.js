@@ -134,7 +134,7 @@ export default {
       { role: 'Produced by', name: 'Latoya Abulu' },
       { role: 'Creative Director', name: 'Samantha Lee' },
       { role: 'Banner art', name: 'Emilie Languedoc' },
-      { role: 'Data collection', name: 'Aimee Gabay' },
+      { role: 'Data collection', name: 'Latoya Abulu & Aimee Gabay' },
       { role: 'Design and development', name: 'Andrés Alegría' },
     ],
     sourcesTitle: 'Sources',
