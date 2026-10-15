@@ -153,7 +153,7 @@ export default {
     // chapter 01
     {
       id: 'chapter 01',
-      // Opens where the copy opens: the Ituna/Itatá territory in Pará. No dots
+      // Opens where the copy opens: the Kakataibo reserves in Peru. No dots
       // yet — this chapter is one place, not the dataset.
       //
       // Zooms here describe a proportion of the globe's frame, not a pixel
@@ -166,15 +166,14 @@ export default {
       // a little. Measured on the live map, the sphere is about 341px across
       // at an effective zoom of 1.0.
       globe: {
-        center: [-52.0, -4.0], zoom: 1.08,
+        center: [-75.65, -8.9], zoom: 1.08,
         start: 'top bottom', end: 'top 70%',
-        // Ituna/Itatá is not one of the 65 mapped lands, so it has no centroid
-        // in the style. This is a one-off point drawn for this chapter only.
-        // Area-weighted centroid of the territory polygon (Ituna_itate.kml,
-        // 2026_033_AA_Ituna_Brazil_GIF), which closes at 142,808 ha against a
-        // documented extent of about 142,000.
-        focus: [-52.0001, -4.0831],               /* adjust focus dot position */
-        legend: 'Ituna/Itatá Indigenous Territory, Brazil',
+        // The same point the countdown's #2 panel spins its locator to, so
+        // the land is in the same place both times the piece shows it.
+        focus: [-75.622212, -8.88791],            /* adjust focus dot position */
+        // The spreadsheet's name for this land, as used at #2 and on the
+        // closing world map.
+        legend: 'North and South Kakataibo Indigenous Reserve, Peru',
         layers: { centroids: 0, 'centroids-label': 0, 'centroids top 10': 0,
                   'ranked-ten': 0, 'chapter-focus': 0.9 },
       },
@@ -182,7 +181,7 @@ export default {
       card: true,
       hidden: false,
       title: ' ',
-      description: "<p>The canopy of the Amazon rainforest runs thick in some patches. In others, the forest is shaved down to the root in bright green rectangular chunks, the occasional nude trees left standing.</p><p>Activists say families of voluntarily isolated, or “uncontacted,” Igarapé Ipiaçava people walk these lands in the Ituna/Itatá Indigenous Territory, Brazil, dependent on the forests and rich biodiverse world underneath its canopy for survival — food, shelter and medicine. This area was once one of the most deforested Indigenous lands in Brazil.</p><p>“It is a place where we find, time and again, people who do not belong to the territory, leading to illegal logging and land grabbing,” Auzerina Duarte Macuxi, with the Coordination of the Indigenous Organizations of the Brazilian Amazon (COIAB), told Mongabay. “They effectively displace the Indigenous communities.”</p><p>The Ituna/Itatá Indigenous Territory is one of many Indigenous lands, tribal reserves and protected areas around the world designed — either through recognition by states or NGOs — to protect voluntarily isolated peoples. Estimates point to around <b>200 groups</b> of people living in voluntary isolation and initial contact, stretching from Brazil to India; some living in defined lands, while others do not.</p><p>Mongabay mapped the Indigenous territories, tribal reserves and protected areas around the world with the confirmed presence of peoples living in voluntary isolation and analyzed forest cover loss in the decade from 2015 to 2025.</p><p>Based on these figures, we ranked:</p><ul class='chapter-list'><li>the lands in humid tropical forests with the most tree cover loss</li><li>the lands per country that saw the most tree cover loss</li></ul>",
+      description: "<p>The canopy of the Amazon rainforest runs thick in some patches. In others, the forest is shaved down to the root in bright green rectangular chunks, the occasional nude trees left standing.</p><p>Families of voluntarily isolated, or “uncontacted,” Kakataibo people walk these lands in the Kakataibo North and South Indigenous Reserve, Peru, dependent on the forests and rich biodiverse world underneath its canopy for survival — food, shelter and medicine. The area is under threat from illegal loggers, drug trafficking and other illegal activities.</p><p>“These communities are highly vulnerable,” said Julio Cusurichi, an Indigenous Shipibo-Conibo leader and member of the Interethnic Association for the Development of the Peruvian Rainforest (AIDESEP). “Any contact could lead to the death of all these people.”</p><p>The Kakataibo North and South Indigenous Reserve is one of many Indigenous lands, tribal reserves and protected areas around the world designed — either through recognition by states or NGOs — to protect voluntary isolated peoples. Estimates point to around <b>200 groups</b> of people living in voluntary isolation and initial contact, stretching from Brazil to India; some living in defined lands, while others do not.</p><p>Mongabay mapped the Indigenous territories, tribal reserves and protected areas around the world with the confirmed presence of peoples living in voluntary isolation and analyzed forest cover loss in the decade from 2015 to 2025.</p><p>Based on these figures, we ranked:</p><ul class='chapter-list'><li>the lands in humid tropical forests with the most tree cover loss</li><li>the lands per country which saw the most tree cover loss</li></ul>",
       // No `location` here on purpose. The camera for these chapters belongs
       // to `globe` above, and only to that. A `location` makes the template
       // fly the map on chapter enter — to the same centre, but at the bare
