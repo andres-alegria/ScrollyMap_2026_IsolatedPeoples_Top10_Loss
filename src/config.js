@@ -78,23 +78,29 @@ export default {
   // something that dissolves under a headline just as it arrives.
   globeWindows: [
     { reveal: { trigger: 'chapter 01', start: 'top bottom', end: 'top 75%' },
-      fadeOut: { trigger: 'chapter 04' } },
-    // Held back until the hand-off line has left the screen. The finale frame
-    // puts the caption at the very top of the viewport, which is exactly where
-    // the display card's lower edge passes on its way out — reveal any earlier
-    // and the caption surfaces from under that edge while the line above it is
-    // still being read.
-    // Both ends measured from chapter 06's own top, so they cannot collide:
-    // the old fade-out was pegged to the chapter's bottom and started before
-    // the reveal had finished, which capped the globe at four fifths and it
-    // never once reached full strength. In, held, out — 120px, then 480, then
-    // 300.
-    { reveal: { trigger: 'chapter 06', start: 'top 5%', end: 'top top-=120' },
+      // Out a little earlier than the default would take it. The finale frame
+      // is switched on a screen before chapter 06, and the globe has to be
+      // gone by then: the frame resize is a jump in the sphere's size, and the
+      // reader should not be looking at the globe when it happens.
+      fadeOut: { trigger: 'chapter 04', start: 'bottom center', end: 'bottom 25%' } },
+    // Rises behind the hand-off line rather than after it: by the time that
+    // line's card starts leaving, the globe is already there, and the card
+    // slides off over a finished picture instead of a fading one.
+    //
+    // Both ends are measured from chapter 06's own top so they cannot collide.
+    // They used to be read from opposite edges — the reveal from the top, the
+    // fade-out from the bottom — and the fade began fifteen pixels before the
+    // reveal finished, which capped the globe at four fifths: it never once
+    // reached full strength.
+    { reveal: { trigger: 'chapter 06', start: 'top 90%', end: 'top 55%' },
       fadeOut: { trigger: 'chapter 06', start: 'top top-=600', end: 'top top-=900' } },
   ],
 
   // Which chapter gets the larger centred frame (see .map-container--finale).
-  globeFinale: { trigger: 'chapter 06' },
+  // Switched on in the gap between the first globe's fade-out and the second's
+  // rise, with margin either side: the frame resize is a jump in the sphere's
+  // size, so it has to happen while nothing is on screen to see it.
+  globeFinale: { trigger: 'chapter 06', start: 'top 95%' },
 
   globeAtmosphere: {
     // mapbox-gl creates its WebGL context with alpha:true, so a transparent

@@ -51,7 +51,7 @@
   .step--card + .step--card > .chapter-card > .chapter-card__inner::before {
     content: '';
     display: block;
-    width: 4.5rem;                        // adjust separator width
+    width: 8rem;                          // adjust separator width
     height: 1px;
     margin: 0 auto 2.4rem;                // adjust space under the separator
     background: #d8d2c6;                  // adjust separator colour
