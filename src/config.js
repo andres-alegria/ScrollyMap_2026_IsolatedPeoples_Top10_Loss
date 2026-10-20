@@ -603,40 +603,55 @@ export default {
       title: 'The hardest-hit land in each country',
       description: "<p>Across the nine countries with presence of peoples living in isolation, these are the lands that lost the most tree cover between 2015 and 2025 compared to a 2000 tree cover baseline.</p>",
       lands: [
-        // The full name of each land, broken over two lines where the gap it
-        // sits in is too narrow for one — the Atlantic between South America
-        // and Africa is barely a tenth of the map wide at this latitude.
+        // Each land's full name, broken over two lines where the gap it sits
+        // in is too narrow for one — the Atlantic between South America and
+        // Africa is barely a tenth of the map wide at this latitude.
+        //
+        // `driver` is the first of the three the dataset lists, and `fire` is
+        // the hectares of that loss attributed to wildfire; the share is
+        // worked out from `loss` where it is shown, so the two cannot drift
+        // apart. null is the dataset's "No data", which three of the nine
+        // carry and which the popup says in those words.
         { country: 'Paraguay',  land: 'Chaco Biosphere Reserve Expansion',
           name: ['Chaco Biosphere Reserve', 'Expansion'],
-          loss: 910948, x: 0.336, y: 0.728, lx: 0.420, ly: 0.845, anchor: 'start' },
-        // Ñembi guasu sits against the Paraguayan border, 17 units from the
+          loss: 910948, driver: 'Permanent agriculture', fire: 9712,
+          x: 0.336, y: 0.728, lx: 0.420, ly: 0.845, anchor: 'start' },
+        // Ñembi Guasu sits against the Paraguayan border, 17 units from the
         // Chaco reserve's dot on this map: the two largest losses in the set
         // are neighbours. Their leaders leave in opposite directions so the
         // pair reads as two marks rather than one.
         { country: 'Bolivia',   land: 'Ñembi Guasu Conservation Area',
           name: ['Ñembi Guasu', 'Conservation Area'],
-          loss: 316346, x: 0.3364, y: 0.712, lx: 0.175, ly: 0.772, anchor: 'end' },
+          loss: 316346, driver: 'Wildfire', fire: 308487,
+          x: 0.3364, y: 0.712, lx: 0.175, ly: 0.772, anchor: 'end' },
         { country: 'Brazil',    land: 'Araribóia Indigenous Territory',
           name: ['Araribóia', 'Indigenous Territory'],
-          loss: 57613,  x: 0.371, y: 0.607, lx: 0.428, ly: 0.590, anchor: 'start' },
+          loss: 57613,  driver: 'Wildfire', fire: 41478,
+          x: 0.371, y: 0.607, lx: 0.428, ly: 0.590, anchor: 'start' },
         { country: 'Venezuela', land: 'Uwottüja Traditional Territory',
           name: ['Uwottüja', 'Traditional Territory'],
-          loss: 53778,  x: 0.315, y: 0.529, lx: 0.350, ly: 0.282, anchor: 'start' },
+          loss: 53778,  driver: 'Permanent agriculture', fire: 13314,
+          x: 0.315, y: 0.529, lx: 0.350, ly: 0.282, anchor: 'start' },
         { country: 'Colombia',  land: 'Chiribiquete National Park',
           name: ['Chiribiquete', 'National Park'],
-          loss: 14807,  x: 0.297, y: 0.561, lx: 0.190, ly: 0.378, anchor: 'end' },
+          loss: 14807,  driver: 'Permanent agriculture', fire: 390,
+          x: 0.297, y: 0.561, lx: 0.190, ly: 0.378, anchor: 'end' },
         { country: 'Peru',      land: 'North and South Kakataibo Indigenous Reserve',
           name: ['North and South Kakataibo', 'Indigenous Reserve'],
-          loss: 8803,   x: 0.291, y: 0.636, lx: 0.170, ly: 0.620, anchor: 'end' },
+          loss: 8803,   driver: 'Permanent agriculture', fire: null,
+          x: 0.291, y: 0.636, lx: 0.170, ly: 0.620, anchor: 'end' },
         { country: 'Ecuador',   land: 'Waorani Territory',
           name: ['Waorani Territory'],
-          loss: 2290,   x: 0.287, y: 0.577, lx: 0.170, ly: 0.500, anchor: 'end' },
+          loss: 2290,   driver: 'Shifting cultivation', fire: null,
+          x: 0.287, y: 0.577, lx: 0.170, ly: 0.500, anchor: 'end' },
         { country: 'Indonesia', land: 'Aketajawe-Lolobata National Park',
           name: ['Aketajawe-Lolobata', 'National Park'],
-          loss: 1305,   x: 0.856, y: 0.561, lx: 0.872, ly: 0.330, anchor: 'start' },
+          loss: 1305,   driver: 'Wildfire', fire: 893,
+          x: 0.856, y: 0.561, lx: 0.872, ly: 0.330, anchor: 'start' },
         { country: 'India',     land: 'Great Nicobar Tribal Reserve',
           name: ['Great Nicobar', 'Tribal Reserve'],
-          loss: 9,      x: 0.760, y: 0.515, lx: 0.757, ly: 0.730, anchor: 'end' },
+          loss: 9,      driver: 'Logging', fire: null,
+          x: 0.760, y: 0.515, lx: 0.757, ly: 0.730, anchor: 'end' },
       ],
     },
 

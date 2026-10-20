@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
+import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import './WorldLosses.css';
 
@@ -22,6 +23,16 @@ import './WorldLosses.css';
  */
 const fmt = (n) => n.toLocaleString('en-US');
 
+// The wildfire share is worked out here rather than stored, so it can never
+// disagree with the loss figure beside it. Three of the nine have no wildfire
+// figure at all — the dataset says "No data" — and say so rather than showing
+// a zero, which would read as "no fires".
+const fireLine = (d) => {
+  if (d.fire === null || d.fire === undefined) return 'Wildfires: no data';
+  const share = Math.round((d.fire / d.loss) * 100);
+  return `Wildfires: ${fmt(d.fire)} ha (${share}% of the loss)`;
+};
+
 const WorldLosses = ({
   panel,
   panelAlt = '',
@@ -32,6 +43,21 @@ const WorldLosses = ({
   const { t } = useTranslation();
   const { title, description } = chapter;
   const [W, H] = viewBox;
+  const [open, setOpen] = useState(null);
+  const textRefs = useRef([]);
+  const [boxes, setBoxes] = useState([]);
+
+  // The hover target is the label's whole block, not its glyphs: an SVG text
+  // element only answers to the pointer where ink actually is, so chasing the
+  // gaps between letters would be the reader's problem. Measured once the
+  // labels have been laid out, and again if the set changes.
+  useLayoutEffect(() => {
+    setBoxes(textRefs.current.map((el) => {
+      if (!el) return null;
+      const b = el.getBBox();
+      return { x: b.x - 10, y: b.y - 8, w: b.width + 20, h: b.height + 16 };
+    }));
+  }, [lands, W, H]);
 
   return (
     <section className="world-section">
@@ -98,9 +124,29 @@ const WorldLosses = ({
             </g>
 
             <g className="world-overlay__labels">
-              {lands.map((d) => (
-                <text
+              {lands.map((d, i) => (
+                <g
                   key={d.country}
+                  className="world-overlay__hit"
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`${t(d.land)}, ${t(d.country)}. Main driver of loss: ${t(d.driver)}. ${fireLine(d)}`}
+                  onMouseEnter={() => setOpen(d.country)}
+                  onMouseLeave={() => setOpen((c) => (c === d.country ? null : c))}
+                  onFocus={() => setOpen(d.country)}
+                  onBlur={() => setOpen((c) => (c === d.country ? null : c))}
+                >
+                  {boxes[i] && (
+                    <rect
+                      className="world-overlay__hitarea"
+                      x={boxes[i].x}
+                      y={boxes[i].y}
+                      width={boxes[i].w}
+                      height={boxes[i].h}
+                    />
+                  )}
+                <text
+                  ref={(el) => { textRefs.current[i] = el; }}
                   x={d.lx * W}
                   y={d.ly * H}
                   textAnchor={d.anchor || 'start'}
@@ -131,9 +177,38 @@ const WorldLosses = ({
                     {fmt(d.loss)} ha
                   </tspan>
                 </text>
+                </g>
               ))}
             </g>
           </svg>
+
+          {/* The popup is HTML rather than SVG so it can be styled and wrapped
+              like the rest of the page. It is positioned from the same
+              fractions the label uses, and takes its side from the label's
+              anchor so it opens into the ocean rather than off the frame. */}
+          {lands.map((d) => (
+            open === d.country ? (
+              <div
+                key={d.country}
+                // Which way it opens is decided by where the label sits, not
+                // by the label's own anchor: the two Asian labels run
+                // rightward but are close enough to the frame's edge that the
+                // popup has to open back toward the middle, and the lowest
+                // two would otherwise hang off the bottom.
+                className={cx('world-popup',
+                  (d.lx > 0.6 || (d.anchor === 'end' && d.lx > 0.25)) && 'world-popup--left',
+                  d.ly > 0.68 && 'world-popup--up')}
+                style={{ left: `${d.lx * 100}%`, top: `${d.ly * 100}%` }}
+                role="tooltip"
+              >
+                <p className="world-popup__row">
+                  <span className="world-popup__key">Main driver</span>
+                  {t(d.driver)}
+                </p>
+                <p className="world-popup__row">{fireLine(d)}</p>
+              </div>
+            ) : null
+          ))}
         </div>
 
         {/* The same nine, for the screen that cannot hold the labels — and for
@@ -144,6 +219,11 @@ const WorldLosses = ({
               <span className="world-section__name">{t(d.land)}</span>
               <span className="world-section__loss">{fmt(d.loss)} ha</span>
               <span className="world-section__place">{t(d.country)}</span>
+              {/* What the desktop reader gets on hover. There is nothing to
+                  hover on a phone, so it is simply written out. */}
+              <span className="world-section__facts">
+                Main driver: {t(d.driver)}. {fireLine(d)}.
+              </span>
             </li>
           ))}
         </ol>

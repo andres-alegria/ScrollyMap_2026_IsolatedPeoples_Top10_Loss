@@ -104,6 +104,63 @@
   fill: #8a5050;                                   /* adjust figure colour */
 }
 
+/* Hover targets. The box behind each label catches the pointer; it is never
+   painted, so the map looks exactly as it did before. */
+.world-overlay__hit {
+  pointer-events: auto;
+  cursor: default;
+  outline: none;
+}
+
+.world-overlay__hitarea { fill: transparent; }
+
+.world-overlay__hit:hover .world-overlay__name,
+.world-overlay__hit:focus-visible .world-overlay__name {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.world-overlay__hit:focus-visible .world-overlay__hitarea {
+  fill: rgba(230, 109, 109, 0.12);                 /* adjust focus tint */
+}
+
+/* The popup, anchored at its label and opening downward — and to the side the
+   label already runs toward, so it never leaves the frame. */
+.world-popup {
+  position: absolute;
+  z-index: 2;
+  transform: translate(0, 1.6em);
+  width: max-content;
+  max-width: 21rem;                                /* adjust popup width */
+  padding: 0.6rem 0.8rem;                          /* adjust popup padding */
+  box-sizing: border-box;
+  background: #fbf9f4;                             /* adjust popup ground */
+  border: 1px solid #d8d2c6;                       /* adjust popup border */
+  border-radius: 4px;
+  box-shadow: 0 6px 18px rgba(24, 24, 24, 0.14);
+  font-family: var(--font-text);
+  font-size: clamp(12px, 0.92vw, 14px);            /* adjust popup text size */
+  line-height: 1.45;
+  color: var(--ink);
+  pointer-events: none;                            /* never blocks the next hover */
+}
+
+.world-popup--left { transform: translate(-100%, 1.6em); }
+.world-popup--up   { transform: translate(0, calc(-100% - 2.6em)); }
+.world-popup--left.world-popup--up { transform: translate(-100%, calc(-100% - 2.6em)); }
+
+.world-popup__row { margin: 0; }
+.world-popup__row + .world-popup__row { margin-top: 0.3em; }
+
+.world-popup__key {
+  color: var(--ink-mute);                          /* adjust popup label colour */
+  margin-right: 0.4em;
+}
+
+/* The phone's version of the popup. Hidden while the labels are on the map,
+   where the same facts are a hover away. */
+.world-section__facts { display: none; }
+
 /* The list is the narrow screen's version of the labels, so it is not drawn
    while the labels are. */
 .world-section__list {
@@ -160,5 +217,14 @@
   .world-section__place {
     grid-column: 1 / -1;
     color: var(--ink-mute);
+  }
+
+  .world-section__facts {
+    display: block;
+    grid-column: 1 / -1;
+    margin-top: 0.35em;
+    color: var(--ink-soft);                        /* adjust fact line colour */
+    font-size: 13px;                               /* adjust fact line size */
+    line-height: 1.4;
   }
 }
