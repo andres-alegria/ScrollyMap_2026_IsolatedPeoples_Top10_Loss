@@ -99,6 +99,45 @@
   max-height: 58vh;                                /* adjust tallest panel */
 }
 
+/* Key for the layers the raster alone cannot name. Top-left, opposite the
+   scale bar and the locator globe, which hold the other two corners. */
+.watch-legend {
+  position: absolute;
+  top: 2.4%;
+  left: 2.4%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;                                        /* adjust gap between items */
+  pointer-events: none;
+}
+
+.watch-legend__item {
+  display: flex;
+  align-items: center;
+  gap: 7px;                                        /* adjust swatch-to-label gap */
+  font-family: var(--font-text);
+  font-size: var(--fs-furniture, 12px);
+  font-weight: 400;
+  line-height: 1.25;
+  color: #f7f4ee;                                  /* adjust legend text colour */
+  /* Same halo as the scale bar: these two panels have a pale sea, and white
+     furniture needs holding against it as well as against the forest. */
+  text-shadow: 0 0 2px rgba(24, 24, 24, 0.8),
+               0 1px 3px rgba(24, 24, 24, 0.55);
+}
+
+.watch-legend__swatch {
+  display: block;
+  width: 20px;                                     /* adjust swatch length */
+  height: 2px;
+  border-radius: 1px;
+  box-shadow: 0 0 2px rgba(24, 24, 24, 0.8),
+              0 1px 3px rgba(24, 24, 24, 0.55);
+}
+
 /* The scale bar is drawn white, which is safe on the ranked panels because
    those boxes are inland and dark all over. These two are islands: the bar's
    corner can fall on the sea, which is now a light tone. A soft shadow keeps

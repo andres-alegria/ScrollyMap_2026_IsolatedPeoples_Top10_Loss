@@ -25,11 +25,16 @@ const WatchArea = ({
   panelAlt = '',
   scale = {},
   locator,
+  legend = [],
   caption,
   chapter = {},
 }) => {
   const { t } = useTranslation();
   const { title, description } = chapter;
+  // `legend` is one of the keys the Chapter wrapper pulls out of the config
+  // and folds into the chapter object, so it never arrives as a prop of its
+  // own however it is written in config.js. Read from both.
+  const keys = (chapter.legend && chapter.legend.length ? chapter.legend : legend) || [];
 
   return (
     <section className="watch-section">
@@ -56,6 +61,23 @@ const WatchArea = ({
               alt={panelAlt ? t(panelAlt) : ''}
               loading="lazy"
             />
+            {/* Top-left, opposite the scale bar and the locator, which hold
+                the other two corners. Drawn in the page rather than baked into
+                the raster so the type stays type — and so a change of wording
+                does not mean re-reading the imagery. */}
+            {keys.length > 0 && (
+              <ul className="watch-legend">
+                {keys.map((item) => (
+                  <li key={item.label} className="watch-legend__item">
+                    <span
+                      className="watch-legend__swatch"
+                      style={{ background: item.color }}
+                    />
+                    {t(item.label)}
+                  </li>
+                ))}
+              </ul>
+            )}
             <ScaleBar {...scale} />
             {locator && <LocatorGlobe center={locator} />}
           </div>
