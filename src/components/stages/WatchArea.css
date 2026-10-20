@@ -72,10 +72,18 @@
   gap: clamp(8px, 1.4vh, 16px);
 }
 
+/* Shrink-wraps its image rather than setting the width, so a cap on the
+   image's HEIGHT can govern a tall panel. Halmahera's map is square and
+   New Guinea's is twice as wide as it is tall; at a common width the square
+   one stood 620px against the other's 325 and filled its column top to
+   bottom. Both are centred on the column — measured, to the pixel — but a
+   panel that tall reads as aligned with the first line of the paragraph
+   rather than centred against all of it. */
 .watch-section__frame {
   position: relative;
-  width: 100%;
-  max-width: 620px;                                /* adjust panel size */
+  width: fit-content;
+  max-width: 620px;                                /* adjust panel width */
+  margin-inline: auto;
   overflow: hidden;
   border-radius: 5.5pt;                            /* matches the ranked panels */
   background: #181818;                             /* shows while the image loads */
@@ -85,8 +93,10 @@
    different shapes and each should be shown whole. */
 .watch-section__img {
   display: block;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   height: auto;
+  max-height: 58vh;                                /* adjust tallest panel */
 }
 
 /* The scale bar is drawn white, which is safe on the ranked panels because
