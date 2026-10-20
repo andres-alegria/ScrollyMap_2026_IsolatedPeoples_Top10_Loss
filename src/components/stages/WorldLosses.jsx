@@ -131,8 +131,23 @@ const WorldLosses = ({
                   tabIndex={0}
                   role="button"
                   aria-label={`${t(d.land)}, ${t(d.country)}. Main driver of loss: ${t(d.driver)}. ${fireLine(d)}`}
-                  onMouseEnter={() => setOpen(d.country)}
-                  onMouseLeave={() => setOpen((c) => (c === d.country ? null : c))}
+                  // mouseover/mouseout, not enter/leave: React synthesises
+                  // the enter/leave pair from these two and a relatedTarget,
+                  // and that synthesis does not survive an SVG <g> in every
+                  // browser — the popup then answered only to the focus
+                  // handler, which is what made it look like a click was
+                  // needed. These two are delegated as they come.
+                  //
+                  // They bubble, so crossing from the hit rectangle to the
+                  // glyphs above it fires an out and an over of its own; the
+                  // guard keeps the popup up as long as the pointer is still
+                  // somewhere inside this label's group.
+                  onMouseOver={() => setOpen(d.country)}
+                  onMouseOut={(e) => {
+                    const to = e.relatedTarget;
+                    if (to && to.nodeType && e.currentTarget.contains(to)) return;
+                    setOpen((c) => (c === d.country ? null : c));
+                  }}
                   onFocus={() => setOpen(d.country)}
                   onBlur={() => setOpen((c) => (c === d.country ? null : c))}
                 >
