@@ -613,8 +613,8 @@ export default {
         // Chaco reserve's dot on this map: the two largest losses in the set
         // are neighbours. Their leaders leave in opposite directions so the
         // pair reads as two marks rather than one.
-        { country: 'Bolivia',   land: 'Ñembi guasu Conservation Area',
-          name: ['Ñembi guasu', 'Conservation Area'],
+        { country: 'Bolivia',   land: 'Ñembi Guasu Conservation Area',
+          name: ['Ñembi Guasu', 'Conservation Area'],
           loss: 316346, x: 0.3364, y: 0.712, lx: 0.175, ly: 0.772, anchor: 'end' },
         { country: 'Brazil',    land: 'Araribóia Indigenous Territory',
           name: ['Araribóia', 'Indigenous Territory'],
@@ -634,8 +634,8 @@ export default {
         { country: 'Indonesia', land: 'Aketajawe-Lolobata National Park',
           name: ['Aketajawe-Lolobata', 'National Park'],
           loss: 1305,   x: 0.856, y: 0.561, lx: 0.872, ly: 0.330, anchor: 'start' },
-        { country: 'India',     land: 'Great Nicobar tribal reserve',
-          name: ['Great Nicobar', 'tribal reserve'],
+        { country: 'India',     land: 'Great Nicobar Tribal Reserve',
+          name: ['Great Nicobar', 'Tribal Reserve'],
           loss: 9,      x: 0.760, y: 0.515, lx: 0.757, ly: 0.730, anchor: 'end' },
       ],
     },
