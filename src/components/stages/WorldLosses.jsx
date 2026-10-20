@@ -107,10 +107,22 @@ const WorldLosses = ({
                   className="world-overlay__label"
                 >
                   {/* The land leads, because that is what the dot marks; the
-                      country and the figure follow together underneath. Two
-                      lines rather than one: with the land name in front, a
-                      single line ran off the frame on the longest of them. */}
-                  <tspan className="world-overlay__name">{t(d.short || d.land)}</tspan>
+                      country and the figure follow together underneath. The
+                      name may arrive as an array, which is how the longer ones
+                      are broken: the gaps between South America and Africa, and
+                      between New Guinea and the frame's edge, are too narrow to
+                      take "North and South Kakataibo Indigenous Reserve" on one
+                      line. */}
+                  {(Array.isArray(d.name) ? d.name : [d.name || d.land]).map((line, i) => (
+                    <tspan
+                      key={line}
+                      x={d.lx * W}
+                      dy={i === 0 ? 0 : 30}
+                      className="world-overlay__name"
+                    >
+                      {t(line)}
+                    </tspan>
+                  ))}
                   <tspan x={d.lx * W} dy="30" className="world-overlay__place">
                     {t(d.country)}
                   </tspan>

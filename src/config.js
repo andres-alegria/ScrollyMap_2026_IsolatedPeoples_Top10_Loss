@@ -603,28 +603,40 @@ export default {
       title: 'The hardest-hit land in each country',
       description: "<p>Across the nine countries with presence of peoples living in isolation, these are the lands that lost the most tree cover between 2015 and 2025 compared to a 2000 tree cover baseline.</p>",
       lands: [
-        { country: 'Paraguay',  land: 'Reserva de Biosfera del Chaco (Ampliaci\u00f3n)', short: 'Reserva de Biosfera del Chaco',
-          loss: 910948, x: 0.336, y: 0.728, lx: 0.415, ly: 0.895, anchor: 'start' },
-        // Ñembi guasu sits against the Paraguayan border, 17px from the Chaco
-        // reserve's dot on this map: the two largest losses in the set are
-        // neighbours. Their leaders leave in opposite directions so the pair
-        // reads as two marks rather than one.
-        { country: 'Bolivia',   land: 'Ñembi guasu Conservation Area', short: 'Ñembi guasu',
-          loss: 316346, x: 0.3364, y: 0.712, lx: 0.175, ly: 0.790, anchor: 'end' },
-        { country: 'Brazil',    land: 'Ararib\u00f3ia Indigenous Territory', short: 'Ararib\u00f3ia',
-          loss: 57613,  x: 0.371, y: 0.607, lx: 0.437, ly: 0.605, anchor: 'start' },
-        { country: 'Venezuela', land: 'Uwott\u00fcja Traditional Territory', short: 'Uwott\u00fcja',
-          loss: 53778,  x: 0.315, y: 0.529, lx: 0.352, ly: 0.300, anchor: 'start' },
-        { country: 'Colombia',  land: 'Chiribiquete National Park', short: 'Chiribiquete',
-          loss: 14807,  x: 0.297, y: 0.561, lx: 0.190, ly: 0.395, anchor: 'end' },
-        { country: 'Peru',      land: 'North and South Kakataibo Indigenous Reserve', short: 'Kakataibo',
-          loss: 8803,   x: 0.291, y: 0.636, lx: 0.165, ly: 0.655, anchor: 'end' },
-        { country: 'Ecuador',   land: 'Waorani Territory', short: 'Waorani',
-          loss: 2290,   x: 0.287, y: 0.577, lx: 0.170, ly: 0.525, anchor: 'end' },
-        { country: 'Indonesia', land: 'Aketajawe-Lolobata National Park', short: 'Aketajawe-Lolobata',
-          loss: 1305,   x: 0.856, y: 0.561, lx: 0.872, ly: 0.360, anchor: 'start' },
-        { country: 'India',     land: 'Great Nicobar tribal reserve', short: 'Great Nicobar',
-          loss: 9,      x: 0.760, y: 0.515, lx: 0.757, ly: 0.745, anchor: 'end' },
+        // The full name of each land, broken over two lines where the gap it
+        // sits in is too narrow for one — the Atlantic between South America
+        // and Africa is barely a tenth of the map wide at this latitude.
+        { country: 'Paraguay',  land: 'Chaco Biosphere Reserve Expansion',
+          name: ['Chaco Biosphere Reserve', 'Expansion'],
+          loss: 910948, x: 0.336, y: 0.728, lx: 0.420, ly: 0.845, anchor: 'start' },
+        // Ñembi guasu sits against the Paraguayan border, 17 units from the
+        // Chaco reserve's dot on this map: the two largest losses in the set
+        // are neighbours. Their leaders leave in opposite directions so the
+        // pair reads as two marks rather than one.
+        { country: 'Bolivia',   land: 'Ñembi guasu Conservation Area',
+          name: ['Ñembi guasu', 'Conservation Area'],
+          loss: 316346, x: 0.3364, y: 0.712, lx: 0.175, ly: 0.772, anchor: 'end' },
+        { country: 'Brazil',    land: 'Araribóia Indigenous Territory',
+          name: ['Araribóia', 'Indigenous Territory'],
+          loss: 57613,  x: 0.371, y: 0.607, lx: 0.428, ly: 0.590, anchor: 'start' },
+        { country: 'Venezuela', land: 'Uwottüja Traditional Territory',
+          name: ['Uwottüja', 'Traditional Territory'],
+          loss: 53778,  x: 0.315, y: 0.529, lx: 0.350, ly: 0.282, anchor: 'start' },
+        { country: 'Colombia',  land: 'Chiribiquete National Park',
+          name: ['Chiribiquete', 'National Park'],
+          loss: 14807,  x: 0.297, y: 0.561, lx: 0.190, ly: 0.378, anchor: 'end' },
+        { country: 'Peru',      land: 'North and South Kakataibo Indigenous Reserve',
+          name: ['North and South Kakataibo', 'Indigenous Reserve'],
+          loss: 8803,   x: 0.291, y: 0.636, lx: 0.170, ly: 0.620, anchor: 'end' },
+        { country: 'Ecuador',   land: 'Waorani Territory',
+          name: ['Waorani Territory'],
+          loss: 2290,   x: 0.287, y: 0.577, lx: 0.170, ly: 0.500, anchor: 'end' },
+        { country: 'Indonesia', land: 'Aketajawe-Lolobata National Park',
+          name: ['Aketajawe-Lolobata', 'National Park'],
+          loss: 1305,   x: 0.856, y: 0.561, lx: 0.872, ly: 0.330, anchor: 'start' },
+        { country: 'India',     land: 'Great Nicobar tribal reserve',
+          name: ['Great Nicobar', 'tribal reserve'],
+          loss: 9,      x: 0.760, y: 0.515, lx: 0.757, ly: 0.730, anchor: 'end' },
       ],
     },
 
