@@ -88,8 +88,11 @@ const WorldLosses = ({
             <g className="world-overlay__dots">
               {lands.map((d) => (
                 <g key={d.country}>
-                  <circle cx={d.x * W} cy={d.y * H} r="15" className="world-overlay__halo" />
-                  <circle cx={d.x * W} cy={d.y * H} r="11" className="world-overlay__dot" />
+                  {/* Sized so that the two Chaco lands, which are 17 units
+                      apart, still read as two dots with the paper ring
+                      between them rather than as one blob. */}
+                  <circle cx={d.x * W} cy={d.y * H} r="12" className="world-overlay__halo" />
+                  <circle cx={d.x * W} cy={d.y * H} r="8.5" className="world-overlay__dot" />
                 </g>
               ))}
             </g>

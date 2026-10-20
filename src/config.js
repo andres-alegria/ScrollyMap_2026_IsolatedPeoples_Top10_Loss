@@ -605,8 +605,12 @@ export default {
       lands: [
         { country: 'Paraguay',  land: 'Reserva de Biosfera del Chaco (Ampliaci\u00f3n)', short: 'Reserva de Biosfera del Chaco',
           loss: 910948, x: 0.336, y: 0.728, lx: 0.415, ly: 0.895, anchor: 'start' },
-        { country: 'Bolivia',   land: 'Chacobo-Pacahuara Indigenous Territory', short: 'Chacobo-Pacahuara',
-          loss: 143061, x: 0.318, y: 0.660, lx: 0.175, ly: 0.790, anchor: 'end' },
+        // Ñembi guasu sits against the Paraguayan border, 17px from the Chaco
+        // reserve's dot on this map: the two largest losses in the set are
+        // neighbours. Their leaders leave in opposite directions so the pair
+        // reads as two marks rather than one.
+        { country: 'Bolivia',   land: 'Ñembi guasu Conservation Area', short: 'Ñembi guasu',
+          loss: 316346, x: 0.3364, y: 0.712, lx: 0.175, ly: 0.790, anchor: 'end' },
         { country: 'Brazil',    land: 'Ararib\u00f3ia Indigenous Territory', short: 'Ararib\u00f3ia',
           loss: 57613,  x: 0.371, y: 0.607, lx: 0.437, ly: 0.605, anchor: 'start' },
         { country: 'Venezuela', land: 'Uwott\u00fcja Traditional Territory', short: 'Uwott\u00fcja',
