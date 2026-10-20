@@ -7,7 +7,7 @@
   position: relative;
   z-index: 1;
   text-align: left;
-  padding: 10vh 4vw 12vh;                          /* adjust section inset */
+  padding: 7vh 4vw 9vh;                            /* adjust section inset */
   box-sizing: border-box;
   background-color: #f7f4ee;                       /* adjust section ground */
   background-image: url('../../assets/paper-grain.jpg');

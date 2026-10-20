@@ -35,6 +35,43 @@
   min-height: 70vh;
 }
 
+// Wide screens: close the chapters up.
+//
+// The runway above is there for the phone, where the globe is full-bleed
+// BEHIND the copy and the gap between two cards is the only place it can be
+// seen. From the breakpoint up the globe sits beside the copy instead, so that
+// runway is just half a screen of empty paper between every pair of
+// paragraphs. A hairline carries the break instead.
+@media (min-width: 1000px) {
+  .step--card:not(.step--display) {
+    padding-bottom: 10vh;                 // adjust gap between chapters
+    min-height: auto;
+  }
+
+  .step--card + .step--card > .chapter-card > .chapter-card__inner::before {
+    content: '';
+    display: block;
+    width: 4.5rem;                        // adjust separator width
+    height: 1px;
+    margin: 0 auto 2.4rem;                // adjust space under the separator
+    background: #d8d2c6;                  // adjust separator colour
+  }
+
+  // The display beat still gets a screen of its own — that is the device —
+  // but not a screen and a half.
+  .step--card.step--display,
+  .step--card.step--display > .chapter-card {
+    min-height: 78vh;                     // adjust the display beat's height
+  }
+
+  // The globe's own screen. It is budgeted by the reveal and fade windows in
+  // config (120px in, 480 held, 300 out, measured from this chapter's top), so
+  // the tail beyond that was blank paper with the globe already gone.
+  .step.step--globe-only {
+    min-height: 110vh;                    // adjust the globe beat's dwell
+  }
+}
+
 .step.step--tight {
   min-height: auto;
   padding-bottom: 10vh;

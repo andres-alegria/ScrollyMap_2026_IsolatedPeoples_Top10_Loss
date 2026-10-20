@@ -79,9 +79,18 @@ export default {
   globeWindows: [
     { reveal: { trigger: 'chapter 01', start: 'top bottom', end: 'top 75%' },
       fadeOut: { trigger: 'chapter 04' } },
-    { reveal: { trigger: 'chapter 06', start: 'top 70%', end: 'top 30%' },
-      // Out as the first ranked section rises over it.
-      fadeOut: { trigger: 'chapter 06', start: 'bottom bottom', end: 'bottom center' } },
+    // Held back until the hand-off line has left the screen. The finale frame
+    // puts the caption at the very top of the viewport, which is exactly where
+    // the display card's lower edge passes on its way out — reveal any earlier
+    // and the caption surfaces from under that edge while the line above it is
+    // still being read.
+    // Both ends measured from chapter 06's own top, so they cannot collide:
+    // the old fade-out was pegged to the chapter's bottom and started before
+    // the reveal had finished, which capped the globe at four fifths and it
+    // never once reached full strength. In, held, out — 120px, then 480, then
+    // 300.
+    { reveal: { trigger: 'chapter 06', start: 'top 5%', end: 'top top-=120' },
+      fadeOut: { trigger: 'chapter 06', start: 'top top-=600', end: 'top top-=900' } },
   ],
 
   // Which chapter gets the larger centred frame (see .map-container--finale).

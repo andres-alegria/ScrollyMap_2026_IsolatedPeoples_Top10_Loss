@@ -20,7 +20,7 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: stretch;
   gap: clamp(24px, 4vw, 80px);                     /* adjust column gap */
-  padding: 12vh 5vw 14vh;                          /* adjust section inset */
+  padding: 7vh 5vw 10vh;                           /* adjust section inset */
   box-sizing: border-box;
   background-color: #f7f4ee;                       /* adjust section ground */
   background-image: url('../../assets/paper-grain.jpg');
