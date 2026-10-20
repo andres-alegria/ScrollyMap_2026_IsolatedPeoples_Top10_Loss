@@ -111,11 +111,18 @@ export const useGlobeSequence = ({ map, loaded, chapters, atmosphere, containerR
     const keys = (chapters || []).filter((c) => c && c.globe && c.id);
     if (keys.length === 0) return undefined;
 
-    const opacityProp = (id) => {
+    // Which paint properties carry a layer's opacity — plural, because a
+    // circle has two. Setting only circle-opacity empties the dot but leaves
+    // its stroke at full strength, so every hidden dot stayed on the globe as
+    // a pale ring. Nothing in the piece ever wants the ring without the dot.
+    const opacityProps = (id) => {
       const layer = map.getLayer(id);
       if (!layer) return null;
-      return { circle: 'circle-opacity', symbol: 'text-opacity', fill: 'fill-opacity',
-               line: 'line-opacity', raster: 'raster-opacity' }[layer.type] || null;
+      return { circle: ['circle-opacity', 'circle-stroke-opacity'],
+               symbol: ['text-opacity', 'icon-opacity'],
+               fill: ['fill-opacity'],
+               line: ['line-opacity'],
+               raster: ['raster-opacity'] }[layer.type] || null;
     };
 
     // A layer id that isn't in the published style fails silently otherwise:
@@ -126,9 +133,9 @@ export const useGlobeSequence = ({ map, loaded, chapters, atmosphere, containerR
     const setLayers = (spec) => {
       if (!spec) return;
       Object.entries(spec).forEach(([id, v]) => {
-        const prop = opacityProp(id);
-        if (prop) {
-          map.setPaintProperty(id, prop, v);
+        const props = opacityProps(id);
+        if (props) {
+          props.forEach((prop) => map.setPaintProperty(id, prop, v));
         } else if (!warned.has(id)) {
           warned.add(id);
           console.warn(`[globe] no layer "${id}" in this style — check the id, `

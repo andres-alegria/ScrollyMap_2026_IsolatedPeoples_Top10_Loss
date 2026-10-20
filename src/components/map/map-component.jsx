@@ -570,7 +570,10 @@ const Map = (props) => {
             'circle-stroke-color': '#f1ebdd',
             'circle-stroke-width': 1,
             'circle-emissive-strength': 1,
+            // Both, and both at zero: a dot that is hidden should leave no
+            // ring behind. useGlobeSequence drives the pair together.
             'circle-opacity': 0,
+            'circle-stroke-opacity': 0,
           },
         });
       }
