@@ -44,8 +44,23 @@
 // paragraphs. A hairline carries the break instead.
 @media (min-width: 1000px) {
   .step--card:not(.step--display) {
-    padding-bottom: 10vh;                 // adjust gap between chapters
+    padding-bottom: 0;
     min-height: auto;
+  }
+
+  // The hairline is the whole break, so nothing else may add to it. The band's
+  // own padding sits on both sides of the seam, and the step carried a runway
+  // below that: a quarter of a screen above the line against 2.4rem below it,
+  // which reads as a gap with a line lost in it rather than as a rule between
+  // two paragraphs. Closed on both cards of a pair only — a card that ends a
+  // run, with a globe or a display beat after it, still needs its own foot.
+  .step--card:has(+ .step--card) > .chapter-card { padding-bottom: 0; }
+  .step--card + .step--card > .chapter-card { padding-top: 0; }
+
+  // And the last paragraph's own trailing space, which would otherwise push
+  // the line down by a line's worth on one side only.
+  .step--card:has(+ .step--card) .chapter-copy > :last-child {
+    margin-bottom: 0;
   }
 
   .step--card + .step--card > .chapter-card > .chapter-card__inner::before {
@@ -53,7 +68,7 @@
     display: block;
     width: 8rem;                          // adjust separator width
     height: 1px;
-    margin: 0 auto 2.4rem;                // adjust space under the separator
+    margin: 2.4rem auto;                  // adjust air around the separator
     background: #d8d2c6;                  // adjust separator colour
   }
 
