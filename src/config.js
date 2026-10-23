@@ -159,7 +159,9 @@ export default {
       + 'OPIAC, ORPIO, Pueblos Vivos and Dr. Manish Chandi. '
       + 'Forest cover and loss are from the Global Forest Change dataset v1.13 '
       + '(Hansen et al., University of Maryland), covering 2000 to 2025 and accessed through '
-      + 'Google Earth Engine and Global Nature Watch. Shaded relief on the world '
+      + 'Google Earth Engine and Global Nature Watch. Mining, logging and wood fiber '
+      + 'concessions on the Halmahera map are also from Global Nature Watch, which '
+      + 'compiles them from Indonesian government sources. Shaded relief on the world '
       + 'map is from the GEBCO 2024 Grid, and roads on the Halmahera and New Guinea '
       + 'maps from the GRIP4 global roads database (OpenStreetMap and national sources).',
   },
@@ -701,7 +703,7 @@ export default {
         { label: 'Mining and forestry concessions', color: '#e8a643', type: 'area' },
         { label: 'Roads', color: '#e66d6d' },
       ],
-      caption: 'Forest remaining in 2025, with mining and forestry concessions hatched and the road network in pink. The outline is Survival International\u2019s approximation of the lands used by O\u2019 Hongana Manyawa. For security reasons, map is deliberately rough.',
+      caption: 'Forest remaining in 2025, with mining, logging and wood fiber concessions hatched and the road network in pink. The outline is Survival International\u2019s approximation of the lands used by O\u2019 Hongana Manyawa. For security reasons, map is deliberately rough.',
       title: 'The O\u2019 Hongana Manyawa in Halmahera',
       description: "<p>Lands used by uncontacted O\u2019 Hongana Manyawa people in Indonesia\u2019s Halmahera Island overlap with the Aketajawe-Lolobata National Park. However, voluntarily isolated members of the tribe use much more land, and mapping efforts by various groups of their territory are underway.</p><p>According to an approximate map by human rights organization Survival International, a wave of mining concessions, many for nickel, impact forests uncontacted O\u2019 Hongana Manyawa people depend on for food and survival.</p><p>The Jakarta declaration, which calls on governments to protect the lands and rights of uncontacted peoples worldwide, was drafted in Indonesia in a bid to strengthen the global alliance for the protection of uncontacted peoples and the inclusion of tribes in Indonesia.</p><p>For the safety of the isolated members of the group, Mongabay will not publish the most up-to-date map of lands the O\u2019 Hongana Manyawa people use.</p><p>\u201CThis map is very helpful in showing the existence of the O\u2019 Hongana Manyawa Indigenous Community \u2026 but does not yet cover the entire O\u2019 Hongana Manyawa Indigenous territory. The work to document the existence of O\u2019 Hongana Manyawa and its Indigenous territory is not yet complete, and it will continue,\u201D said Yoga Kipli, directorate of community support and former head of participatory mapping for the Indigenous Peoples\u2019 Alliance of the Archipelago (AMAN).</p>",
     },
