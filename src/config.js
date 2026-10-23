@@ -630,7 +630,7 @@ export default {
         // carry and which the popup says in those words.
         { country: 'Paraguay',  land: 'Chaco Biosphere Reserve Expansion',
           name: ['Chaco Biosphere Reserve', 'Expansion'],
-          loss: 910948, driver: 'Permanent agriculture', fire: 9712,
+          loss: 446847, driver: 'Permanent agriculture', fire: 9712,
           x: 0.336, y: 0.728, lx: 0.420, ly: 0.845, anchor: 'start' },
         // Ñembi Guasu sits against the Paraguayan border, 17 units from the
         // Chaco reserve's dot on this map: the two largest losses in the set
