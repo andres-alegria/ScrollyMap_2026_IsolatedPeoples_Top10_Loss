@@ -695,8 +695,13 @@ export default {
       // box, locator and scale come from render_panels_watch.py
       scale: { n: 20, kmFrac: 0.1504, miFrac: 0.242 },
       locator: [128.17051, 0.63895],
-      legend: [{ label: 'Roads', color: '#e66d6d' }],
-      caption: 'Forest remaining in 2025, with the road network in pink. The outline is Survival International\u2019s approximation of the lands used by O\u2019 Hongana Manyawa. For security reasons, map is deliberately rough.',
+      // The concession key leads: it is the layer the chapter is about, and
+      // it is an area, so it reads before the lines drawn on top of it.
+      legend: [
+        { label: 'Mining and forestry concessions', color: '#e8a643', type: 'area' },
+        { label: 'Roads', color: '#e66d6d' },
+      ],
+      caption: 'Forest remaining in 2025, with mining and forestry concessions hatched and the road network in pink. The outline is Survival International\u2019s approximation of the lands used by O\u2019 Hongana Manyawa. For security reasons, map is deliberately rough.',
       title: 'The O\u2019 Hongana Manyawa in Halmahera',
       description: "<p>Lands used by uncontacted O\u2019 Hongana Manyawa people in Indonesia\u2019s Halmahera Island overlap with the Aketajawe-Lolobata National Park. However, voluntarily isolated members of the tribe use much more land, and mapping efforts by various groups of their territory are underway.</p><p>According to an approximate map by human rights organization Survival International, a wave of mining concessions, many for nickel, impact forests uncontacted O\u2019 Hongana Manyawa people depend on for food and survival.</p><p>The Jakarta declaration, which calls on governments to protect the lands and rights of uncontacted peoples worldwide, was drafted in Indonesia in a bid to strengthen the global alliance for the protection of uncontacted peoples and the inclusion of tribes in Indonesia.</p><p>For the safety of the isolated members of the group, Mongabay will not publish the most up-to-date map of lands the O\u2019 Hongana Manyawa people use.</p><p>\u201CThis map is very helpful in showing the existence of the O\u2019 Hongana Manyawa Indigenous Community \u2026 but does not yet cover the entire O\u2019 Hongana Manyawa Indigenous territory. The work to document the existence of O\u2019 Hongana Manyawa and its Indigenous territory is not yet complete, and it will continue,\u201D said Yoga Kipli, directorate of community support and former head of participatory mapping for the Indigenous Peoples\u2019 Alliance of the Archipelago (AMAN).</p>",
     },

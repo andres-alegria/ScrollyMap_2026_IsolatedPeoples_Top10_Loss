@@ -69,9 +69,17 @@ const WatchArea = ({
               <ul className="watch-legend">
                 {keys.map((item) => (
                   <li key={item.label} className="watch-legend__item">
+                    {/* A line key for a line and a hatched box for a hatched
+                        area: a key that is not drawn the way the thing it
+                        stands for is drawn makes the reader look twice. */}
                     <span
-                      className="watch-legend__swatch"
-                      style={{ background: item.color }}
+                      className={`watch-legend__swatch watch-legend__swatch--${item.type || 'line'}`}
+                      style={item.type === 'area'
+                        ? {
+                          backgroundImage: `repeating-linear-gradient(45deg, ${item.color} 0 1.5px, transparent 1.5px 5px)`,
+                          borderColor: item.color,
+                        }
+                        : { background: item.color }}
                     />
                     {t(item.label)}
                   </li>

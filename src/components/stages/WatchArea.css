@@ -138,6 +138,14 @@
               0 1px 3px rgba(24, 24, 24, 0.55);
 }
 
+/* The area key: the same hatch the map draws, in a box with its own edge. */
+.watch-legend__swatch--area {
+  width: 18px;                                   /* adjust area key size */
+  height: 11px;
+  border: 1px solid;
+  border-radius: 1px;
+}
+
 /* The scale bar is drawn white, which is safe on the ranked panels because
    those boxes are inland and dark all over. These two are islands: the bar's
    corner can fall on the sea, which is now a light tone. A soft shadow keeps
