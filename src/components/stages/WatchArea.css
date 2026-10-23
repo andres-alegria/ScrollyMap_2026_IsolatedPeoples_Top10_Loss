@@ -131,6 +131,9 @@
 
 .watch-legend__swatch {
   display: block;
+  /* A flex child shrinks by default, and the longer of the two labels was
+     squeezing its key to half width. The key is a fixed mark, not a column. */
+  flex: none;
   width: 20px;                                     /* adjust swatch length */
   height: 2px;
   border-radius: 1px;
@@ -138,10 +141,11 @@
               0 1px 3px rgba(24, 24, 24, 0.55);
 }
 
-/* The area key: the same hatch the map draws, in a box with its own edge. */
+/* The area key: the map's own wash, in a box with the map's own edge. */
 .watch-legend__swatch--area {
   width: 18px;                                   /* adjust area key size */
   height: 11px;
+  box-sizing: border-box;
   border: 1px solid;
   border-radius: 1px;
 }

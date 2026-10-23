@@ -69,16 +69,15 @@ const WatchArea = ({
               <ul className="watch-legend">
                 {keys.map((item) => (
                   <li key={item.label} className="watch-legend__item">
-                    {/* A line key for a line and a hatched box for a hatched
-                        area: a key that is not drawn the way the thing it
-                        stands for is drawn makes the reader look twice. */}
+                    {/* A line key for a line, and for an area the same wash
+                        and edge the map draws: a key that is not drawn the way
+                        the thing it stands for is drawn makes the reader look
+                        twice. The two share a hue here, so it is the shape of
+                        the key that separates them. */}
                     <span
                       className={`watch-legend__swatch watch-legend__swatch--${item.type || 'line'}`}
                       style={item.type === 'area'
-                        ? {
-                          backgroundImage: `repeating-linear-gradient(45deg, ${item.color} 0 1.5px, transparent 1.5px 5px)`,
-                          borderColor: item.color,
-                        }
+                        ? { background: `${item.color}3b`, borderColor: item.color }
                         : { background: item.color }}
                     />
                     {t(item.label)}
