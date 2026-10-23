@@ -160,8 +160,8 @@ export default {
       + 'Forest cover and loss are from the Global Forest Change dataset v1.13 '
       + '(Hansen et al., University of Maryland), covering 2000 to 2025 and accessed through '
       + 'Google Earth Engine and Global Nature Watch. Mining, logging and wood fiber '
-      + 'concessions on the Halmahera map are also from Global Nature Watch, which '
-      + 'compiles them from Indonesian government sources. Shaded relief on the world '
+      + 'concessions on the Halmahera map are also from Global Nature Watch. '
+      + 'Shaded relief on the world '
       + 'map is from the GEBCO 2024 Grid, and roads on the Halmahera and New Guinea '
       + 'maps from the GRIP4 global roads database (OpenStreetMap and national sources).',
   },
