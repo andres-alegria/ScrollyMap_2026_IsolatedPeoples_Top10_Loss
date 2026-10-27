@@ -3,26 +3,15 @@
 `embed-shortcode.txt` holds the shortcode. `shortcode-test.html` is a stand-in
 article page for checking it, built from the live theme's CSS.
 
-## Before this can go in a post
+## The public URL
 
-**The piece has no public URL yet.** Vercel is building it — the latest
-production deployment is current — but every deployment URL redirects to
-`vercel.com/sso-api`, and no project alias is assigned:
+**`https://scrollymap2026isolatedpeoplestop10l.vercel.app`** — confirmed
+public on 27 Oct 2026: 200, no SSO redirect, serving the current build.
+Vercel truncates the project name for the alias, which is why it ends `top10l`
+rather than `top10loss`; the untruncated spelling 404s.
 
-| URL | |
-|---|---|
-| `scrollymap2026isolatedpeoplestop10loss-305bhpj3k.vercel.app` | 302 → Vercel SSO |
-| `scrollymap2026isolatedpeoplestop10loss.vercel.app` | 404, no alias |
-
-Compare the published CCZ map, which serves fine at
-`map-usa-vs-isa.vercel.app`. So two things are needed in the Vercel dashboard,
-both of them Andrés's to do:
-
-1. assign a production domain to the project;
-2. set Deployment Protection so that domain is public.
-
-Then put that domain in the shortcode. **Never paste a per-deployment URL
-into a post** — it changes on every push and the embed dies.
+The per-deployment URLs (`…-305bhpj3k.vercel.app` and the rest) all redirect
+to `vercel.com/sso-api` and change on every push. **Never put one in a post.**
 
 ## What was measured
 
