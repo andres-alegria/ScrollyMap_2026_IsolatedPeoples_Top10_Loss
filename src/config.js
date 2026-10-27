@@ -163,7 +163,10 @@ export default {
       + 'concessions on the Halmahera map are also from Global Nature Watch. '
       + 'Shaded relief on the world '
       + 'map is from the GEBCO 2024 Grid, and roads on the Halmahera and New Guinea '
-      + 'maps from the GRIP4 global roads database (OpenStreetMap and national sources).',
+      + 'maps from the GRIP4 global roads database (OpenStreetMap and national sources). '
+      // The photographs the banner collage is cut from, as supplied.
+      + 'Photographs in the banner art are by Guilherme Gnipper-Trevisan/FUNAI/Hutukara, '
+      + 'Survival International and Gleison Miranda-FUNAI.',
   },
  
   chapters: [
