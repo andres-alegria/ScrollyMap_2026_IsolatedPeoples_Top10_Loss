@@ -1,0 +1,29 @@
+Mongabay WordPress embed — full-bleed, one viewport tall
+=========================================================
+
+Paste this into the post. Replace PUBLIC-URL first (see README.md § "Before
+this can go in a post").
+
+[iframe src="https://PUBLIC-URL/" title="Forests at the Edge" loading="lazy" scrolling="yes" style="display:block; position:relative; left:50%; width:100vw; max-width:100vw; margin-left:-50vw; margin-right:-50vw; height:100vh; height:100dvh; border:0;"][/iframe]
+
+
+What each part is doing
+-----------------------
+position:relative; left:50%; margin-left:-50vw; width:100vw
+    The theme's own full-bleed recipe, the one it already applies to
+    .single-custom-story .wp-block-cover. The post's column is 780 px; this
+    pulls the frame out of it to the window edges. body { overflow-x: hidden }
+    on the theme means the 100vw child makes no horizontal scrollbar.
+
+height:100vh; height:100dvh
+    Two declarations on purpose. The second wins wherever dvh is supported
+    (iOS 15.4+, every current browser) and tracks the phone's shrinking URL
+    bar; the first is the fallback for anything older. The plugin's own
+    height="500" attribute loses to the inline style.
+
+scrolling="yes"
+    The piece is 49 screens tall inside the frame. It has to scroll.
+
+loading="lazy"
+    The piece pulls about 1.8 MB before the reader touches it; no reason to
+    spend that on someone who never reaches the embed.
