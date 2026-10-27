@@ -11,7 +11,7 @@ export default {
     title: 'Forests at the Edge',
     subtitle:
       "Tracking forest cover loss across isolated tribal lands worldwide. These are the 10 lands that lost the largest share of their forest.",
-    date: 'X Sep 2026',
+    date: '0 Nov 2026',
     // The intro collage, assembled from individual elements over the paper
     // ground. Positions are percentages of the viewport and are the knob for
     // arranging this — nothing in the components hard-codes a layout.
