@@ -2,12 +2,18 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useTranslation } from 'react-i18next';
+import { panelSrcSet } from './panel-srcset';
 import ScaleBar from './ScaleBar';
 import LocatorGlobe from './LocatorGlobe';
 import BeatIndicator from './BeatIndicator';
 import './AreaReveal.css';
 
 gsap.registerPlugin(ScrollTrigger);
+
+// The drawn width of a ranked panel, and the slot it is laid out in: about
+// 90vw on a phone, a little over 40vw once the copy moves alongside it.
+const PANEL_W = 1200;
+const PANEL_SIZES = '(max-width: 999px) 92vw, 45vw';
 
 const clamp01 = (v) => Math.min(1, Math.max(0, v));
 const ramp = (p, from, to) => (to <= from ? (p >= to ? 1 : 0) : clamp01((p - from) / (to - from)));
@@ -63,6 +69,7 @@ const AreaReveal = ({
 }) => {
   const { t } = useTranslation();
   const { rank, title, description } = chapter;
+  const first = rank === '#10';          // the area the countdown opens on
   const sectionRef = useRef(null);
   const frameRef = useRef(null);
   const extentRef = useRef(null);
@@ -189,8 +196,33 @@ const AreaReveal = ({
       <div className="area-section__body">
         <div className="area-section__panel">
           <div className="area-reveal__frame" ref={frameRef}>
-            <img className="area-reveal__img" src={panels.loss} alt="" loading="eager" />
-            <img className="area-reveal__img" ref={extentRef} src={panels.extent} alt="" style={{ opacity: 0 }} />
+            {/* The countdown opens at #10, so that is the one area whose
+                panels have to be there the moment the reader arrives. The
+                other nine were being fetched at the same time — 5.6 MB of
+                imagery for areas the reader had not reached, competing with
+                the intro for a narrow connection. They load on approach
+                instead; the sticky section is several screens tall, so the
+                browser has a long run-up to fetch them in. */}
+            <img
+              className="area-reveal__img"
+              src={panels.loss}
+              srcSet={panelSrcSet(panels.loss, PANEL_W)}
+              sizes={PANEL_SIZES}
+              alt=""
+              loading={first ? 'eager' : 'lazy'}
+              decoding="async"
+            />
+            <img
+              className="area-reveal__img"
+              ref={extentRef}
+              src={panels.extent}
+              srcSet={panelSrcSet(panels.extent, PANEL_W)}
+              sizes={PANEL_SIZES}
+              alt=""
+              loading={first ? 'eager' : 'lazy'}
+              decoding="async"
+              style={{ opacity: 0 }}
+            />
             <ScaleBar {...scale} />
             <LocatorGlobe center={locator} />
           </div>

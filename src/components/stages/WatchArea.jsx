@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { panelSrcSet } from './panel-srcset';
 import ScaleBar from './ScaleBar';
 import LocatorGlobe from './LocatorGlobe';
 import './WatchArea.css';
@@ -58,8 +59,11 @@ const WatchArea = ({
             <img
               className="watch-section__img"
               src={panel}
+              srcSet={panelSrcSet(panel, 1600)}
+              sizes="(max-width: 999px) 92vw, 620px"
               alt={panelAlt ? t(panelAlt) : ''}
               loading="lazy"
+              decoding="async"
             />
             {/* Top-left, opposite the scale bar and the locator, which hold
                 the other two corners. Drawn in the page rather than baked into

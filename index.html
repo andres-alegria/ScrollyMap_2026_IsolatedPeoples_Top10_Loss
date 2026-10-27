@@ -15,11 +15,60 @@
       user's mobile device or desktop.
     -->
     <link rel="manifest" href="/manifest.json" />
-    <title>Mongabay</title>
+    <title>Forests at the Edge | Mongabay</title>
+
+    <!--
+      First paint, before any JavaScript.
+
+      #root used to ship empty, so nothing at all was on screen until the app
+      bundle and mapbox-gl had arrived and parsed — about half a megabyte, which
+      is ten seconds of white page on a slow connection, with no title, no
+      colour and nothing to say the page is working. This is the headline on the
+      piece's own paper, in fallback faces, inline so it costs no extra request.
+      React's createRoot clears the container on mount, so it lasts exactly
+      until the real intro is ready to take its place.
+    -->
+    <style>
+      body { margin: 0; background: #f7f4ee; }           /* adjust paper tone */
+      .boot {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0 1.5rem;
+        box-sizing: border-box;
+        text-align: center;
+        color: #181818;                                  /* adjust ink */
+      }
+      .boot h1 {
+        margin: 0 0 1rem;
+        font-family: Lora, Georgia, serif;               /* adjust display face */
+        font-weight: 400;
+        font-size: clamp(2.2rem, 6vw, 4rem);
+        line-height: 1.1;
+      }
+      .boot p {
+        margin: 0;
+        max-width: 34rem;
+        font-family: "Open Sans", system-ui, sans-serif; /* adjust text face */
+        font-size: clamp(15px, 1.6vw, 19px);
+        line-height: 1.6;
+        color: #4a5654;                                  /* adjust secondary ink */
+      }
+    </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div class="boot">
+        <h1>Forests at the Edge</h1>
+        <p>
+          Tracking forest cover loss across isolated tribal lands worldwide.
+          These are the 10 lands that lost the largest share of their forest.
+        </p>
+      </div>
+    </div>
     <script type="module" src="/src/index.jsx"></script>
   </body>
 </html>

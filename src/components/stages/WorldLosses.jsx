@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { panelSrcSet } from './panel-srcset';
 import './WorldLosses.css';
 
 /**
@@ -78,8 +79,14 @@ const WorldLosses = ({
           <img
             className="world-section__img"
             src={panel}
+            // Drawn 2600 px wide so its labels stay crisp on a large screen;
+            // a phone shows it at about 312 CSS px and has no business
+            // downloading that.
+            srcSet={panelSrcSet(panel, 2600, [800, 1600])}
+            sizes="(max-width: 900px) 90vw, min(92vw, 1600px)"
             alt={panelAlt ? t(panelAlt) : ''}
             loading="lazy"
+            decoding="async"
           />
           <svg
             className="world-section__overlay"
